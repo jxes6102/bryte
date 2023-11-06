@@ -22,3 +22,14 @@ export const getNewsSearch = (data) => {
     data,
   })
 }
+
+export const getIntroduction = (data) => {
+  const url = '/department?DepartmentID=' + DepartmentID
+  const method = 'get'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
