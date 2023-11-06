@@ -1,6 +1,13 @@
 <template>
-    <div class="editIntroduction mine-flex-center">
-        <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+    <div class="editIntroduction flex flex-col justify-center items-center">
+        <div class="w-[90%]">
+            <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+        </div>
+        <div class="w-[90%] flex flex-col justify-center items-center">
+            <button @click="test">儲存</button>
+            <button>取消</button>
+        </div>
+        
     </div>
 </template>
 
@@ -8,14 +15,23 @@
 /*eslint-disable*/
 import {getIntroduction} from '@/api/api'
 import { useStore } from "vuex";
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//import { Base64UploadAdapter } from '@ckeditor/ckeditor5-upload';
+//import { ImageInsert } from '@ckeditor/ckeditor5-image';
+
+//import Editor from 'ckeditor5-custom-build/build/ckeditor';
+
 import {ref,computed } from 'vue'
 import { useRouter } from "vue-router";
-
 const store = useStore()
-const editorData = ref([])
+const editorData = ref("")
+
 const editor = ref(ClassicEditor)
-const editorConfig = ref({})
+
+const editorConfig = ref({
+    // plugins: [ /* ... */ , ImageInsert ],
+    // toolbar: [ /* ... */ , 'insertImage' ]
+})
 
 const isMobile = computed(() => {
     return store.state.isMobile
@@ -25,7 +41,7 @@ const init = async() => {
     //介紹資訊
     await getIntroduction().then((res) => {
         editorData.value = res.data.Result.Introduction
-        // console.log('introductionData.value',introductionData.value)
+        console.log('editorData.value',editorData.value)
         
     })
     .catch((error) => {
@@ -36,6 +52,10 @@ const init = async() => {
 }
 
 init()
+
+const test = () => {
+    console.log('test',editorData.value)
+}
 
 
 </script>
