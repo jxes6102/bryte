@@ -44,15 +44,7 @@ function MyCustomUploadAdapterPlugin( editor ) {
         return new UploadAdapter( loader );
     };
 }
-// ClassicEditor.create( document.querySelector( '#editor' ), {
-//     extraPlugins: [ MyCustomUploadAdapterPlugin ],
 
-//     // More configuration options.
-//     // ...
-// } )
-// .catch( error => {
-//     console.log( error );
-// } );
 const editor = ref(ClassicEditor)
 
 
@@ -118,9 +110,6 @@ init()
 const test = () => {
     console.log('test',editorData.value)
 }
-
-
-
 
 </script>
 
