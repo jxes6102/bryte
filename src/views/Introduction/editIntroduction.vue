@@ -13,24 +13,86 @@
 
 <script setup>
 /*eslint-disable*/
-import {getIntroduction} from '@/api/api'
+import { getIntroduction } from '@/api/api'
 import { useStore } from "vuex";
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-//import { Base64UploadAdapter } from '@ckeditor/ckeditor5-upload';
-//import { ImageInsert } from '@ckeditor/ckeditor5-image';
 
-//import Editor from 'ckeditor5-custom-build/build/ckeditor';
+import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
+import { ImageInsert } from '@ckeditor/ckeditor5-image';
+import { Essentials } from '@ckeditor/ckeditor5-essentials';
+import { Bold, Italic } from '@ckeditor/ckeditor5-basic-styles';
+import { Link } from '@ckeditor/ckeditor5-link';
+import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
+import {
+    Image,
+    ImageCaption,
+    ImageStyle,
+    ImageToolbar,
+    ImageUpload
+} from '@ckeditor/ckeditor5-image';
+import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
+import UploadAdapter from '@/utility/UploadAdapter';
+
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import {ref,computed } from 'vue'
 import { useRouter } from "vue-router";
 const store = useStore()
 const editorData = ref("")
+function MyCustomUploadAdapterPlugin( editor ) {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+        // Configure the URL to the upload script in your back-end here!
+        return new UploadAdapter( loader );
+    };
+}
+// ClassicEditor.create( document.querySelector( '#editor' ), {
+//     extraPlugins: [ MyCustomUploadAdapterPlugin ],
 
+//     // More configuration options.
+//     // ...
+// } )
+// .catch( error => {
+//     console.log( error );
+// } );
 const editor = ref(ClassicEditor)
 
+
 const editorConfig = ref({
-    // plugins: [ /* ... */ , ImageInsert ],
-    // toolbar: [ /* ... */ , 'insertImage' ]
+    plugins: [
+        Essentials,
+        Bold,
+        Italic,
+        Link,
+        Paragraph,
+        ImageInsert,
+        Image,
+        ImageCaption,
+        ImageStyle,
+        ImageToolbar,
+        ImageUpload,
+        MediaEmbed,
+        MyCustomUploadAdapterPlugin
+    ],
+    toolbar: {
+        items: [
+            'bold',
+            'italic',
+            'link',
+            'undo',
+            'redo',
+            'insertImage',
+            'mediaEmbed'
+        ]
+    },
+    image: {
+        toolbar: [
+            'imageTextAlternative',
+            'toggleImageCaption',
+            'imageStyle:inline',
+            'imageStyle:block',
+            'imageStyle:side'
+        ]
+    },
+
 })
 
 const isMobile = computed(() => {
@@ -56,6 +118,8 @@ init()
 const test = () => {
     console.log('test',editorData.value)
 }
+
+
 
 
 </script>
