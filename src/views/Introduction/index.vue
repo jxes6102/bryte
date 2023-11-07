@@ -1,5 +1,17 @@
 <template>
-    <div class="introduction mine-flex-center">
+    <div class="introduction flex flex-col justify-center items-center ">
+        <div class="w-[90%] md:w-[80%] py-2">
+            <button
+                @click="toIntroductionEdit" 
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-2 py-2 px-4 rounded">
+                編輯
+            </button>
+            <button
+                @click="shareNews" 
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-2 py-2 px-4 rounded">
+                分享
+            </button>
+        </div>
         <div class="w-[90%] md:w-[80%]" v-html="introductionData"></div>
     </div>
 </template>
@@ -13,6 +25,7 @@ import {ref,computed } from 'vue'
 import { useRouter } from "vue-router";
 
 const store = useStore()
+const router = useRouter()
 const introductionData = ref([])
 
 const isMobile = computed(() => {
@@ -35,6 +48,30 @@ const init = async() => {
 
 init()
 
+const toIntroductionEdit = () => {
+  router.push({ path: 'editIntroduction' })
+}
+
+const shareNews = () => {
+    if (navigator.share) {
+        //let NewsID = result.NewsID;
+        // let InvitationCode = localStorage.getItem("InvitationCode");
+        
+        // if (InvitationCode != null && InvitationCode != "") {
+        //     shareUrl += "&InvitationCode=" + InvitationCode;
+        // }
+        let shareUrl = "https://" + location.host
+        let shareData = {
+            title: '分享測試',
+            url: shareUrl
+        };
+        
+        navigator.share(shareData)
+        .then(() => console.log('成功！'))
+        .catch((error) => console.log('發生錯誤', error));
+    }
+    
+};
 
 </script>
 

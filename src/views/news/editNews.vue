@@ -1,8 +1,8 @@
 <template>
     <div class="w-full h-auto editIntroduction flex flex-col justify-center items-center">
-        <div class="w-[90%]">
+        <!-- <div class="w-[90%]">
             <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
-        </div>
+        </div> -->
         <div class="w-[90%] py-2 flex flex-wrap justify-center items-center">
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 rounded">
@@ -20,7 +20,7 @@
 
 <script setup>
 /*eslint-disable*/
-import { getIntroduction } from '@/api/api'
+import { getNew } from '@/api/api'
 import { useStore } from "vuex";
 import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
 import { ImageInsert } from '@ckeditor/ckeditor5-image';
@@ -38,7 +38,7 @@ import {
 import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
 import UploadAdapter from '@/utility/UploadAdapter';
 import {ref,computed } from 'vue'
-import { useRouter } from "vue-router";
+import { useRouter,useRoute } from "vue-router";
 const store = useStore()
 const editorData = ref("")
 function MyCustomUploadAdapterPlugin( editor ) {
@@ -49,6 +49,7 @@ function MyCustomUploadAdapterPlugin( editor ) {
 }
 
 const router = useRouter()
+const route = useRoute()
 
 const editor = ref(ClassicEditor)
 
@@ -94,12 +95,16 @@ const editorConfig = ref({
 const isMobile = computed(() => {
     return store.state.isMobile
 })
-
+const newsHtml = ref('')
 const init = async() => {
+    //指定消息
+    let payload = {
+        "NewsID":route.query.NewsID
+    }
     //介紹資訊
-    await getIntroduction().then((res) => {
-        editorData.value = res.data.Result.Introduction
-        //console.log('editorData.value',editorData.value)
+    await getNew(payload).then((res) => {
+        newsHtml.value = res.data.Result
+        console.log('newsHtml',newsHtml.value)
     })
     .catch((error) => {
         // handle error

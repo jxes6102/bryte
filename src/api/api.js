@@ -33,3 +33,12 @@ export const getIntroduction = (data) => {
   })
 }
 
+export const getNew = (data) => {
+  const url = 'news?NewsID=' + data.NewsID
+  const method = 'get'
+  return request({
+    method,
+    url,
+    data,
+  })
+}

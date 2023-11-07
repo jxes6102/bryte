@@ -26,12 +26,13 @@
 
 <script setup>
 /*eslint-disable*/
-import { ref,computed } from "vue";
+import { ref,computed,watch } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useRouter,useRoute } from "vue-router";
+
 const store = useStore()
 const router = useRouter()
-
+const route = useRoute()
 const props = defineProps({
     heightStatus: {
         type: Boolean,
@@ -42,6 +43,11 @@ const props = defineProps({
 const isMobile = computed(() => {
     return store.state.isMobile
 })
+
+// watch(route, (newVal,oldval) => {
+//     console.log('newVal',newVal)
+//     console.log('newVal',newVal.path)
+// });
 
 // const toLink = (val) => {
 //   router.push({ path: menuList.value[val].url })

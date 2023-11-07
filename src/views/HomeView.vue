@@ -53,10 +53,11 @@
     <div class="w-full rounded-lg bg-white p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center gap-y-[10px]">
       <div class="w-full p-2 flex flex-wrap items-center justify-between">    
         <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800 dark:text-neutral-50">最新訊息</div>
-        <div class="text-sm md:text-lg text-[#808080]">更多</div>
+        <div class="text-sm md:text-lg text-[#808080] cursor-pointer" @click="toNews()">更多</div>
       </div>
       <div 
         v-for="(item, index) in newsData" :key="index"
+        @click="toNews(item)"
         class="relative w-full h-[27vw] md:h-[210px] p-2 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between">
         <div 
           v-if="item.PreviewImage" 
@@ -137,7 +138,7 @@ const init = async() => {
   }
   await getNewsSearch(newsSearchPayload).then((res) => {
     newsData.value = res.data.Result.NewsList
-    console.log('newsData.value',newsData.value)
+    // console.log('newsData.value',newsData.value)
   })
   .catch((error) => {
     // handle error
@@ -167,6 +168,18 @@ const toIntroduction = () => {
   router.push({ path: 'introduction' })
 }
 
+const toNews = (item) => {
+  if(item){
+    router.push({ 
+      name: 'news',
+      query:{
+        NewsID:item.NewsID
+      }
+    })
+  }else{
+    router.push({ path: 'news' })
+  }
+}
 
 </script>
 
