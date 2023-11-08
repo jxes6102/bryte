@@ -47,7 +47,7 @@
                     v-else 
                     class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] rounded-lg" >
                 </div>
-                <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] px-2 text-[12px] md:text-2xl flex flex-col items-center justify-between">
+                <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] px-2 text-[0.5rem] md:text-2xl flex flex-col items-center justify-between">
                     <div class="w-[100%] text-left text-[#0d6efd] font-semibold grow-[1]">{{item.Title}}</div>
                     <div class="w-[100%] text-left text-[#808080] grow-[9]">{{item.PreviewText}}</div>
                     <div class="w-[100%] h-auto md:text-xl text-[#808080] flex flex-wrap items-center justify-between">
