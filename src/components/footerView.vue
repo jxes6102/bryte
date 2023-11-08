@@ -3,31 +3,31 @@
         class="transition-all fixed h-auto w-full py-1 bottom-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[#f9f7f0]"
     >
         <div 
-          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-base flex flex-col justify-center items-center font-extrabold cursor-pointer"
+          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
           @click="tohome()"
           >
-          <el-icon :size="30"><HomeFilled /></el-icon>
+          <el-icon :size="25"><HomeFilled /></el-icon>
           首頁
         </div>
         <div 
-          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-base flex flex-col justify-center items-center font-extrabold cursor-pointer"
+          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
           @click="tohome()"
           >
-          <el-icon :size="30"><Document /></el-icon>
+          <el-icon :size="25"><Document /></el-icon>
           作業
         </div>
         <div 
-          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-base flex flex-col justify-center items-center font-extrabold cursor-pointer"
+          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
           @click="tohome()"
           >
-          <el-icon :size="30"><Message /></el-icon>
+          <el-icon :size="25"><Message /></el-icon>
           訊息中心
         </div>
         <div 
-          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-base flex flex-col justify-center items-center font-extrabold cursor-pointer"
+          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
           @click="tohome()"
           >
-          <el-icon :size="30"><User /></el-icon>
+          <el-icon :size="25"><User /></el-icon>
           個人中心
         </div>
     </div>

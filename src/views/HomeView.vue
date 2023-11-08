@@ -50,7 +50,7 @@
         結合@LINE公眾號的廣告及優惠卷使用特色,並借助訊息e點通APP快速吸收粉絲客戶，讓產品曝光度倍增效果。
       </div>
     </div>
-    <div class="w-full rounded-lg bg-white p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center gap-y-[10px]">
+    <div class="w-full rounded-lg bg-white my-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center gap-y-[10px]">
       <div class="w-full p-2 flex flex-wrap items-center justify-between">    
         <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800 dark:text-neutral-50">最新訊息</div>
         <div class="text-sm md:text-lg text-[#808080] cursor-pointer" @click="toNews()">更多</div>
@@ -71,11 +71,11 @@
           v-else 
           class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] rounded-lg" >
         </div>
-        <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] px-2 text-[12px] md:text-2xl flex flex-col items-center justify-between">
+        <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] px-2 text-[0.5rem] md:text-2xl flex flex-col items-center justify-between">
           <div class="w-[100%] text-left text-[#0d6efd] font-semibold grow-[1]">{{item.Title}}</div>
           <div class="w-[100%] text-left text-[#808080] grow-[9]">{{item.PreviewText}}</div>
-          <div class="w-[100%] h-auto md:text-xl text-[#808080] flex flex-wrap items-center justify-between">
-            <div>{{ "類別: " + item.Category}}</div>
+          <div class="w-[100%] h-auto md:text-xl text-[#808080] flex items-center justify-between">
+            <div>{{ "類別:" + item.Category}}</div>
             <div>{{item.CreateTime}}</div>
           </div>
         </div>
