@@ -1,8 +1,74 @@
 <template>
     <div class="w-full h-auto editIntroduction flex flex-col justify-center items-center">
-        <!-- <div class="w-[90%]">
-            <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
-        </div> -->
+        <div class="w-[90%] text-base md:text-lg flex flex-col justify-center items-center">
+            <div class="w-[100%] my-2 flex flex-col justify-center items-center">
+                <div class="w-full font-medium text-left text-gray-900">分類</div>
+                <div class="relative w-full inline-block ">
+                    <select 
+                        v-model="newsData.Category"
+                        class="block w-full bg-white border border-gray-400 hover:border-gray-500 p-1 rounded shadow focus:outline-none focus:shadow-outline">
+                        <option value="最新公告">最新公告</option>
+                        <option value="內部消息">內部消息</option>
+                        <option value="活動訊息">活動訊息</option>
+                    </select>
+                </div>
+            </div>
+            <div class="w-[100%] my-2 flex flex-col justify-center items-center">
+                <div class="w-full font-medium text-left text-gray-900">標題</div>
+                <input 
+                    type="text" 
+                    class="w-full p-2 bg-[white] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    v-model="newsData.Title">
+            </div>
+            <div class="w-[100%] my-2 flex flex-col justify-center items-center">
+                <div class="w-full font-medium text-left text-gray-900">開始日期</div>
+                <input 
+                    type="text" 
+                    class="w-full p-2 bg-[white] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    v-model="newsData.CreateTime">
+            </div>
+            <div class="w-[100%] my-2 flex flex-col justify-center items-center">
+                <div class="w-full font-medium text-left text-gray-900">結束日期</div>
+                <input 
+                    type="text" 
+                    class="w-full p-2 bg-[white] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    v-model="newsData.EndTime">
+            </div>
+            <div class="w-[100%] my-2 flex flex-col justify-center items-center">
+                <div class="w-full font-medium text-left text-gray-900">預覽文字</div>
+                <input 
+                    type="text" 
+                    class="w-full p-2 bg-[white] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    v-model="newsData.PreviewText">
+            </div>
+            <div class="w-[100%] my-2 flex flex-col justify-center items-center">
+                <div class="w-full font-medium text-left text-gray-900">預覽圖片</div>
+                <input 
+                    type="text" 
+                    class="w-full p-2 bg-[white] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    value="">
+            </div>
+            <div class="w-[100%] my-2 flex flex-col justify-center items-center">
+                <div class="w-full font-medium text-left text-gray-900">上傳檔案</div>
+                <div class="w-full border-t-4 border-solid border-[#1452D7] bg-white p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center gap-y-[10px]">
+                    <div class="w-full border-b-2 border-solid border-gray-200 flex flex-wrap justify-center items-center">
+                        <div class="w-1/2 px-1 text-left">點選套用</div>
+                        <div class="w-1/4 px-1 text-left">預覽</div>
+                        <div class="w-1/4 px-1 text-left">刪除</div>
+                    </div>
+                </div>
+                <button
+                    class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 rounded">
+                    上傳檔案
+                </button>
+            </div>
+            <div class="w-[100%] my-2 flex flex-col justify-center items-center">
+                <div class="w-full font-medium text-left text-gray-900">內文</div>
+                <div class="w-full">
+                    <ckeditor class="" :editor="editor" v-model="newsData.Content" :config="editorConfig"></ckeditor>
+                </div>
+            </div>
+        </div>
         <div class="w-[90%] py-2 flex flex-wrap justify-center items-center">
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 rounded">
@@ -28,13 +94,7 @@ import { Essentials } from '@ckeditor/ckeditor5-essentials';
 import { Bold, Italic } from '@ckeditor/ckeditor5-basic-styles';
 import { Link } from '@ckeditor/ckeditor5-link';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
-import {
-    Image,
-    ImageCaption,
-    ImageStyle,
-    ImageToolbar,
-    ImageUpload
-} from '@ckeditor/ckeditor5-image';
+import {Image,ImageCaption,ImageStyle,ImageToolbar,ImageUpload} from '@ckeditor/ckeditor5-image';
 import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
 import UploadAdapter from '@/utility/UploadAdapter';
 import {ref,computed } from 'vue'
@@ -95,16 +155,16 @@ const editorConfig = ref({
 const isMobile = computed(() => {
     return store.state.isMobile
 })
-const newsHtml = ref('')
+
+const newsData = ref([])
 const init = async() => {
     //指定消息
     let payload = {
         "NewsID":route.query.NewsID
     }
-    //介紹資訊
     await getNew(payload).then((res) => {
-        newsHtml.value = res.data.Result
-        console.log('newsHtml',newsHtml.value)
+        newsData.value = res.data.Result
+        //console.log('newsData',newsData.value)
     })
     .catch((error) => {
         // handle error
@@ -120,6 +180,6 @@ const back = () => {
 
 </script>
 
-<style>
+<style scoped>
 
 </style>

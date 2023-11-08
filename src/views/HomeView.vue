@@ -58,7 +58,7 @@
       <div 
         v-for="(item, index) in newsData" :key="index"
         @click="toNews(item)"
-        class="relative w-full h-[27vw] md:h-[210px] p-2 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between">
+        class="relative w-full h-[27vw] md:h-[210px] p-2 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between cursor-pointer">
         <div 
           v-if="item.PreviewImage" 
           class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-cover bg-center bg-no-repeat rounded-lg"
