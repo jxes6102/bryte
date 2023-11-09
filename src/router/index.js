@@ -5,6 +5,7 @@ import editIntroduction from '../views/Introduction/editIntroduction'
 import newsView from '../views/news'
 import editNewsView from '../views/news/editNews'
 import centerView from '../views/center'
+import profileView from '../views/center/profileView'
 
 const routes = [
   {
@@ -37,6 +38,12 @@ const routes = [
     name: 'center',
     component: centerView
   },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: profileView
+  },
+  
   // {
   //   path: '/about',
   //   name: 'about',

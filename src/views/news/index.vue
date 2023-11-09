@@ -1,5 +1,5 @@
 <template>
-    <div class="introduction flex flex-col justify-center items-center ">
+    <div class="flex flex-col justify-center items-center ">
         <div class="w-[90%] md:w-[80%] py-2">
             <template v-if="hasNews">
                 <button
@@ -30,11 +30,11 @@
         </div>
         <div 
             v-else
-            class="w-full rounded-lg bg-white p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center gap-y-[10px]">
+            class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center gap-y-[10px]">
             <div 
                 @click="toNews(item)"
                 v-for="(item, index) in newsData" :key="index"
-                class="relative w-full h-[27vw] md:h-[210px] p-2 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between">
+                class="relative w-full h-[27vw] md:h-[210px] p-1 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between">
                 <div 
                     v-if="item.PreviewImage" 
                     class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-cover bg-center bg-no-repeat rounded-lg"
@@ -47,7 +47,7 @@
                     v-else 
                     class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] rounded-lg" >
                 </div>
-                <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] px-2 text-[0.5rem] md:text-2xl flex flex-col items-center justify-between">
+                <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] px-1 text-[0.5rem] md:text-2xl flex flex-col items-center justify-between">
                     <div class="w-[100%] text-left text-[#0d6efd] font-semibold grow-[1]">{{item.Title}}</div>
                     <div class="w-[100%] text-left text-[#808080] grow-[9]">{{item.PreviewText}}</div>
                     <div class="w-[100%] h-auto md:text-xl text-[#808080] flex flex-wrap items-center justify-between">

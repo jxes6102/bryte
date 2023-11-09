@@ -1,9 +1,9 @@
 <template>
-  <div class="home">
+  <div class="home flex flex-col items-center justify-center">
     <!-- <div class="h-[2222px]"></div> -->
     <!-- <img class="mine-fixed-center" alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <div class="w-auto h-auto py-1 px-2 mine-flex-center" v-if="bannerData.length">
+    <div class="w-[95%] h-auto p-1 mine-flex-center" v-if="bannerData.length">
       <swiper 
         class="relative text-black w-[100vw] md:w-[50vw] h-auto rounded-md mine-flex-center"
         :slides-per-view="1"
@@ -38,27 +38,27 @@
         </swiper-slide>
       </swiper>
     </div>
-    <div class="w-full rounded-lg bg-white p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center">
-      <div class="w-full p-2 flex flex-wrap items-center justify-between">    
+    <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center">
+      <div class="w-full p-1 flex flex-wrap items-center justify-between">    
         <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800 dark:text-neutral-50">單位簡介</div>
         <div class="text-sm md:text-lg text-[#808080] cursor-pointer" @click="toIntroduction">更多</div>
       </div>
-      <div class="w-full p-2 text-xl md:text-4xl text-left font-bold text-neutral-800">
+      <div class="w-full p-1 text-xl md:text-4xl text-left font-bold text-neutral-800">
         訊息e點通APP功能特色產品特色:
       </div>
-      <div class="w-full p-2 text-base md:text-2xl text-left text-neutral-800">
+      <div class="w-full p-1 text-base md:text-2xl text-left text-neutral-800">
         結合@LINE公眾號的廣告及優惠卷使用特色,並借助訊息e點通APP快速吸收粉絲客戶，讓產品曝光度倍增效果。
       </div>
     </div>
-    <div class="w-full rounded-lg bg-white my-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center gap-y-[10px]">
-      <div class="w-full p-2 flex flex-wrap items-center justify-between">    
+    <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center gap-y-[10px]">
+      <div class="w-full p-1 flex flex-wrap items-center justify-between">    
         <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800 dark:text-neutral-50">最新訊息</div>
         <div class="text-sm md:text-lg text-[#808080] cursor-pointer" @click="toNews()">更多</div>
       </div>
       <div 
         v-for="(item, index) in newsData" :key="index"
         @click="toNews(item)"
-        class="relative w-full h-[27vw] md:h-[210px] p-2 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between cursor-pointer">
+        class="relative w-full h-[27vw] md:h-[210px] p-1 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between cursor-pointer">
         <!-- <div 
           v-if="item.PreviewImage" 
           class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-cover bg-center bg-no-repeat rounded-lg"
@@ -77,7 +77,7 @@
           v-else 
           class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] rounded-lg" >
         </div>
-        <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] px-2 text-[0.5rem] md:text-2xl flex flex-col items-center justify-between">
+        <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] px-1 text-[0.5rem] md:text-2xl flex flex-col items-center justify-between">
           <div class="w-[100%] text-left text-[#0d6efd] font-semibold grow-[1]">{{item.Title}}</div>
           <div class="w-[100%] text-left text-[#808080] grow-[9]">{{item.PreviewText}}</div>
           <div class="w-[100%] h-auto md:text-xl text-[#808080] flex items-center justify-between">

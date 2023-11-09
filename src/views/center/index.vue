@@ -1,6 +1,6 @@
 <template>
     <div class="w-auto h-auto md:h-[80%] p-2 flex flex-col md:flex-row justify-center items-center ">
-        <div class="w-[95%] md:w-[25%] h-[100%] md:h-[70%] rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-row md:flex-col items-center justify-center ">
+        <div class="w-[95%] md:w-[25%] h-[100%] md:h-[70%] rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-row md:flex-col items-center justify-center ">
             <div class="w-auto p-2 grow flex flex-col items-end md:items-center justify-center md:justify-end">
                 <div 
                     v-if="userProfile?.PictureUrl" 
@@ -37,7 +37,7 @@
 /*eslint-disable*/
 import { useStore } from "vuex";
 import { getUserMenu,getProfile } from '@/api/api'
-import { ref,computed } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from "vue-router";
 
 const router = useRouter()
@@ -70,6 +70,8 @@ const toLink = (item) => {
     console.log('toLink',item.Identifier)
     if(item.Identifier == 'News'){
         router.push({ path: 'news' })
+    }else if(item.Identifier == "Profile"){
+        router.push({ path: 'profile' })
     }
 }
 
