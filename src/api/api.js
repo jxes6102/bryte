@@ -63,3 +63,14 @@ export const getProfile = (data) => {
     data,
   })
 }
+
+export const getUserList = (data) => {
+  const url = '/CetUser/Search'
+  data.DepartmentID = DepartmentID
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}

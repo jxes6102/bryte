@@ -30,9 +30,10 @@
 import { useStore } from "vuex";
 import { getProfile } from '@/api/api'
 import { ref } from 'vue'
-import { useRouter } from "vue-router";
+import { useRouter,useRoute } from "vue-router";
 
 const router = useRouter()
+const route = useRoute()
 
 const userProfile = ref(null)
 const init = async() => {
@@ -45,6 +46,9 @@ const init = async() => {
         // handle error
         console.log(error);
     })
+
+    console.log('route',route.params)
+    console.log('route',route.query)
 }
 
 init()
