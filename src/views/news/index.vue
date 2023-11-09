@@ -162,6 +162,11 @@ const toNews = (item) => {
     }
 }
 
+const addNews = () => {
+    //console.log('addNews')
+    router.push({ name: 'editNews',})
+}
+
 </script>
 
 <style>

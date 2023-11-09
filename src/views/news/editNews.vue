@@ -100,7 +100,7 @@ import UploadAdapter from '@/utility/UploadAdapter';
 import {ref,computed } from 'vue'
 import { useRouter,useRoute } from "vue-router";
 const store = useStore()
-const editorData = ref("")
+
 function MyCustomUploadAdapterPlugin( editor ) {
     editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
         // Configure the URL to the upload script in your back-end here!
@@ -156,8 +156,29 @@ const isMobile = computed(() => {
     return store.state.isMobile
 })
 
-const newsData = ref([])
+const newsData = ref({
+    Category:'',
+    Content:'',
+    CreateTime:'',
+    CreateUserID:'',
+    DepartmentID:'',
+    EndTime:'',
+    InvitationCode:'',
+    IsReviewed:false,
+    NewsID:'',
+    PreviewImage:'',
+    PreviewText:'',
+    SendToLine:false,
+    StartTime:'',
+    Title:'',
+    UpdateTime:'',
+    UpdateUserID:''
+})
+
 const init = async() => {
+    if(!route.query.NewsID){
+        return false
+    }
     //指定消息
     let payload = {
         "NewsID":route.query.NewsID
