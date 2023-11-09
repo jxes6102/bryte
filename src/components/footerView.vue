@@ -25,7 +25,7 @@
         </div>
         <div 
           class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
-          @click="tohome()"
+          @click="tocenter()"
           >
           <el-icon :size="25"><User /></el-icon>
           個人中心
@@ -59,6 +59,10 @@ const isMobile = computed(() => {
 
 const tohome = () => {
   router.push({ path: '/' })
+}
+
+const tocenter = () => {
+  router.push({ path: '/center' })
 }
 
 </script>

@@ -4,6 +4,7 @@ import introductionView from '../views/Introduction'
 import editIntroduction from '../views/Introduction/editIntroduction'
 import newsView from '../views/news'
 import editNewsView from '../views/news/editNews'
+import centerView from '../views/center'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/editIntroduction',
     name: 'editIntroduction',
     component: editIntroduction
+  },
+  {
+    path: '/center',
+    name: 'center',
+    component: centerView
   },
   // {
   //   path: '/about',

@@ -16,7 +16,7 @@
                   <li 
                     v-for="(item, index) in linkData" :key="index"
                     class="w-[auto] h-[8vh] px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all"
-                    @click="toLink(index)"
+                    @click="toLink(item.url)"
                   >{{item.text}}</li>
                 </ul>
             </nav>
@@ -59,13 +59,16 @@ const tohome = () => {
 }
 
 const linkData = ref([
-    {text:"作業",url:'homework'},
-    {text:"訊息中心",url:'mail'},
-    {text:"個人中心",url:'center'},
+    // {text:"作業",url:'homework'},
+    // {text:"訊息中心",url:'mail'},
+    // {text:"個人中心",url:'center'},
+    {text:"作業",url:'/'},
+    {text:"訊息中心",url:'/'},
+    {text:"個人中心",url:'/center'},
 ])
 
-const toLink = (val) => {
-//   router.push({ path: menuList.value[val].url })
+const toLink = (url) => {
+    router.push({ path: url })
 }
 
 </script>
