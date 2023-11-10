@@ -29,30 +29,36 @@
 /*eslint-disable*/
 import { useStore } from "vuex";
 import { getProfile } from '@/api/api'
-import { ref } from 'vue'
+import { ref,watch } from 'vue'
 import { useRouter,useRoute } from "vue-router";
 
 const router = useRouter()
 const route = useRoute()
 
 const userProfile = ref(null)
-const init = async() => {
-
-    await getProfile().then((res) => {
+const init = async(payload) => {
+    await getProfile(payload).then((res) => {
         userProfile.value = res.data.Result
-        console.log('userProfile.value',userProfile.value)
+        //console.log('userProfile.value',userProfile.value)
     })
     .catch((error) => {
         // handle error
         console.log(error);
     })
-
-    console.log('route',route.params)
-    console.log('route',route.query)
 }
 
-init()
+watch(route, (newVal,oldval) => {
+    let payload = {
+        UserID:''
+    }
+    if(newVal.query?.UserID){
+        payload.UserID = newVal.query.UserID
+    }else{
+        payload.UserID = "50ceb08b-9174-453f-9bfc-2b57cb4f86be"
+    }
 
+    init(payload)
+},{ deep: true,immediate: true });
 
 </script>
 

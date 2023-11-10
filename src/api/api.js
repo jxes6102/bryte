@@ -55,7 +55,7 @@ export const getUserMenu = (data) => {
 }
 
 export const getProfile = (data) => {
-  const url = '/CetUser/Profile?UserID=' + UserID
+  const url = '/CetUser/Profile?UserID=' + data.UserID
   const method = 'get'
   return request({
     method,

@@ -47,7 +47,7 @@ const init = async() => {
     await getUserList(payload).then((res) => {
         // console.log('getUserList',res)
         userList.value = res.data.Result.Users
-        console.log('userList.value',userList.value)
+        //console.log('userList.value',userList.value)
     })
     .catch((error) => {
         // handle error
@@ -62,18 +62,12 @@ const isMobile = computed(() => {
 })
 
 const toProfile = (item) => {
-    console.log('qq')
-    console.log('profile',item.UserID)
-    // router.push({ 
-    //     name: 'profile',
-    //     params:{
-    //         UserID:item.NewsID
-    //     },
-    //     query:{
-    //         UserID:item.NewsID
-    //     }
-    // })
-
+    router.push({ 
+        name: 'profile',
+        query:{
+            UserID:item.UserID
+        }
+    })
 }
 
 

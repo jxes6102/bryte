@@ -28,7 +28,7 @@
   import { ref,computed,onMounted } from 'vue';
   import { useStore } from "vuex";
   import 'animate.css';
-  console.log('test 2')
+  //console.log('test 2')
   const store = useStore()
   const scrollStutus = ref(true)
 

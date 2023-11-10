@@ -47,16 +47,19 @@ const userProfile = ref(null)
 const init = async() => {
     await getUserMenu().then((res) => {
         userMenu.value = res.data.Result[0]
-        console.log('userMenu.value',userMenu.value)
+        // console.log('userMenu.value',userMenu.value)
     })
     .catch((error) => {
         // handle error
         console.log(error);
     })
 
-    await getProfile().then((res) => {
+    let payload = {
+        UserID:"50ceb08b-9174-453f-9bfc-2b57cb4f86be"
+    }
+    await getProfile(payload).then((res) => {
         userProfile.value = res.data.Result
-        console.log('userProfile.value',userProfile.value)
+        // console.log('userProfile.value',userProfile.value)
     })
     .catch((error) => {
         // handle error
@@ -67,7 +70,7 @@ const init = async() => {
 init()
 
 const toLink = (item) => {
-    console.log('toLink',item.Identifier)
+    //console.log('toLink',item.Identifier)
     if(item.Identifier == "News"){
         router.push({ path: 'news' })
     }else if(item.Identifier == "Profile"){
