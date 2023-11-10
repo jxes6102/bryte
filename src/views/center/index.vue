@@ -45,7 +45,10 @@ const router = useRouter()
 const userMenu = ref(null)
 const userProfile = ref(null)
 const init = async() => {
-    await getUserMenu().then((res) => {
+    let payload = {
+        UserID:"50ceb08b-9174-453f-9bfc-2b57cb4f86be"
+    }
+    await getUserMenu(payload).then((res) => {
         userMenu.value = res.data.Result[0]
         // console.log('userMenu.value',userMenu.value)
     })
@@ -54,9 +57,6 @@ const init = async() => {
         console.log(error);
     })
 
-    let payload = {
-        UserID:"50ceb08b-9174-453f-9bfc-2b57cb4f86be"
-    }
     await getProfile(payload).then((res) => {
         userProfile.value = res.data.Result
         // console.log('userProfile.value',userProfile.value)

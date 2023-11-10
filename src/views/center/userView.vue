@@ -40,7 +40,7 @@ const userList = ref([])
 const init = async() => {
     //人員列表
     let payload = {
-        "DepartmentID":"",
+        "DepartmentID":"2bd3434f-1e95-4fdb-ab29-315921e06868",
         "PYNO":null
     }
     //介紹資訊

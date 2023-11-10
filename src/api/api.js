@@ -1,10 +1,7 @@
 import request from '@/api/index'
 
-let DepartmentID = "2bd3434f-1e95-4fdb-ab29-315921e06868"
-let UserID = "50ceb08b-9174-453f-9bfc-2b57cb4f86be"
-
 export const getBannerSearch = (data) => {
-  const url = '/Department/BannerSearch?DepartmentID='+DepartmentID
+  const url = '/Department/BannerSearch?DepartmentID='+data.DepartmentID
   const method = 'get'
   return request({
     method,
@@ -14,7 +11,6 @@ export const getBannerSearch = (data) => {
 }
 
 export const getNewsSearch = (data) => {
-  data.DepartmentID = DepartmentID
   const url = '/news/search'
   const method = 'post'
   return request({
@@ -25,7 +21,7 @@ export const getNewsSearch = (data) => {
 }
 
 export const getIntroduction = (data) => {
-  const url = '/department?DepartmentID=' + DepartmentID
+  const url = '/department?DepartmentID=' + data.DepartmentID
   const method = 'get'
   return request({
     method,
@@ -45,7 +41,7 @@ export const getNew = (data) => {
 }
 
 export const getUserMenu = (data) => {
-  const url = '/CetUser/UserMenu?UserID=' + UserID
+  const url = '/CetUser/UserMenu?UserID=' + data.UserID
   const method = 'get'
   return request({
     method,
@@ -66,7 +62,6 @@ export const getProfile = (data) => {
 
 export const getUserList = (data) => {
   const url = '/CetUser/Search'
-  data.DepartmentID = DepartmentID
   const method = 'post'
   return request({
     method,

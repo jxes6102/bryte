@@ -80,7 +80,7 @@ const newsHtml = ref("")
 const initList = async() => {
     //最新消息列表
     let newsSearchPayload = {
-        "DepartmentID":"",
+        "DepartmentID":"2bd3434f-1e95-4fdb-ab29-315921e06868",
         "page":0,
         "rowsInPage":2,
         "HideExpired":false

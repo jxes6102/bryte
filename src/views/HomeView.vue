@@ -114,7 +114,9 @@ const isMobile = computed(() => {
 
 const init = async() => {
   //輪播資訊
-  await getBannerSearch().then((res) => {
+  await getBannerSearch({
+    DepartmentID:"2bd3434f-1e95-4fdb-ab29-315921e06868"
+  }).then((res) => {
     bannerData.value = res.data.Result
     
     for(let item of bannerData.value){
@@ -137,7 +139,7 @@ const init = async() => {
   })
   //最新消息
   let newsSearchPayload = {
-    "DepartmentID":"",
+    "DepartmentID":"2bd3434f-1e95-4fdb-ab29-315921e06868",
     "page":0,
     "rowsInPage":2,
     "HideExpired":false

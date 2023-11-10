@@ -97,7 +97,9 @@ const isMobile = computed(() => {
 
 const init = async() => {
     //介紹資訊
-    await getIntroduction().then((res) => {
+    await getIntroduction({
+        DepartmentID:"2bd3434f-1e95-4fdb-ab29-315921e06868"
+    }).then((res) => {
         editorData.value = res.data.Result.Introduction
         //console.log('editorData.value',editorData.value)
     })
