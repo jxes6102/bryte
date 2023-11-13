@@ -70,9 +70,28 @@ export const getUserList = (data) => {
   })
 }
 
-
 export const getClassList = (data) => {
   const url = '/Course/Calendar'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const getClassDetail = (data) => {
+  const url = '/Course/Flow?DepartmentID='+data.DepartmentID+'&CLSNO='+data.CLSNO+'&HDYDATE='+data.HDYDATE+'&STUID='+data.STUID
+  const method = 'get'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const getSignRecord = (data) => {
+  const url = '/Course/GetSignRecordBySTUID'
   const method = 'post'
   return request({
     method,

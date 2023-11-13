@@ -8,6 +8,8 @@ import centerView from '../views/center'
 import profileView from '../views/center/profileView'
 import userView from '../views/center/userView'
 import courseView from '../views/course'
+import courseDetail from '../views/course/courseDetail'
+import signRecord from '../views/course/signRecord'
 
 const routes = [
   {
@@ -54,6 +56,16 @@ const routes = [
     path: '/course',
     name: 'course',
     component: courseView
+  },
+  {
+    path: '/courseDetail',
+    name: 'courseDetail',
+    component: courseDetail
+  },
+  {
+    path: '/signRecord',
+    name: 'signRecord',
+    component: signRecord
   },
   
   // {
