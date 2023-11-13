@@ -7,6 +7,7 @@ import editNewsView from '../views/news/editNews'
 import centerView from '../views/center'
 import profileView from '../views/center/profileView'
 import userView from '../views/center/userView'
+import courseView from '../views/course'
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: '/user',
     name: 'user',
     component: userView
+  },
+  {
+    path: '/course',
+    name: 'course',
+    component: courseView
   },
   
   // {

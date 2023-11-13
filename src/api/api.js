@@ -69,3 +69,14 @@ export const getUserList = (data) => {
     data,
   })
 }
+
+
+export const getClassList = (data) => {
+  const url = '/Course/Calendar'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
