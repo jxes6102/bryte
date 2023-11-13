@@ -5,7 +5,7 @@
         <div 
           class="relative w-[auto] h-[8vh] text-white text-xl md:text-3xl flex flex-wrap justify-center items-center font-extrabold"
           @click="tohome()"
-          >A機構家校e點通平台
+          >{{ headerTitle }}
         </div>
         <div 
             v-if="!isMobile" 
@@ -44,15 +44,40 @@ const isMobile = computed(() => {
     return store.state.isMobile
 })
 
-// watch(route, (newVal,oldval) => {
-//     console.log('newVal',newVal)
-//     console.log('newVal',newVal.path)
-// });
-
-// const toLink = (val) => {
-//   router.push({ path: menuList.value[val].url })
-//   store.commit('setMenu',false)
-// }
+const headerTitle = ref('A機構家校e點通平台')
+watch(route, (newVal,oldval) => {
+    if(newVal.path == '/center'){
+        headerTitle.value = '個人中心'
+    }else if(newVal.path == '/introduction'){
+        headerTitle.value = '單位介紹'
+    }else if(newVal.path == '/editIntroduction'){
+        headerTitle.value = '編輯單位介紹'
+    }else if(newVal.path == '/profile'){
+        if(newVal.query?.UserID){
+            headerTitle.value = '學員檔案'
+        }else{
+            headerTitle.value = '個人檔案'
+        }
+    }else if(newVal.path == '/user'){
+        headerTitle.value = '用戶管理'
+    }else if(newVal.path == '/news'){
+        if(newVal.query?.NewsID){
+            headerTitle.value = '公告詳情'
+        }else{
+            headerTitle.value = '公告列表'
+        }
+    }else if(newVal.path == '/editNews'){
+        headerTitle.value = '編輯公告'
+    }else if(newVal.path == '/course'){
+        headerTitle.value = '課程管理'
+    }else if(newVal.path == '/courseDetail'){
+        headerTitle.value = newVal.query?.CLSNO
+    }else if(newVal.path == '/signRecord'){
+        headerTitle.value = '簽到記錄'
+    }else{
+        headerTitle.value = 'A機構家校e點通平台'
+    }
+});
 
 const tohome = () => {
   router.push({ path: '/' })
