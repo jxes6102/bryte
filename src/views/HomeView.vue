@@ -38,9 +38,9 @@
         </swiper-slide>
       </swiper>
     </div>
-    <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center">
+    <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center">
       <div class="w-full p-1 flex flex-wrap items-center justify-between">    
-        <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800 dark:text-neutral-50">單位簡介</div>
+        <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800">單位簡介</div>
         <div class="text-sm md:text-lg text-[#808080] cursor-pointer" @click="toIntroduction">更多</div>
       </div>
       <div class="w-full p-1 text-xl md:text-4xl text-left font-bold text-neutral-800">
@@ -50,9 +50,9 @@
         結合@LINE公眾號的廣告及優惠卷使用特色,並借助訊息e點通APP快速吸收粉絲客戶，讓產品曝光度倍增效果。
       </div>
     </div>
-    <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center gap-y-[10px]">
+    <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center gap-y-[10px]">
       <div class="w-full p-1 flex flex-wrap items-center justify-between">    
-        <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800 dark:text-neutral-50">最新訊息</div>
+        <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800">最新訊息</div>
         <div class="text-sm md:text-lg text-[#808080] cursor-pointer" @click="toNews()">更多</div>
       </div>
       <div 

@@ -19,7 +19,7 @@
                 <div class="w-full text-xl md:text-2xl">{{userProfile?.UserName}}</div>
             </div>
         </div>
-        <div class="w-[95%] md:w-[25%] h-[100%] md:h-[70%] rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center ">
+        <div class="w-[95%] md:w-[25%] h-[100%] md:h-[70%] rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center ">
             <div class="text-2xl md:text-3xl my-2 md:my-3 font-bold text-gray-900">{{userMenu?.Header}}</div>
             <div
                 class="text-[#0d6efd] my-1 md:my-2 cursor-pointer"

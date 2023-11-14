@@ -50,7 +50,7 @@
             </div>
             <div class="w-[100%] my-2 flex flex-col justify-center items-center">
                 <div class="w-full font-medium text-left text-gray-900">上傳檔案</div>
-                <div class="w-full border-t-4 border-solid border-[#1452D7] bg-white p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 flex flex-col items-center justify-center gap-y-[10px]">
+                <div class="w-full border-t-4 border-solid border-[#1452D7] bg-white p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center gap-y-[10px]">
                     <div class="w-full border-b-2 border-solid border-gray-200 flex flex-wrap justify-center items-center">
                         <div class="w-1/2 px-1 text-left">點選套用</div>
                         <div class="w-1/4 px-1 text-left">預覽</div>
