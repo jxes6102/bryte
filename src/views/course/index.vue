@@ -30,6 +30,7 @@
                     </div>
                     <div class="w-[30%] text-sm md:text-base">
                         <button
+                            @click="signIn"
                             class="bg-orange-400 hover:bg-orange-500 text-white font-bold mx-1 py-1 px-2 md:mx-2 md:py-2 md:px-3 rounded">
                             簽到
                         </button>
@@ -46,6 +47,7 @@
                         詳情
                     </button>
                     <button
+                        @click="leave" 
                         class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-[1px] py-1 px-2 md:py-2 md:px-3 rounded">
                         請假
                     </button>
@@ -59,6 +61,24 @@
             </div>
 
         </div>
+        <dialogView v-if="dialogStatus">
+            <template v-slot:message>
+                <div class="text-base md:text-2xl">{{dialogData}}</div>
+            </template>
+            <template v-slot:control>
+                <div class="absolute w-full bottom-4 flex flex-wrap justify-center items-center">
+                    <button
+                        class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                        確定
+                    </button>
+                    <button
+                        @click="cancel"
+                        class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                        取消
+                    </button>
+                </div>
+            </template>
+        </dialogView>
     </div>
 </template>
 
@@ -66,8 +86,9 @@
 /*eslint-disable*/
 import { useStore } from "vuex";
 import { getClassList } from '@/api/api'
-import { ref,computed,watch } from 'vue'
+import { ref,computed,watch,provide  } from 'vue'
 import { useRouter } from "vue-router";
+import dialogView from "@/components/dialogView.vue"
 
 const router = useRouter()
 const store = useStore()
@@ -133,6 +154,24 @@ const toSign = (item) => {
         }
     })
 }
+
+
+const dialogStatus = ref(false)
+const dialogData = ref('')
+const signIn = () => {
+    dialogStatus.value = true
+    dialogData.value = '您確定要簽到嗎?'
+}
+
+const leave = () => {
+    dialogStatus.value = true
+    dialogData.value = '您確定要請假嗎?'
+}
+
+const cancel = () => {
+    dialogStatus.value = false
+}
+provide('cancel', cancel)
 
 </script>
 

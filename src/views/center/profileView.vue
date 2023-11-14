@@ -13,15 +13,37 @@
                 <div>電子信箱</div>
                 <div>{{userProfile?.Email}}</div>
             </div>
-            <div class="w-full h-auto flex flex-wrap items-center justify-between">
-                <div>LINE綁定狀態</div>
-                <div></div>
+            <div
+                @click="bindLine"
+                class="w-full h-auto flex flex-wrap items-center justify-between">
+                <div class="grow text-left">LINE綁定狀態</div>
+                <div class="grow text-right"></div>
             </div>
-            <div class="w-full h-auto flex flex-wrap items-center justify-between">
-                <div>LINE Notify綁定狀態</div>
-                <div>{{userProfile?.LINENotifyStatus}}</div>
+            <div
+                @click="bindLineNotify"
+                class="w-full h-auto flex flex-wrap items-center justify-between">
+                <div class="grow text-left">LINE Notify綁定狀態</div>
+                <div class="grow text-right">{{userProfile?.LINENotifyStatus}}</div>
             </div>
         </div>
+        <dialogView v-if="dialogStatus">
+            <template v-slot:message>
+                <div class="text-base md:text-2xl px-3">{{dialogData}}</div>
+            </template>
+            <template v-slot:control>
+                <div class="absolute w-full bottom-4 flex flex-wrap justify-center items-center">
+                    <button
+                        class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                        確定
+                    </button>
+                    <button
+                        @click="cancel"
+                        class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                        取消
+                    </button>
+                </div>
+            </template>
+        </dialogView>
     </div>
 </template>
 
@@ -29,8 +51,9 @@
 /*eslint-disable*/
 import { useStore } from "vuex";
 import { getProfile } from '@/api/api'
-import { ref,watch } from 'vue'
+import { ref,watch,provide } from 'vue'
 import { useRouter,useRoute } from "vue-router";
+import dialogView from "@/components/dialogView.vue"
 
 const router = useRouter()
 const route = useRoute()
@@ -59,6 +82,28 @@ watch(route, (newVal,oldval) => {
 
     init(payload)
 },{ deep: true,immediate: true });
+
+const dialogStatus = ref(false)
+const dialogData = ref('')
+const bindLine = () => {
+    if(route.query?.UserID) return false
+
+    dialogStatus.value = true
+    dialogData.value = '您確定要綁定 LINE 嗎?'
+}
+
+const bindLineNotify = () => {
+    if(route.query?.UserID) return false
+
+    dialogStatus.value = true
+    dialogData.value = '您確定要將 LINE Notify 解除綁定嗎??'
+}
+
+const cancel = () => {
+    dialogStatus.value = false
+}
+
+provide('cancel', cancel)
 
 </script>
 
