@@ -58,6 +58,7 @@ const init = async() => {
     }).then((res) => {
         // console.log('res',res.data.Result)
         classDetail.value = res.data.Result
+        //console.log('classDetail.value',classDetail.value)
     })
     .catch((error) => {
         // handle error

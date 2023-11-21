@@ -3,6 +3,12 @@
         class="transition-all sticky w-full top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[#008AFF]"
     >
         <div 
+            v-show="route.path !== '/'"
+            @click="toback"
+            class="absolute w-[auto] h-[8vh] top-[0px] left-[5px] md:left-[20px] mine-flex-center cursor-pointer">
+            <el-icon :size="isMobile ? '25' : '40'" color="#fff"><Back /></el-icon>
+        </div>
+        <div 
           class="relative w-[auto] h-[8vh] text-white text-xl md:text-3xl flex flex-wrap justify-center items-center font-extrabold"
           @click="tohome()"
           >{{ headerTitle }}
@@ -94,6 +100,10 @@ const linkData = ref([
 
 const toLink = (url) => {
     router.push({ path: url })
+}
+
+const toback = () => {
+    router.go(-1)
 }
 
 </script>

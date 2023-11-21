@@ -5,20 +5,18 @@
     >
     
     </div>
-    <Teleport to="body">
-        <div 
-            @click="test"
-            class="mine-fixed-center w-[90%] max-w-[600px] h-[40vh] left-0 top-0 rounded-lg bg-white z-[1000] flex flex-col justify-center items-center "
-        >
-            <div
-                @click.stop="close" 
-                class="absolute w-auto h-auto top-0 right-0 p-2 flex flex-wrap justify-center items-center">
-                <el-icon size="30"><Close /></el-icon>
-            </div>
-            <slot name="message"></slot>
-            <slot name="control"></slot>
+    <div 
+        @click="test"
+        class="animate__animated animate__bounceIn fixed left-[calc(50%_-_135px)] top-[calc(50%_-_90px)] md:left-[calc(50%_-_300px)] md:top-[calc(50%_-_200px)] w-[270px] h-[180px] md:w-[600px] md:h-[400px] rounded-lg bg-white z-[1000] flex flex-col justify-center items-center "
+    >
+        <div
+            @click.stop="close" 
+            class="absolute w-auto h-auto top-0 right-0 p-2 flex flex-wrap justify-center items-center">
+            <el-icon size="30"><Close /></el-icon>
         </div>
-    </Teleport>
+        <slot name="message"></slot>
+        <slot name="control"></slot>
+    </div>
     
 </template>
 
