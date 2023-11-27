@@ -10,6 +10,7 @@ import userView from '../views/center/userView'
 import courseView from '../views/course'
 import courseDetail from '../views/course/courseDetail'
 import signRecord from '../views/course/signRecord'
+import contactView from '../views/contact'
 
 const routes = [
   {
@@ -67,6 +68,13 @@ const routes = [
     name: 'signRecord',
     component: signRecord
   },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: contactView
+  },
+
+  
   
   // {
   //   path: '/about',

@@ -1,29 +1,47 @@
 <template>
     <div class="w-auto h-auto p-2 flex flex-col justify-center items-center ">
-        <div class="w-[95%] md:w-[45%] h-[100%] text-xs md:text-base rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center ">
+        <div class="w-[95%] md:w-[45%] h-[100%] text-base md:text-xl rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center ">
             <div class="w-full h-auto flex flex-wrap items-center justify-between">
                 <div>姓名</div>
+            </div>
+            <div class="w-full h-auto flex flex-wrap items-center justify-between">
                 <div>{{userProfile?.UserName}}</div>
             </div>
+        </div>
+        <div class="w-[95%] md:w-[45%] h-[100%] text-base md:text-xl rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center ">
             <div class="w-full h-auto flex flex-wrap items-center justify-between">
                 <div>暱稱</div>
-                <div>{{userProfile?.NickName}}</div>
             </div>
             <div class="w-full h-auto flex flex-wrap items-center justify-between">
+                <div>{{userProfile?.NickName}}</div>
+            </div>
+        </div>
+        <div class="w-[95%] md:w-[45%] h-[100%] text-base md:text-xl rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center ">
+            <div class="w-full h-auto flex flex-wrap items-center justify-between">
                 <div>電子信箱</div>
+            </div>
+            <div class="w-full h-auto flex flex-wrap items-center justify-between">
                 <div>{{userProfile?.Email}}</div>
             </div>
-            <div
-                @click="bindLine"
-                class="w-full h-auto flex flex-wrap items-center justify-between">
-                <div class="grow text-left">LINE綁定狀態</div>
-                <div class="grow text-right"></div>
+        </div>
+        <div 
+            @click="bindLine"
+            class="w-[95%] md:w-[45%] h-[100%] text-base md:text-xl rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center ">
+            <div class="w-full h-auto flex flex-wrap items-center justify-between">
+                <div>LINE綁定狀態</div>
             </div>
-            <div
-                @click="bindLineNotify"
-                class="w-full h-auto flex flex-wrap items-center justify-between">
-                <div class="grow text-left">LINE Notify綁定狀態</div>
-                <div class="grow text-right">{{userProfile?.LINENotifyStatus}}</div>
+            <div class="w-full h-auto flex flex-wrap items-center justify-between">
+                <div></div>
+            </div>
+        </div>
+        <div 
+            @click="bindLineNotify"
+            class="w-[95%] md:w-[45%] h-[100%] text-base md:text-xl rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center ">
+            <div class="w-full h-auto flex flex-wrap items-center justify-between">
+                <div>LINE Notify綁定狀態</div>
+            </div>
+            <div class="w-full h-auto flex flex-wrap items-center justify-between">
+                <div>{{userProfile?.LINENotifyStatus}}</div>
             </div>
         </div>
         <dialogView v-if="dialogStatus">

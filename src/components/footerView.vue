@@ -11,10 +11,10 @@
         </div>
         <div 
           class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
-          @click="tohome()"
+          @click="tocontact()"
           >
           <el-icon :size="25"><Document /></el-icon>
-          作業
+          聯絡簿
         </div>
         <div 
           class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
@@ -63,6 +63,10 @@ const tohome = () => {
 
 const tocenter = () => {
   router.push({ path: '/center' })
+}
+
+const tocontact = () => {
+    router.push({ path: '/contact' })
 }
 
 </script>

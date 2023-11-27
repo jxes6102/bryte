@@ -80,6 +80,8 @@ watch(route, (newVal,oldval) => {
         headerTitle.value = newVal.query?.CLSNO
     }else if(newVal.path == '/signRecord'){
         headerTitle.value = '簽到記錄'
+    }else if(newVal.path == '/contact'){
+        headerTitle.value = '電子聯絡簿'
     }else{
         headerTitle.value = 'A機構家校e點通平台'
     }
@@ -93,7 +95,7 @@ const linkData = ref([
     // {text:"作業",url:'homework'},
     // {text:"訊息中心",url:'mail'},
     // {text:"個人中心",url:'center'},
-    {text:"作業",url:'/'},
+    {text:"聯絡簿",url:'/contact'},
     {text:"訊息中心",url:'/'},
     {text:"個人中心",url:'/center'},
 ])
