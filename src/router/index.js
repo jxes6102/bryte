@@ -11,6 +11,7 @@ import courseView from '../views/course'
 import courseDetail from '../views/course/courseDetail'
 import signRecord from '../views/course/signRecord'
 import contactView from '../views/contact'
+import contactDetail from '../views/contact/contactDetail'
 
 const routes = [
   {
@@ -72,6 +73,11 @@ const routes = [
     path: '/contact',
     name: 'contact',
     component: contactView
+  },
+  {
+    path: '/contactDetail',
+    name: 'contactDetail',
+    component: contactDetail
   },
 
   

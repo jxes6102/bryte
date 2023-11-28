@@ -1,6 +1,6 @@
 <template>
     <div class="w-auto h-auto md:h-[80%] p-2 flex flex-col justify-start items-center ">
-        <div class="w-[100%] h-[auto] py-2 flex flex-wrap justify-center items-center">
+        <div class="w-[100%] h-[auto] flex flex-wrap justify-center items-center">
             <div class="w-auto text-lg md:text-3xl px-2 md:px-4">選擇日期</div>
             <div class="w-[150px] md:w-[auto]">
                 <el-date-picker
@@ -30,7 +30,7 @@
         </div>
         <div 
             v-for="(item,index) in data" :key="index" 
-            class="relative w-[90%] md:w-[40%] h-[auto] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
+            class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
             <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
                 <div class="text-[16px] md:text-2xl font-semibold">{{ item.className }}</div>
                 <div 
@@ -41,8 +41,10 @@
                 <div class="text-[#00D1D1]">{{ item.peopleCount + '人'}}</div>
                 <div class="">{{ '/' + item.peopleTotal + '人'}}</div>
             </div>
-            <div class="absolute right-[5px] top-[calc(50%_-_12px)] md:right-[15px] md:top-[calc(50%_-_20px)]">
-                <el-icon :size="isMobile ? 25 : 40"><ArrowRightBold /></el-icon>
+            <div 
+                @click="toContactDetail"
+                class="absolute right-[5px] top-[calc(50%_-_10px)] md:right-[15px] md:top-[calc(50%_-_20px)] cursor-pointer">
+                <el-icon :size="isMobile ? 20 : 40"><ArrowRightBold /></el-icon>
             </div>
         </div>
     </div>
@@ -125,6 +127,10 @@ const isMobile = computed(() => {
 const roleID = computed(() => {
     return store.state.roleID
 })
+
+const toContactDetail = () => {
+    router.push({ path: '/contactDetail' })
+}
 
 </script>
 
