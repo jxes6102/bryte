@@ -9,8 +9,14 @@
             <el-icon :size="isMobile ? '25' : '40'" color="#fff"><Back /></el-icon>
         </div>
         <div 
+            v-if="setStatus"
+            @click="tocontactSet"
+            class="absolute w-[auto] h-[8vh] top-[0px] right-[5px] mine-flex-center cursor-pointer">
+            <el-icon size="25" color="#fff"><Setting /></el-icon>
+        </div>
+        <div 
           class="relative w-[auto] h-[8vh] text-white text-xl md:text-3xl flex flex-wrap justify-center items-center font-extrabold"
-          @click="tohome()"
+          @click="tohome"
           >{{ headerTitle }}
         </div>
         <div 
@@ -50,8 +56,19 @@ const isMobile = computed(() => {
     return store.state.isMobile
 })
 
+const setStatus = computed(() => {
+    return ((route.path == '/contact') || (route.path == '/contactDetail'))  && isMobile.value
+})
+
 const headerTitle = ref('A機構家校e點通平台')
 watch(route, (newVal,oldval) => {
+
+    linkData.value = [
+        {text:"聯絡簿",url:'/contact'},
+        {text:"訊息中心",url:'/'},
+        {text:"個人中心",url:'/center'},
+    ]
+
     if(newVal.path == '/center'){
         headerTitle.value = '個人中心'
     }else if(newVal.path == '/introduction'){
@@ -81,7 +98,18 @@ watch(route, (newVal,oldval) => {
     }else if(newVal.path == '/signRecord'){
         headerTitle.value = '簽到記錄'
     }else if(newVal.path == '/contact'){
+        headerTitle.value = '全校電子聯絡簿'
+        linkData.value = [
+            {text:"設定",url:'/contactSet'},
+        ]
+    }else if(newVal.path == '/contactDetail'){
         headerTitle.value = '電子聯絡簿'
+        linkData.value = [
+            {text:"設定",url:'/contactSet'},
+        ]
+    }else if(newVal.path == '/contactSet'){
+        headerTitle.value = '設定'
+        linkData.value = []
     }else{
         headerTitle.value = 'A機構家校e點通平台'
     }
@@ -92,9 +120,6 @@ const tohome = () => {
 }
 
 const linkData = ref([
-    // {text:"作業",url:'homework'},
-    // {text:"訊息中心",url:'mail'},
-    // {text:"個人中心",url:'center'},
     {text:"聯絡簿",url:'/contact'},
     {text:"訊息中心",url:'/'},
     {text:"個人中心",url:'/center'},
@@ -106,6 +131,10 @@ const toLink = (url) => {
 
 const toback = () => {
     router.go(-1)
+}
+
+const tocontactSet = () =>{
+    router.push({ path: '/contactSet' })
 }
 
 </script>

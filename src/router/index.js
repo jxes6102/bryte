@@ -12,6 +12,7 @@ import courseDetail from '../views/course/courseDetail'
 import signRecord from '../views/course/signRecord'
 import contactView from '../views/contact'
 import contactDetail from '../views/contact/contactDetail'
+import contactSet from '../views/contact/contactSet'
 
 const routes = [
   {
@@ -79,6 +80,12 @@ const routes = [
     name: 'contactDetail',
     component: contactDetail
   },
+  {
+    path: '/contactSet',
+    name: 'contactSet',
+    component: contactSet
+  },
+
 
   
   

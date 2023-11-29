@@ -58,7 +58,7 @@
       <div 
         v-for="(item, index) in newsData" :key="index"
         @click="toNews(item)"
-        class="relative w-full h-[35vw] md:h-[210px] p-1 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between cursor-pointer">
+        class="relative w-full h-[auto] md:h-[210px] p-1 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between cursor-pointer">
         <!-- <div 
           v-if="item.PreviewImage" 
           class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-cover bg-center bg-no-repeat rounded-lg"
@@ -77,10 +77,10 @@
           v-else 
           class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] rounded-lg" >
         </div>
-        <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] px-1 text-[12px] md:text-2xl flex flex-col items-center justify-between">
+        <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] min-h-[25vw] md:min-h-[100%]  px-1 text-[14px] md:text-2xl flex flex-col items-center justify-between">
           <div class="w-[100%] text-left text-[#0d6efd] font-semibold grow-[1]">{{item.Title}}</div>
           <div class="w-[100%] text-left text-[#808080] grow-[9]">{{item.PreviewText}}</div>
-          <div class="w-[100%] h-auto text-[10px] md:text-xl text-[#808080] flex items-center justify-between">
+          <div class="w-[100%] h-auto text-[12px] md:text-xl text-[#808080] flex items-center justify-between">
             <div>{{ "類別:" + item.Category}}</div>
             <div>{{item.CreateTime}}</div>
           </div>
