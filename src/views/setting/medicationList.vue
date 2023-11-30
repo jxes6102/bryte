@@ -27,6 +27,7 @@
         <div class="w-[100%] py-2 text-sm md:text-lg text-[#808080] flex flex-col items-center justify-center">
             <div class="line-style w-[100%] text-[#D3D3D3] text-base md:text-xl flex">待處理</div>
             <div
+                @click="eat"
                 v-for="(item, index) in notEatList" :key="index" 
                 class="w-[95%] md:w-[40%] h-[auto] rounded-lg bg-slate-50 px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-start">
                 <div class="w-full py-1 flex flex-wrap items-center justify-start">
@@ -62,15 +63,45 @@
                 </div>
             </div>
         </div>
-        
+        <Teleport to="body">
+            <conversationView v-if="modalStatus">
+                <template v-slot:header>
+                    <div class="w-full">
+                        test
+                    </div>
+                </template>
+                <template v-slot:content>
+                </template>
+                <template v-slot:control>
+                    <div class="absolute w-full bottom-1 md:bottom-2 flex flex-wrap justify-center items-center">
+                        <button
+                            @click="cancel"
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            點擊選擇相片
+                        </button>
+                        <button
+                            @click="cancel"
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            完成
+                        </button>
+                        <button
+                            @click="cancel"
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            取消
+                        </button>
+                    </div>
+                </template>
+            </conversationView>
+        </Teleport>
     </div>
 </template>
 
 <script setup>
 /*eslint-disable*/
-import { ref,computed,watch } from "vue";
+import { ref,computed,watch,provide } from "vue";
 import { useStore } from "vuex";
 import { useRouter,useRoute } from "vue-router";
+import conversationView from "@/components/conversationView.vue"
 
 const store = useStore()
 const router = useRouter()
@@ -144,4 +175,13 @@ const init = async() => {
 }
 
 init()
+
+const modalStatus = ref(false)
+const eat = () => {
+    modalStatus.value = true
+}
+const cancel = () => {
+    modalStatus.value = false
+}
+provide('cancel', cancel)
 </script>
