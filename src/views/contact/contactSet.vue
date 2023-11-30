@@ -190,7 +190,7 @@
     }
   
     .toOpen {
-        animation: move-show 0.7s cubic-bezier(0.895, 0.03, 0.685, 0.22) ; 
+        animation: move-show 0.7s ease-in; 
     }
       
     @keyframes move-show {
@@ -204,7 +204,7 @@
     }
 
     .toClose {
-        animation: move-hide 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
+        animation: move-hide 0.7s ease-out;
     }
       
     @keyframes move-hide {

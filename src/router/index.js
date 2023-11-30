@@ -13,6 +13,8 @@ import signRecord from '../views/course/signRecord'
 import contactView from '../views/contact'
 import contactDetail from '../views/contact/contactDetail'
 import contactSet from '../views/contact/contactSet'
+import contactChart from '../views/setting/contactChart'
+import medicationList from '../views/setting/medicationList'
 
 const routes = [
   {
@@ -85,7 +87,16 @@ const routes = [
     name: 'contactSet',
     component: contactSet
   },
-
+  {
+    path: '/contactChart',
+    name: 'contactChart',
+    component: contactChart
+  },
+  {
+    path: '/medicationList',
+    name: 'medicationList',
+    component: medicationList
+  },
 
   
   

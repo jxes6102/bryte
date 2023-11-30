@@ -176,15 +176,4 @@ provide('cancel', cancel)
 </script>
 
 <style lang="scss">
-@media screen and (max-width: 330px) {
-    .custom-date-picker { 
-        .el-date-picker{
-            width: 200px !important;
-            .el-picker-panel__content {
-                width: 175px !important;
-            }
-        }
-    }
-}
-
 </style>
