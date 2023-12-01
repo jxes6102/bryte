@@ -15,6 +15,7 @@ import contactDetail from '../views/contact/contactDetail'
 import contactSet from '../views/contact/contactSet'
 import contactChart from '../views/setting/contactChart'
 import medicationList from '../views/setting/medicationList'
+import signView from '../views/setting/signView'
 
 const routes = [
   {
@@ -96,6 +97,11 @@ const routes = [
     path: '/medicationList',
     name: 'medicationList',
     component: medicationList
+  },
+  {
+    path: '/signView',
+    name: 'signView',
+    component: signView
   },
 
   

@@ -116,6 +116,9 @@ watch(route, (newVal,oldval) => {
     }else if(newVal.path == '/medicationList'){
         headerTitle.value = '餵藥'
         linkData.value = []
+    }else if(newVal.path == '/signView'){
+        headerTitle.value = '聯絡簿簽名'
+        linkData.value = []
     }else{
         headerTitle.value = 'A機構家校e點通平台'
     }
