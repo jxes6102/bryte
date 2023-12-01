@@ -7,7 +7,7 @@
     </div>
     <div 
         @click="test"
-        class="animate__animated animate__bounceIn fixed left-[calc(50%_-_135px)] top-[calc(50%_-_90px)] md:left-[calc(50%_-_300px)] md:top-[calc(50%_-_200px)] w-[270px] h-[180px] md:w-[600px] md:h-[400px] rounded bg-white z-[1000] flex flex-col justify-start items-center "
+        class="animate__animated animate__bounceIn fixed left-[calc(50%_-_135px)] top-[calc(50%_-_125px)] md:left-[calc(50%_-_300px)] md:top-[calc(50%_-_200px)] w-[270px] h-[250px] md:w-[600px] md:h-[400px] rounded-lg bg-white z-[1000] flex flex-col justify-start items-center "
     >
         <!-- <div
             @click.stop="close" 
