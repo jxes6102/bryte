@@ -97,7 +97,7 @@ const init = async() => {
                 max: 100,
                 ticks: {
                     reverse: false,
-                    stepSize: 10
+                    stepSize: 20
                 },
             }
         },

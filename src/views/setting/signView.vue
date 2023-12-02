@@ -63,8 +63,8 @@
                 <template v-slot:message>
                     <div class="w-full h-full py-1 px-2 md:py-2 md:px-4 flex flex-col items-center justify-center">
                         <div class=" text-base md:text-2xl font-bold px-3">確定提醒家長簽名?</div>
-                        <div class=" text-sm md:text-lg px-3">{{'提醒對象:(共' + noSignList.length + '位尚未簽名:)'}}</div>
-                        <div class=" w-full py-1 px-2 md:py-2 md:px-4 flex flex-wrap items-center justify-center">
+                        <div class=" text-sm md:text-lg px-3">{{'提醒對象:(共' + noSignList.length + '位尚未簽名)'}}</div>
+                        <div class="overflow-hidden w-full h-[40%] py-1 px-2 md:py-2 md:px-4 flex flex-wrap items-center justify-center">
                             <div 
                                 v-for="(item,index) in noSignList" :key="index"
                                 class="text-sm md:text-lg px-1">{{item.name+'家長'}}
@@ -74,14 +74,14 @@
                     
                 </template>
                 <template v-slot:control>
-                    <div class="absolute w-full bottom-1 flex flex-wrap justify-center items-center">
+                    <div class="absolute w-full bottom-1 text-sm md:text-xl flex flex-wrap justify-end items-center">
                         <button
-                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            class="min-w-[10%] text-[#0000CD] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
                             確定
                         </button>
                         <button
                             @click="cancel"
-                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            class="min-w-[10%] text-[#0000CD] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
                             取消
                         </button>
                     </div>
@@ -186,7 +186,7 @@ const classData = ref([
         isSign:true,
         imgUrl:'',
         isRegister:false
-    }
+    },
 ])
 const noSignList = computed(() => {
     return classData.value.filter((item)=>!item.isSign)
