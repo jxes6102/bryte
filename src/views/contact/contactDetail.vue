@@ -84,7 +84,9 @@
             <div class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
                 <div class="">共8則留言，2則留言未讀</div>
             </div>
-            <div class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
+            <div 
+                @click="toTransmit"
+                class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start cursor-pointer">
                 <div>查看</div>
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
@@ -206,6 +208,11 @@ const toMedication = () => {
 
 const toSign = () => {
     router.push({ path: '/signView' })
+}
+
+
+const toTransmit = () => {
+    router.push({ path: '/transmitView' })
 }
 
 </script>

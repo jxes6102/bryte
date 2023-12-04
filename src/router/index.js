@@ -16,6 +16,7 @@ import contactSet from '../views/contact/contactSet'
 import contactChart from '../views/setting/contactChart'
 import medicationList from '../views/setting/medicationList'
 import signView from '../views/setting/signView'
+import transmitView from '../views/setting/transmitView'
 
 const routes = [
   {
@@ -103,8 +104,11 @@ const routes = [
     name: 'signView',
     component: signView
   },
-
-  
+  {
+    path: '/transmitView',
+    name: 'transmitView',
+    component: transmitView
+  },
   
   // {
   //   path: '/about',
