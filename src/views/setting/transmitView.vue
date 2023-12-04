@@ -57,10 +57,21 @@
                     </button>
                 </div>
             </div>
-            <div class="line-style w-full py-2 flex flex-wrap items-center justify-center">
+            <div v-if="item.hasWork" class="line-style w-full py-2 flex flex-wrap items-center justify-center"></div>
+            <div v-if="item.hasWork" class="w-full px-1 text-xs md:text-lg flex flex-col items-start justify-start">
+                <div v-if="item.work.notification.status">{{'通知單，請於' + item.work.notification.day + '前繳回'}}</div>
+                <div v-if="item.work.worksheet.status">{{'學習單，請於' + item.work.worksheet.day + '前繳回'}}</div>
+                <div v-if="item.work.receipt.status">{{'附上收據，找回' + item.work.receipt.money + '元'}}</div>
+                <div
+                    v-if="item.work.things.suit || item.work.things.shoe || item.work.things.bedding || item.work.things.toiletry" 
+                    class="w-full flex flex-wrap items-center justify-start" >
+                    <div>清洗衣物:</div>
+                    <div class="px-1" v-if="item.work.things.suit">衣褲</div>
+                    <div class="px-1" v-if="item.work.things.shoe">室內鞋</div>
+                    <div class="px-1" v-if="item.work.things.bedding">寢具</div>
+                    <div class="px-1" v-if="item.work.things.toiletry">牙刷、牙杯</div>
+                </div>
             </div>
-            <div></div>
-            
         </div>
         <Teleport to="body">
             <dialogView v-if="modalStatus">
@@ -73,14 +84,12 @@
                                 <div>
                                     通知單，請於
                                     <input 
-                                        class="w-[90px] md:w-[140px]" type="date" 
+                                        class="w-[100px] md:w-[140px]" type="date" 
                                         v-model="inputData.notification.day"
-                                        @change="test($event)" 
                                         />
                                     前繳回
                                 </div>
                             </div>
-
                         </div>
                         <div class="w-full my-1 md:my-2 flex flex-wrap items-center justify-between">
                             <div class="flex flex-wrap items-center justify-center" >
@@ -88,9 +97,8 @@
                                 <div>
                                     學習單，請於
                                     <input 
-                                        class="w-[90px] md:w-[140px]" type="date" 
+                                        class="w-[100px] md:w-[140px]" type="date" 
                                         v-model="inputData.worksheet.day"
-                                        @change="test($event)" 
                                         />
                                     前繳回
                                 </div>
@@ -165,10 +173,6 @@ const dayStr = computed(() => {
     let target = dayData.value.toISOString().substring(0,10)
     return target
 })
-
-const test = (event) => {
-}
-
 
 //設定選擇日期範圍
 const disabledDate = (time) => {
