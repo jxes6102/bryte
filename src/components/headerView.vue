@@ -11,10 +11,10 @@
         <div 
             v-if="setStatus"
             class="absolute w-[auto] h-[8vh] top-[0px] right-[5px] mine-flex-center">
-            <div @click="tocontactSet" class="p-[2px]">
+            <div @click="tocontactSet" class="px-1">
                 <el-icon size="25" color="#fff"><Setting /></el-icon>
             </div>
-            <div @click="toDownload" class="p-[2px]">
+            <div @click="toDownload" class="px-1">
                 <el-icon size="25" color="#fff"><Download /></el-icon>
             </div>
         </div>
