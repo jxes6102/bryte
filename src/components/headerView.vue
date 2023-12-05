@@ -10,9 +10,13 @@
         </div>
         <div 
             v-if="setStatus"
-            @click="tocontactSet"
-            class="absolute w-[auto] h-[8vh] top-[0px] right-[5px] mine-flex-center cursor-pointer">
-            <el-icon size="25" color="#fff"><Setting /></el-icon>
+            class="absolute w-[auto] h-[8vh] top-[0px] right-[5px] mine-flex-center">
+            <div @click="tocontactSet" class="p-[2px]">
+                <el-icon size="25" color="#fff"><Setting /></el-icon>
+            </div>
+            <div @click="toDownload" class="p-[2px]">
+                <el-icon size="25" color="#fff"><Download /></el-icon>
+            </div>
         </div>
         <div 
           class="relative w-[auto] h-[8vh] text-white text-xl md:text-3xl flex flex-wrap justify-center items-center font-extrabold"
@@ -95,11 +99,13 @@ watch(route, (newVal,oldval) => {
         headerTitle.value = '全校電子聯絡簿'
         linkData.value = [
             {text:"設定",url:'/contactSet'},
+            {text:"下載專區",url:'/contactDownload'},
         ]
     }else if(newVal.path == '/contactDetail'){
         headerTitle.value = '電子聯絡簿'
         linkData.value = [
             {text:"設定",url:'/contactSet'},
+            {text:"下載專區",url:'/contactDownload'},
         ]
     }else if(newVal.path == '/contactSet'){
         headerTitle.value = '設定'
@@ -118,6 +124,9 @@ watch(route, (newVal,oldval) => {
         linkData.value = []
     }else if(newVal.path == '/learnSituation'){
         headerTitle.value = '學習狀況'
+        linkData.value = []
+    }else if(newVal.path == '/contactDownload'){
+        headerTitle.value = '下載專區'
         linkData.value = []
     }else{
         headerTitle.value = 'A機構家校e點通平台'
@@ -144,6 +153,10 @@ const toback = () => {
 
 const tocontactSet = () =>{
     router.push({ path: '/contactSet' })
+}
+
+const toDownload = () => {
+    router.push({ path: '/contactDownload' })
 }
 
 </script>
