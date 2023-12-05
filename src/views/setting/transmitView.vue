@@ -40,7 +40,6 @@
                 <div class="w-auto px-2 grow flex flex-col items-start justify-center">
                     <div class="w-auto flex flex-wrap items-start justify-center">
                         <div >{{item.name}}</div>
-                        <div class="text-black">{{item.number + '號'}}</div>
                     </div>
                 </div>
                 <div

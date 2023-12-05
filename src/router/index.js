@@ -17,6 +17,7 @@ import contactChart from '../views/setting/contactChart'
 import medicationList from '../views/setting/medicationList'
 import signView from '../views/setting/signView'
 import transmitView from '../views/setting/transmitView'
+import learnSituation from '../views/setting/learnSituation'
 
 const routes = [
   {
@@ -109,6 +110,12 @@ const routes = [
     name: 'transmitView',
     component: transmitView
   },
+  {
+    path: '/learnSituation',
+    name: 'learnSituation',
+    component: learnSituation
+  },
+  
   
   // {
   //   path: '/about',

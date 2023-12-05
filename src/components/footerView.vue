@@ -41,13 +41,6 @@ import { useRouter } from "vue-router";
 const store = useStore()
 const router = useRouter()
 
-const props = defineProps({
-    heightStatus: {
-        type: Boolean,
-        default: true
-    }
-})
-
 const isMobile = computed(() => {
     return store.state.isMobile
 })

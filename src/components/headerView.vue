@@ -45,12 +45,6 @@ import { useRouter,useRoute } from "vue-router";
 const store = useStore()
 const router = useRouter()
 const route = useRoute()
-const props = defineProps({
-    heightStatus: {
-        type: Boolean,
-        default: true
-    }
-})
 
 const isMobile = computed(() => {
     return store.state.isMobile
@@ -121,6 +115,9 @@ watch(route, (newVal,oldval) => {
         linkData.value = []
     }else if(newVal.path == '/transmitView'){
         headerTitle.value = '今日發回'
+        linkData.value = []
+    }else if(newVal.path == '/learnSituation'){
+        headerTitle.value = '學習狀況'
         linkData.value = []
     }else{
         headerTitle.value = 'A機構家校e點通平台'
