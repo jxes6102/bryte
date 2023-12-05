@@ -55,8 +55,17 @@
                         清除
                     </button>
                 </div>
+                <div v-if="item.isFill" class="line-style w-full py-2 flex flex-wrap items-center justify-center"></div>
+                <div v-if="item.isFill" class="w-full px-1 text-xs md:text-lg flex flex-col items-start justify-start">
+                    <div>{{'身體狀況: ' + item.detail.body}}</div>
+                    <div>{{'飲食狀況: ' + item.detail.food}}</div>
+                    <div>{{'午睡狀況: ' + item.detail.sleep}}</div>
+                    <div>{{'是否排便: ' + item.detail.defecate}}</div>
+                    <div>{{'學習狀況: ' + item.detail.learn}}</div>
+                    <div>{{'人際互動: ' + item.detail.communication}}</div>
+                    <div>{{'情緒表現: ' + item.detail.mood}}</div>
+                </div>
             </div>
-
         </div>
         <Teleport to="body">
             <dialogView type="large" v-if="modalStatus">
@@ -233,13 +242,13 @@ const classData = ref([
         number:37,
         isFill:true,
         detail:{
-            body:'',
-            food:'',
-            sleep:'',
-            defecate:'',
-            learn:'',
-            communication:'',
-            mood:''
+            body:'咳嗽',
+            food:'胃口不佳',
+            sleep:'淺睡',
+            defecate:'無',
+            learn:'主動',
+            communication:'分享',
+            mood:'愉快'
         }
     },
     {
@@ -247,13 +256,13 @@ const classData = ref([
         number:16,
         isFill:true,
         detail:{
-            body:'',
-            food:'',
-            sleep:'',
-            defecate:'',
-            learn:'',
-            communication:'',
-            mood:''
+            body:'咳嗽',
+            food:'胃口不佳',
+            sleep:'熟睡',
+            defecate:'無',
+            learn:'主動',
+            communication:'分享',
+            mood:'不安'
         }
     },
     {
@@ -275,13 +284,13 @@ const classData = ref([
         number:48,
         isFill:true,
         detail:{
-            body:'',
-            food:'',
-            sleep:'',
-            defecate:'',
-            learn:'',
-            communication:'',
-            mood:''
+            body:'咳嗽',
+            food:'時間較長',
+            sleep:'熟睡',
+            defecate:'無',
+            learn:'主動',
+            communication:'分享',
+            mood:'愉快'
         }
     },
     {
@@ -303,13 +312,13 @@ const classData = ref([
         number:6,
         isFill:true,
         detail:{
-            body:'',
-            food:'',
-            sleep:'',
-            defecate:'',
-            learn:'',
-            communication:'',
-            mood:''
+            body:'咳嗽',
+            food:'時間較長',
+            sleep:'淺睡',
+            defecate:'無',
+            learn:'主動',
+            communication:'分享',
+            mood:'不安'
         }
     },
     {
@@ -331,13 +340,13 @@ const classData = ref([
         number:5,
         isFill:true,
         detail:{
-            body:'',
-            food:'',
-            sleep:'',
-            defecate:'',
-            learn:'',
-            communication:'',
-            mood:''
+            body:'咳嗽',
+            food:'胃口不佳',
+            sleep:'熟睡',
+            defecate:'無',
+            learn:'主動',
+            communication:'分享',
+            mood:'愉快'
         }
     },
     {
@@ -355,16 +364,6 @@ const classData = ref([
         }
     },
 ])
-
-// const inputData = ref({
-//     body:['正常','咳嗽','流鼻水','體溫偏高'],
-//     food:['良好','胃口不佳','時間較長'],
-//     sleep:['熟睡','淺睡','無法入睡'],
-//     defecate:['有','無'],
-//     learn:['主動','須鼓勵'],
-//     communication:['良好','分享','需關懷'],
-//     mood:['愉快','穩定','不安'],
-// })
 
 const inputData = ref({
     body:{
@@ -423,7 +422,19 @@ const write = () => {
 
 const send = () => {
     console.log('send')
-    console.log('inputData',inputData.value)
+    // console.log('inputData',inputData.value)
+    let target = []
+    for(let key in inputData.value){
+        // console.log('key',key,inputData.value[key])
+        let index = inputData.value[key].status.findIndex((item) => item)
+        // console.log('index',index)
+        if(index>=0){
+            target.push(inputData.value[key].text[index])
+        }else{
+            target.push('')
+        }
+    }
+    console.log('target',target)
 }
 
 const checkInput = (obj,index) => {
@@ -433,7 +444,6 @@ const checkInput = (obj,index) => {
     }
 
     for(let key in obj.status){
-        console.log(key==index.toString())
         if(key == index.toString()){
             obj.status[key] = true
         }else{
@@ -441,7 +451,6 @@ const checkInput = (obj,index) => {
         }
     }
     
-
 }
 
 </script>
