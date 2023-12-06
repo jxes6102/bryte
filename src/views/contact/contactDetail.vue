@@ -98,7 +98,6 @@
             </div>
         </div>
         <div 
-            @click="toLearn"
             class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
             <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
                 <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">學習狀況</div>
@@ -106,7 +105,9 @@
             <div class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
                 <div class="">共8名學生，2名已填寫</div>
             </div>
-            <div class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start cursor-pointer">
+            <div
+                @click="toLearn" 
+                class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start cursor-pointer">
                 <div>查看</div>
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
@@ -119,7 +120,9 @@
             <div class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
                 <div class="">共8名學生，2名已填寫</div>
             </div>
-            <div class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
+            <div
+                @click="toChat" 
+                class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
                 <div>查看</div>
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
@@ -231,6 +234,10 @@ const toTip = () => {
 
 const toTemperature = () => {
     router.push({ path: '/temperatureView' })
+}
+
+const toChat = () => {
+    router.push({ path: '/chatView' })
 }
 
 </script>

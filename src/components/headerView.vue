@@ -134,6 +134,12 @@ watch(route, (newVal,oldval) => {
     }else if(newVal.path == '/temperatureView'){
         headerTitle.value = '體溫量測'
         linkData.value = []
+    }else if(newVal.path == '/chatView'){
+        headerTitle.value = '家長留言'
+        linkData.value = []
+    }else if(newVal.path == '/chatroom'){
+        headerTitle.value = '家長留言'
+        linkData.value = []
     }else{
         headerTitle.value = 'A機構家校e點通平台'
     }

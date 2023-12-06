@@ -21,6 +21,8 @@ import learnSituation from '../views/setting/learnSituation'
 import contactDownload from '../views/contact/contactDownload'
 import tipView from '../views/setting/tipView'
 import temperatureView from '../views/setting/temperatureView'
+import chatView from '../views/setting/chatView'
+import chatroom from '../views/chatroom' 
 
 const routes = [
   {
@@ -132,6 +134,16 @@ const routes = [
     path: '/temperatureView',
     name: 'temperatureView',
     component: temperatureView
+  },
+  {
+    path: '/chatView',
+    name: 'chatView',
+    component: chatView
+  },
+  {
+    path: '/chatroom',
+    name: 'chatroom',
+    component: chatroom
   },
   
   
