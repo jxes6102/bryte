@@ -20,7 +20,7 @@ import transmitView from '../views/setting/transmitView'
 import learnSituation from '../views/setting/learnSituation'
 import contactDownload from '../views/contact/contactDownload'
 import tipView from '../views/setting/tipView'
-
+import temperatureView from '../views/setting/temperatureView'
 
 const routes = [
   {
@@ -127,6 +127,11 @@ const routes = [
     path: '/tipView',
     name: 'tipView',
     component: tipView
+  },
+  {
+    path: '/temperatureView',
+    name: 'temperatureView',
+    component: temperatureView
   },
   
   

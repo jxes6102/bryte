@@ -49,7 +49,9 @@
                 <div class="text-[#00D1D1]">3位</div>
                 <div class="">家長已測量</div>
             </div>
-            <div class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
+            <div
+                @click="toTemperature" 
+                class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
                 <div>查看</div>
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
@@ -225,6 +227,10 @@ const toLearn = () => {
 
 const toTip = () => {
     router.push({ path: '/tipView' })
+}
+
+const toTemperature = () => {
+    router.push({ path: '/temperatureView' })
 }
 
 </script>

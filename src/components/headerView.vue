@@ -131,6 +131,9 @@ watch(route, (newVal,oldval) => {
     }else if(newVal.path == '/tipView'){
         headerTitle.value = '編輯愛的叮嚀'
         linkData.value = []
+    }else if(newVal.path == '/temperatureView'){
+        headerTitle.value = '體溫量測'
+        linkData.value = []
     }else{
         headerTitle.value = 'A機構家校e點通平台'
     }
