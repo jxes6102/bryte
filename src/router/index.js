@@ -19,6 +19,7 @@ import signView from '../views/setting/signView'
 import transmitView from '../views/setting/transmitView'
 import learnSituation from '../views/setting/learnSituation'
 import contactDownload from '../views/contact/contactDownload'
+import tipView from '../views/setting/tipView'
 
 
 const routes = [
@@ -121,6 +122,11 @@ const routes = [
     path: '/contactDownload',
     name: 'contactDownload',
     component: contactDownload
+  },
+  {
+    path: '/tipView',
+    name: 'tipView',
+    component: tipView
   },
   
   

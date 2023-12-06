@@ -62,6 +62,7 @@ const list = ref([])
 const handleFiles = (event) => {
     // console.log('event',event)
     // console.log('files',event.target.files)
+    list.value = []
     let target = event.target.files
     for(let key in target){
         

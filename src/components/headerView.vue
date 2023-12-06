@@ -128,9 +128,13 @@ watch(route, (newVal,oldval) => {
     }else if(newVal.path == '/contactDownload'){
         headerTitle.value = '下載專區'
         linkData.value = []
+    }else if(newVal.path == '/tipView'){
+        headerTitle.value = '編輯愛的叮嚀'
+        linkData.value = []
     }else{
         headerTitle.value = 'A機構家校e點通平台'
     }
+    
 });
 
 const tohome = () => {

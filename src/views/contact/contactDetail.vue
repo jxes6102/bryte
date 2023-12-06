@@ -56,8 +56,12 @@
         </div>
         <div 
             class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-start justify-center">
-            <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
+            <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-between">
                 <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">愛的叮嚀</div>
+                <div 
+                    @click="toTip" 
+                    class="text-[#808080] cursor-pointer" 
+                    v-if="roleID == 2">編輯</div>
             </div>
         </div>
         <div 
@@ -129,6 +133,10 @@ import { useRouter } from "vue-router";
 
 const router = useRouter()
 const store = useStore()
+
+const roleID = computed(() => {
+    return store.state.roleID
+})
 
 const data = ref([
     {
@@ -213,6 +221,10 @@ const toTransmit = () => {
 
 const toLearn = () => {
     router.push({ path: '/learnSituation' })
+}
+
+const toTip = () => {
+    router.push({ path: '/tipView' })
 }
 
 </script>
