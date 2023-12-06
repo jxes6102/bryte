@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </Transition>
-    
+
             </div>
             <div class="w-full md:w-[60%] h-auto rounded-lg bg-slate-50 py-1 px-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-between">
                 <div>開放導師自行啟用家長簽名</div>
@@ -120,7 +120,16 @@
             <div class="w-full md:w-[60%] h-auto rounded-lg bg-slate-50 py-1 px-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-between">
                 <div>啟用定時推播提醒家長</div>
                 <div class="w-full flex flex-wrap items-center justify-end">
-                    <input class="w-[110px] md:w-[200px] mx-2" type="time" :value="statusList.parentWarn.time"  />
+                    <el-time-select
+                        class="w-[100px] md:w-auto mx-2"
+                        v-model="statusList.parentWarn.time"
+                        :disabled="!statusList.parentWarn.status"
+                        :size="isMobile ? 'small' : 'default'" 
+                        start="00:10"
+                        step="00:10"
+                        end="23:50"
+                        placeholder="Select time"
+                    />
                     <el-switch :size="isMobile ? 'default' : 'large'" v-model="statusList.parentWarn.status" />
                 </div>
             </div>
