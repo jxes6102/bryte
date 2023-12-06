@@ -121,9 +121,10 @@
                 <div>啟用定時推播提醒家長</div>
                 <div class="w-full flex flex-wrap items-center justify-end">
                     <el-time-select
-                        class="w-[100px] md:w-auto mx-2"
+                        class="w-[100px] md:w-[200px] mx-2"
                         v-model="statusList.parentWarn.time"
                         :disabled="!statusList.parentWarn.status"
+                        :clearable="false"
                         :size="isMobile ? 'small' : 'default'" 
                         start="00:10"
                         step="00:10"
