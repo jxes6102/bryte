@@ -5,7 +5,7 @@
             <div class="px-2">XX班</div>
         </div>
         <div class="w-[95%] md:w-[40%] my-2 text-[16px] md:text-2xl text-left text-[#6E6EFF] font-semibold">愛的叮嚀</div>
-        <div class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-start justify-center">
+        <div class="w-[90%] md:w-[40%] h-auto rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-start justify-center">
             <div class="relative w-full h-full text-sm md:text-lg">
                 <textarea 
                     v-model="modifyData.reply"
@@ -18,8 +18,10 @@
                 <!-- <div class="absolute right-3 bottom-1">{{'字數' + modifyData.reply.length + '/30'}}</div> -->
             </div>
         </div>
-        <div class="w-[95%] md:w-[40%] my-1 flex flex-wrap justify-start items-center">
+        <div class="w-[95%] md:w-[40%] h-auto min-h-[40px] my-1 md:my-3 flex flex-wrap justify-start items-center">
             <button
+                v-if="isMobile"
+                @click="upLoadPhone"
                 class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 rounded">
                 拍照
             </button>
@@ -33,8 +35,13 @@
                 儲存
             </button>
         </div>
-        <div class="w-[95%] md:w-[40%] my-1 flex flex-wrap justify-start items-center">
-
+        <div class="w-[95%] md:w-[40%] h-auto my-1 flex flex-wrap justify-start items-center">
+            <template v-for="(item,index) in fileList" :key="index">
+                <div v-if="item.isImg" class="w-[25vw] h-[25vw] md:w-[27%] md:h-[27%] m-1 md:m-2">
+                    <img class="w-full h-full" :src="item.src" alt="">
+                </div>
+                <div v-else class="w-[25vw] h-[25vw] md:w-[27%] md:h-[27%] m-1 md:m-2 bg-black"></div>
+            </template>
         </div>
         <input
             ref="fileEle"
@@ -46,6 +53,13 @@
             @change="handleFiles($event)"
             multiple="multiple"
         />
+        <input
+            ref="filePhoneEle"
+            v-show="false"
+            type="file" 
+            capture="environment" 
+            @change="handleFiles($event)"
+            accept="image/*"/>
     </div>
 </template>
 
@@ -57,7 +71,9 @@ import { useRouter } from "vue-router";
 
 const router = useRouter()
 const store = useStore()
-
+const isMobile = computed(() => {
+    return store.state.isMobile
+})
 const roleID = computed(() => {
     return store.state.roleID
 })
@@ -77,18 +93,31 @@ const handleFiles = (event) => {
     fileList.value = []
     let target = event.target.files
     for(let key in target){
-        
+
         if(!isNaN(parseInt(key))){
-            fileList.value.push({
-                name:target[key].name,
-                type:target[key].type,
-            })
+            var reader = new FileReader()
+            reader.onload = function (e) {
+                //console.log('e',e.target.result)
+                fileList.value.push({
+                    name:target[key].name,
+                    type:target[key].type,
+                    isImg:target[key].type.includes("image"),
+                    src:e.target.result
+                })
+                //console.log('fileList',fileList.value)
+            }
+            reader.readAsDataURL(target[key])
+            
         }
         
     }
     console.log('fileList',fileList.value)
 }
 
+const filePhoneEle = ref(null)
+const upLoadPhone = () => {
+    filePhoneEle.value.click()
+}
 
 </script>
 
