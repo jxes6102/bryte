@@ -23,6 +23,7 @@ import tipView from '../views/setting/tipView'
 import temperatureView from '../views/setting/temperatureView'
 import chatView from '../views/setting/chatView'
 import chatroom from '../views/chatroom' 
+import { useStore } from "vuex";
 
 const routes = [
   {
@@ -83,7 +84,18 @@ const routes = [
   {
     path: '/contact',
     name: 'contact',
-    component: contactView
+    component: contactView,
+    beforeEnter: () => {
+      const store = useStore()
+      // console.log(store.state.roleID)
+      // console.log('to',to)
+      // console.log('from',from)
+      if(store.state.roleID == 3){
+        return '/contactDetail'
+      }
+      // reject the navigation
+      // return false
+    },
   },
   {
     path: '/contactDetail',
@@ -143,7 +155,7 @@ const routes = [
   {
     path: '/chatroom',
     name: 'chatroom',
-    component: chatroom
+    component: chatroom,
   },
   
   

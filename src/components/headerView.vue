@@ -11,7 +11,7 @@
         <div 
             v-if="setStatus"
             class="absolute w-[auto] h-[8vh] top-[0px] right-[5px] mine-flex-center">
-            <div @click="tocontactSet" class="px-1">
+            <div v-if="(roleID == 2) || (roleID == 1)" @click="tocontactSet" class="px-1">
                 <el-icon size="25" color="#fff"><Setting /></el-icon>
             </div>
             <div @click="toDownload" class="px-1">
@@ -52,6 +52,10 @@ const route = useRoute()
 
 const isMobile = computed(() => {
     return store.state.isMobile
+})
+
+const roleID = computed(() => {
+    return store.state.roleID
 })
 
 const setStatus = computed(() => {
