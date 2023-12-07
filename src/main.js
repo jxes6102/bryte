@@ -21,5 +21,18 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 
+app.directive('tobottom', {
+    mounted(el) {
+        const target = {
+            top: el.scrollHeight - 100,
+            left: 0,
+            behavior: 'smooth',
+        }
+        // console.log(target)
+        // console.log(el.scrollHeight)
+        document.querySelector('#main').scrollTo(target)
+    }
+})
+
 app.use(store).use(router).use(CKEditor).mount('#app')
 
