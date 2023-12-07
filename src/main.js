@@ -28,10 +28,11 @@ app.directive('tobottom', {
             left: 0,
             behavior: 'smooth',
         }
-        // console.log(target)
-        // console.log(el.scrollHeight)
-        document.querySelector('#main').scrollTo(target)
-    }
+        //document.querySelector('#main').scrollTo(target)
+        el.scrollTo(target)
+    },
+    // updated(el) {
+    // },
 })
 
 app.use(store).use(router).use(CKEditor).mount('#app')

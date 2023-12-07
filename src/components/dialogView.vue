@@ -13,6 +13,7 @@
         class="animate__animated animate__bounceIn fixed  rounded-lg bg-white z-[1000] flex flex-col justify-center items-center "
     >
         <div
+            v-if="closeStatus"
             @click.stop="close" 
             class="absolute w-auto h-auto top-0 right-0 p-2 flex flex-wrap justify-center items-center">
             <el-icon size="30"><Close /></el-icon>
@@ -36,6 +37,10 @@ const props = defineProps({
     type: {
         type: String,
         default: 'default'
+    },
+    closeStatus:{
+        type:Boolean,
+        default:true
     }
 })
 
