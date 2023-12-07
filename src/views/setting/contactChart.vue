@@ -21,6 +21,30 @@
         <div class="w-[250px] h-[150px] md:w-[750px] md:h-[450px]">
             <Bar v-if="!apiLoading" :data="data" :options="options" />
         </div>
+        <div class="w-full max-w-[800px] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
+            <div
+                v-for="(item,index) in memberList" :key="index"
+                class="w-full my-1 flex flex-wrap items-center justify-between">
+                <div class="flex flex-wrap items-center justify-center">
+                    <div class="px-1">{{item.class}}</div>
+                    <div class="px-1">{{item.number+'號'}}</div>
+                    <div class="px-1">{{item.name}}</div>
+                </div>
+                
+                <div class="flex flex-wrap items-center justify-center">
+                    <div 
+                        :class="item.isRead ? 'bg-[#20B2AA]' : 'bg-[#808080]'"
+                        class="w-[auto] mx-1 text-sm md:text-xl text-white py-1 px-2 rounded">
+                        {{item.isRead ? '已讀' : '未讀'}}
+                    </div>
+                    <div
+                        :class="item.isSign ? 'bg-[#4169E1]' : 'bg-[#808080]'"
+                        class="w-[auto] mx-1 text-sm md:text-xl text-white py-1 px-2 rounded">
+                        {{item.isSign ? '已簽' : '未簽'}}
+                    </div>
+                </div>
+            </div>
+        </div>
         
     </div>
 </template>
@@ -45,6 +69,72 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const router = useRouter()
 const store = useStore()
+
+const memberList = ref([
+    {
+        name:'猴子一號',
+        class:'猴子班',
+        number:1,
+        isRead:true,
+        isSign:false
+    },
+    {
+        name:'猴子二號',
+        class:'猴子班',
+        number:2,
+        isRead:true,
+        isSign:true
+    },
+    {
+        name:'猴子三號',
+        class:'猴子班',
+        number:3,
+        isRead:false,
+        isSign:false
+    },
+    {
+        name:'猴子四號',
+        class:'猴子班',
+        number:4,
+        isRead:false,
+        isSign:false
+    },
+    {
+        name:'猴子五號',
+        class:'猴子班',
+        number:5,
+        isRead:true,
+        isSign:true
+    },
+    {
+        name:'猴子六號',
+        class:'猴子班',
+        number:6,
+        isRead:false,
+        isSign:false
+    },
+    {
+        name:'猴子七號',
+        class:'猴子班',
+        number:7,
+        isRead:false,
+        isSign:false
+    },
+    {
+        name:'猴子八號',
+        class:'猴子班',
+        number:8,
+        isRead:true,
+        isSign:true
+    },
+    {
+        name:'猴子九號',
+        class:'猴子班',
+        number:9,
+        isRead:true,
+        isSign:false
+    },
+])
 
 const list = ref([
     {
@@ -116,7 +206,7 @@ const init = async() => {
                 callbacks: {
                     label: function(context) {
                         let label = context.dataset.label || '';
-                        console.log('context',context)
+                        //console.log('context',context)
                         if (label) {
                             label += context.formattedValue + '%';
                         }
