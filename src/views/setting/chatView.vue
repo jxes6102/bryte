@@ -32,16 +32,15 @@
                     <div class="w-full text-[#808080] flex flex-wrap items-center justify-start">
                         <div>共8則留言，2則留言未讀</div>
                     </div>
-                    <div class="w-full flex flex-wrap items-center justify-end">
-                        <button
-                            @click="toRoom"
-                            class="min-w-[10%] text-[#4169E1] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
-                            留言給家長
-                        </button>
-                    </div>
                 </div>
             </div>
-
+            <div class="w-full flex flex-wrap items-center justify-center">
+                <button
+                    @click="toRoom"
+                    class="min-w-[10%] text-[#4169E1] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                    查看訊息
+                </button>
+            </div>
         </div>
         
     </div>

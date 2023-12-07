@@ -51,7 +51,7 @@
             </div>
             <div
                 @click="toTemperature" 
-                class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
+                class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start cursor-pointer">
                 <div>查看</div>
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
@@ -77,7 +77,7 @@
             </div>
             <div
                 @click="toSign()" 
-                class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)]text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
+                class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)]text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start cursor-pointer">
                 <div>查看</div>
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
@@ -122,7 +122,7 @@
             </div>
             <div
                 @click="toChat" 
-                class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
+                class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start cursor-pointer">
                 <div>查看</div>
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
