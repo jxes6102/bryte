@@ -133,10 +133,25 @@
             <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
                 <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">家長留言</div>
             </div>
-            <div class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
+            <div
+                v-if="isSchool" 
+                class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
                 <div class="">共8名學生，2名已填寫</div>
             </div>
             <div
+                v-else 
+                class="w-full px-3">
+                <div class="w-full text-left text-[#808080] text-[14px] md:text-xl flex flex-wrap items-center justify-start">
+                    <div>共8則留言，2則留言未讀</div>
+                </div>
+                <button
+                    @click="toRoom"
+                    class="min-w-[10%] text-[#4169E1] mx-2 py-1 px-2 md:py-2 md:px-3 text-[14px] md:text-xl font-semibold rounded">
+                    家長給導師
+                </button>
+            </div>
+            <div
+                v-if="isSchool"
                 @click="toChat" 
                 class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start cursor-pointer">
                 <div>查看</div>
@@ -227,6 +242,7 @@ const data = ref(
         name:'猴子四號',
         class:'猴子班',
         classNum:'21',
+        isSign:false,
         temperature:{
             time:'18:00',
             value:'39.2',
@@ -321,6 +337,10 @@ const toTemperature = () => {
 
 const toChat = () => {
     router.push({ path: '/chatView' })
+}
+
+const toRoom = () => {
+    router.push({ path: '/chatroom' })
 }
 
 </script>
