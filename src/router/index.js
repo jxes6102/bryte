@@ -21,7 +21,7 @@ import learnSituation from '../views/setting/learnSituation'
 import contactDownload from '../views/contact/contactDownload'
 import tipView from '../views/setting/tipView'
 import temperatureView from '../views/setting/temperatureView'
-import chatView from '../views/setting/chatView'
+import chatView from '../views/chatroom/chatView'
 import chatroom from '../views/chatroom' 
 import { useStore } from "vuex";
 

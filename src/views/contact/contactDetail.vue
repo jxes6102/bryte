@@ -148,10 +148,25 @@
             <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
                 <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">今日發回</div>
             </div>
-            <div class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
+            <div v-if="isSchool" class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
                 <div class="">共8則留言，2則留言未讀</div>
             </div>
+            <div v-else class="w-full px-3 text-xs text-[#808080] md:text-lg flex flex-col items-start justify-start">
+                <div v-if="data.work.notification.status">{{'通知單，請於' + data.work.notification.day + '前繳回'}}</div>
+                <div v-if="data.work.worksheet.status">{{'學習單，請於' + data.work.worksheet.day + '前繳回'}}</div>
+                <div v-if="data.work.receipt.status">{{'附上收據，找回' + data.work.receipt.money + '元'}}</div>
+                <div
+                    v-if="data.work.things.suit || data.work.things.shoe || data.work.things.bedding || data.work.things.toiletry" 
+                    class="w-full flex flex-wrap items-center justify-start" >
+                    <div>清洗衣物:</div>
+                    <div class="px-1" v-if="data.work.things.suit">衣褲</div>
+                    <div class="px-1" v-if="data.work.things.shoe">室內鞋</div>
+                    <div class="px-1" v-if="data.work.things.bedding">寢具</div>
+                    <div class="px-1" v-if="data.work.things.toiletry">牙刷、牙杯</div>
+                </div>
+            </div>
             <div 
+                v-if="isSchool"
                 @click="toTransmit"
                 class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start cursor-pointer">
                 <div>查看</div>
@@ -163,11 +178,25 @@
             <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
                 <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">學習狀況</div>
             </div>
-            <div class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
+            <div 
+                v-if="isSchool"
+                class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
                 <div class="">共8名學生，2名已填寫</div>
             </div>
+            <div 
+                v-else
+                class="w-full px-3 text-[#808080] text-xs md:text-lg flex flex-col items-start justify-start">
+                <div>{{'身體狀況: ' + data.detail.body}}</div>
+                <div>{{'飲食狀況: ' + data.detail.food}}</div>
+                <div>{{'午睡狀況: ' + data.detail.sleep}}</div>
+                <div>{{'是否排便: ' + data.detail.defecate}}</div>
+                <div>{{'學習狀況: ' + data.detail.learn}}</div>
+                <div>{{'人際互動: ' + data.detail.communication}}</div>
+                <div>{{'情緒表現: ' + data.detail.mood}}</div>
+            </div>
             <div
-                @click="toLearn" 
+                v-if="isSchool"
+                @click="toLearn"
                 class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start cursor-pointer">
                 <div>查看</div>
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
@@ -209,6 +238,35 @@ const data = ref(
             content:'大感冒，午休前請協助餵藥，謝謝老師!',
             reply:"已吃藥囉!",
             replyPeople:'羅O熊 幼兒園主任',
+        },
+        work:{
+            notification:{
+                status:true,
+                day:new Date().toISOString().substring(0,10)
+            },
+            worksheet:{
+                status:true,
+                day:new Date().toISOString().substring(0,10)
+            },
+            receipt:{
+                status:true,
+                money:'124'
+            },
+            things:{
+                suit:true,
+                shoe:false,
+                bedding:true,
+                toiletry:false
+            },
+        },
+        detail:{
+            body:'咳嗽',
+            food:'胃口不佳',
+            sleep:'淺睡',
+            defecate:'無',
+            learn:'主動',
+            communication:'分享',
+            mood:'愉快'
         }
     },
 )
