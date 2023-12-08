@@ -2,6 +2,7 @@
     <div class="introduction flex flex-col justify-center items-center ">
         <div class="w-[90%] md:w-[80%] py-2">
             <button
+                v-if="isSchool"
                 @click="toIntroductionEdit" 
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-2 py-2 px-4 rounded">
                 編輯
@@ -30,6 +31,14 @@ const introductionData = ref([])
 
 const isMobile = computed(() => {
     return store.state.isMobile
+})
+
+const roleID = computed(() => {
+    return store.state.roleID
+})
+
+const isSchool = computed(() => {
+    return (roleID.value == 2) || (roleID.value == 1)
 })
 
 const init = async() => {

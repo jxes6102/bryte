@@ -44,12 +44,24 @@ const routes = [
   {
     path: '/editNews',
     name: 'editNews',
-    component: editNewsView
+    component: editNewsView,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/editIntroduction',
     name: 'editIntroduction',
-    component: editIntroduction
+    component: editIntroduction,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/center',
@@ -64,7 +76,13 @@ const routes = [
   {
     path: '/user',
     name: 'user',
-    component: userView
+    component: userView,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/course',
@@ -105,32 +123,68 @@ const routes = [
   {
     path: '/contactSet',
     name: 'contactSet',
-    component: contactSet
+    component: contactSet,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/contactChart',
     name: 'contactChart',
-    component: contactChart
+    component: contactChart,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/medicationList',
     name: 'medicationList',
-    component: medicationList
+    component: medicationList,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/signView',
     name: 'signView',
-    component: signView
+    component: signView,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/transmitView',
     name: 'transmitView',
-    component: transmitView
+    component: transmitView,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/learnSituation',
     name: 'learnSituation',
-    component: learnSituation
+    component: learnSituation,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/contactDownload',
@@ -140,17 +194,35 @@ const routes = [
   {
     path: '/tipView',
     name: 'tipView',
-    component: tipView
+    component: tipView,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/temperatureView',
     name: 'temperatureView',
-    component: temperatureView
+    component: temperatureView,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/chatView',
     name: 'chatView',
-    component: chatView
+    component: chatView,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   {
     path: '/chatroom',

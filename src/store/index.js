@@ -4,7 +4,7 @@ export default createStore({
   state: {
     isMobile:false,
     //1主任 2老師 3家長
-    roleID:3
+    roleID:2
   },
   getters: {
   },

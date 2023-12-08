@@ -3,6 +3,7 @@
         <div class="w-[90%] md:w-[80%] py-2">
             <template v-if="hasNews">
                 <button
+                    v-if="isSchool"
                     @click="toNewsEdit" 
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-2 py-2 px-4 rounded">
                     編輯
@@ -13,7 +14,7 @@
                     分享
                 </button>
             </template>
-            <template v-else>
+            <template v-else-if="isSchool">
                 <button
                     @click="addNews" 
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-2 py-2 px-4 rounded">
@@ -120,6 +121,14 @@ watch(route, (newVal,oldval) => {
 
 const isMobile = computed(() => {
     return store.state.isMobile
+})
+
+const roleID = computed(() => {
+    return store.state.roleID
+})
+
+const isSchool = computed(() => {
+    return (roleID.value == 2) || (roleID.value == 1)
 })
 
 const toNewsEdit = () => {
