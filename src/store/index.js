@@ -12,6 +12,9 @@ export default createStore({
     setMobile (state,value){
       state.isMobile = (value <= 768) ? true : false
     },
+    setRole (state,value){
+      state.roleID = value
+    }
   },
   actions: {
   },

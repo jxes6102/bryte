@@ -1,5 +1,5 @@
 <template>
-    <div class="w-auto h-auto md:h-[80%] p-2 flex flex-col md:flex-row justify-center items-center ">
+    <div class="w-auto h-auto md:h-[80%] p-2 flex flex-col md:flex-row md:flex-wrap justify-center items-center ">
         <div class="w-[95%] md:w-[25%] h-[100%] md:h-[70%] rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-row md:flex-col items-center justify-center ">
             <div class="w-auto p-2 grow flex flex-col items-end md:items-center justify-center md:justify-end">
                 <div 
@@ -29,7 +29,16 @@
             </div>
             <div class="text-[#dc3545] my-1 md:my-2 text-lg md:text-2xl cursor-pointer">登出</div>
         </div>
-        
+        <div class="w-[95%] flex flex-col md:flex-row items-center justify-center">
+            <div class="mx-1">身分切換:</div>
+            <el-radio-group
+                class=""
+                v-model="roleID" @change="changeRole">
+                <el-radio :label="1">園長</el-radio>
+                <el-radio :label="2">導師</el-radio>
+                <el-radio :label="3">家長</el-radio>
+            </el-radio-group>
+        </div>
     </div>
 </template>
 
@@ -37,10 +46,11 @@
 /*eslint-disable*/
 import { useStore } from "vuex";
 import { getUserMenu,getProfile } from '@/api/api'
-import { ref } from 'vue'
+import { ref,computed } from 'vue'
 import { useRouter } from "vue-router";
 
 const router = useRouter()
+const store = useStore()
 
 const userMenu = ref(null)
 const userProfile = ref(null)
@@ -80,6 +90,18 @@ const toLink = (item) => {
     }else if(item.Identifier == "Course"){
         router.push({ path: 'course' })
     }
+}
+
+const roleID = computed({
+  get: () => store.state.roleID,
+  set: (val) => {
+    return val
+  },
+})
+
+const changeRole = (value) => {
+    //console.log('value',value)
+    store.commit('setRole',value)
 }
 
 </script>
