@@ -93,9 +93,10 @@
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
             <div v-else
+                @click="takeTemperature"
                 class="absolute right-[5px] bottom-[calc(50%_-_8px)] md:right-[15px] md:bottom-[calc(50%_-_15px)] text-[14px] md:text-xl text-[#4169E1] flex flex-wrap items-center justify-center cursor-pointer">
                 <el-icon :size="isMobile ? 15 : 30"><Plus /></el-icon>
-                <div>新增</div>
+                <div>量體溫</div>
             </div>
         </div>
         <div 
@@ -217,14 +218,52 @@
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
         </div>
+        <div v-if="!isSchool"
+            class="w-[90%] md:w-[40%] my-2 flex flex-col items-start justify-start"
+            >
+            <button
+                class="w-full bg-[#20B2AA] text-sm md:text-xl text-white py-1 px-2 rounded">
+                簽名
+            </button>
+        </div>
+
+        <Teleport to="body">
+            <dialogView type="small" v-if="dialogStatus">
+                <template v-slot:message>
+                    <div class="w-full h-auto rounded-lg m-1 p-1 flex flex-wrap items-center justify-center">
+                        <el-select 
+                            v-model="temperatureValue" 
+                            placeholder="請選擇體溫" 
+                            size="large"
+                            style="width:90%">
+                            <el-option
+                                v-for="item in temperatureOptions"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            />
+                        </el-select>
+                    </div>
+                </template>
+                <template v-slot:control>
+                    <div class="absolute w-full bottom-2 md:bottom-4 flex flex-wrap justify-center items-center">
+                        <button
+                            class="min-w-[20%] w-[90%] bg-[#483D8B] text-sm md:text-xl text-white py-1 px-2 rounded">
+                            送出
+                        </button>
+                    </div>
+                </template>
+            </dialogView>
+        </Teleport>
     </div>
 </template>
 
 <script setup>
 /*eslint-disable*/
 import { useStore } from "vuex";
-import { ref,computed } from 'vue'
+import { ref,computed,provide } from 'vue'
 import { useRouter } from "vue-router";
+import dialogView from "@/components/dialogView.vue"
 
 const router = useRouter()
 const store = useStore()
@@ -286,13 +325,22 @@ const data = ref(
         }
     },
 )
+const temperatureValue = ref('')
+const temperatureOptions = ref([])
 
 const apiLoading = ref(false)
 const dayData = ref(new Date())
 const init = async() => {
     apiLoading.value = true
-    // let role = store.state.roleID
-    // console.log('roleID',roleID.value)
+    let target = 34.0
+    for(let i = 0;i<60;i++){
+        target+=0.1
+        //console.log('test',target.toFixed(1))
+        temperatureOptions.value.push({
+            value: target.toFixed(1),
+            label: target.toFixed(1)
+        })
+    }
     apiLoading.value = false
 }
 
@@ -342,6 +390,17 @@ const toChat = () => {
 const toRoom = () => {
     router.push({ path: '/chatroom' })
 }
+
+const dialogStatus = ref(false)
+const takeTemperature = () => {
+    dialogStatus.value = true
+}
+
+const cancel = () => {
+    dialogStatus.value = false
+}
+
+provide('cancel', cancel)
 
 </script>
 

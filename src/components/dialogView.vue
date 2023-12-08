@@ -8,7 +8,8 @@
         @click="test"
         :class="{ 
             'left-[calc(50%_-_135px)] top-[calc(50%_-_90px)] md:left-[calc(50%_-_300px)] md:top-[calc(50%_-_200px)] w-[270px] h-[180px] md:w-[600px] md:h-[400px] ' : type == 'default',
-            'left-[calc(50%_-_135px)] top-[calc(50%_-_120px)] md:left-[calc(50%_-_300px)] md:top-[calc(50%_-_220px)] w-[270px] h-[240px] md:w-[600px] md:h-[440px] ' : type == 'large' 
+            'left-[calc(50%_-_135px)] top-[calc(50%_-_120px)] md:left-[calc(50%_-_300px)] md:top-[calc(50%_-_220px)] w-[270px] h-[240px] md:w-[600px] md:h-[440px] ' : type == 'large',
+            'left-[calc(50%_-_100px)] top-[calc(50%_-_75px)] md:left-[calc(50%_-_200px)] md:top-[calc(50%_-_100px)] w-[200px] h-[150px] md:w-[400px] md:h-[200px] ' : type == 'small'
         }"
         class="animate__animated animate__bounceIn fixed  rounded-lg bg-white z-[1000] flex flex-col justify-center items-center "
     >

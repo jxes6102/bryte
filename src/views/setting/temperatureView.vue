@@ -118,8 +118,6 @@ const apiLoading = ref(false)
 const dayData = ref(new Date())
 const init = async() => {
     apiLoading.value = true
-    // let role = store.state.roleID
-    // console.log('roleID',roleID.value)
     apiLoading.value = false
 }
 

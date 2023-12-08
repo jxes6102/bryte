@@ -155,8 +155,6 @@ const options = ref({});
 const apiLoading = ref(false)
 const init = async() => {
     apiLoading.value = true
-    // let role = store.state.roleID
-    // console.log('roleID',roleID.value)
     data.value ={
         labels: ['幼兒園', '幼稚園'],
         datasets: [

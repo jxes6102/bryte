@@ -29,7 +29,7 @@
             <button
                 @click="openChat"
                 class="w-full bg-[#483D8B] text-sm md:text-xl text-white py-1 px-2 rounded">
-                留言給家長 
+                {{isSchool ? '留言給家長' : '留言給導師'}}
             </button>
         </div>
         <Teleport to="body">
@@ -77,6 +77,10 @@ const store = useStore()
 
 const roleID = computed(() => {
     return store.state.roleID
+})
+
+const isSchool = computed(() => {
+    return (roleID.value == 2) || (roleID.value == 1)
 })
 
 const messagelist = ref([
@@ -157,8 +161,6 @@ const apiLoading = ref(false)
 const dayData = ref(new Date())
 const init = async() => {
     apiLoading.value = true
-    // let role = store.state.roleID
-    // console.log('roleID',roleID.value)
     apiLoading.value = false
 }
 
@@ -188,7 +190,7 @@ const chatBoard = ref(null)
 const sendMessage = (el) => {
     messagelist.value.push(
         {
-            roleType:2,
+            roleType:roleID.value,
             name:'XXX老師',
             text: word.value,
             time:'一小時前'
