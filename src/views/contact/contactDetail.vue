@@ -62,6 +62,7 @@
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
             <div v-else
+                @click="openMedication"
                 class="absolute right-[5px] bottom-[calc(70%_-_8px)] md:right-[15px] md:bottom-[calc(70%_-_15px)] text-[14px] md:text-xl text-[#4169E1] flex flex-wrap items-center justify-center cursor-pointer">
                 <el-icon :size="isMobile ? 15 : 30"><Plus /></el-icon>
                 <div>新增</div>
@@ -232,15 +233,15 @@
                 <template v-slot:message>
                     <div class="w-full h-auto rounded-lg m-1 p-1 flex flex-wrap items-center justify-center">
                         <el-select 
-                            v-model="temperatureValue" 
-                            placeholder="請選擇體溫" 
+                            v-model="temperatureValue"
+                            placeholder="請選擇體溫"
                             size="large"
-                            style="width:90%">
+                            style="width:90%;">
                             <el-option
-                                v-for="item in temperatureOptions"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
+                              v-for="item in temperatureOptions"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value"
                             />
                         </el-select>
                     </div>
@@ -254,6 +255,80 @@
                     </div>
                 </template>
             </dialogView>
+            <conversationView type="large" v-if="modalStatus">
+                <template v-slot:content>
+                    <div class="w-full py-1 md:py-3 px-3 md:px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">起訖日期</div>
+                        <div class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">
+                            <el-date-picker
+                                v-model="inputMedication.startDate"
+                                popper-class="custom-date-picker"
+                                type="date"
+                                placeholder="選擇查詢日期"
+                                :disabled-date="inputMedication.disabledDate"
+                                :disabled="apiLoading"
+                                :editable="false"
+                                :style="isMobile ? 'width: 110px;font-size: 12px;' : 'width: 40%;'"
+                            />
+                            <div>至</div>
+                            <el-date-picker
+                                v-model="inputMedication.endDate"
+                                popper-class="custom-date-picker"
+                                type="date"
+                                placeholder="選擇查詢日期"
+                                :disabled-date="inputMedication.disabledDate"
+                                :disabled="apiLoading"
+                                :editable="false"
+                                :style="isMobile ? 'width: 110px;font-size: 12px;' : 'width: 40%;'"
+                            />
+                        </div>
+                    </div>
+                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">餵藥時間</div>
+                        <el-time-select
+                            class="w-[150px] md:w-[200px]"
+                            v-model="inputMedication.time"
+                            :clearable="false"
+                            start="00:10"
+                            step="00:10"
+                            end="23:50"
+                            placeholder="Select time"
+                        />
+                    </div>
+                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">飯前飯後</div>
+                        <div class="px-[1px] flex flex-wrap items-center justify-center">
+                            <el-radio-group v-model="inputMedication.moment" class="">
+                                <el-radio label="1" size="large">飯前</el-radio>
+                                <el-radio label="2" size="large">飯後</el-radio>
+                            </el-radio-group>
+                        </div>
+                    </div>
+                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">備註</div>
+                        <div class="relative w-full h-[50px] md:h-[80px] text-base md:text-2xl">
+                            <textarea 
+                                v-model="inputMedication.word"
+                                placeholder="請在此輸入留言"
+                                required
+                                class="w-full h-full p-1 bg-gray-100 border-gray-300 border-[1px]"
+                                style="resize:none;"
+                                maxlength="30"
+                                >
+                            </textarea>
+                            <!-- <div class="absolute right-3 bottom-1">{{'字數' + word.length + '/30'}}</div> -->
+                        </div>
+                    </div>
+                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                        <div class="w-full text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">上傳相片</div>
+                        <button
+                            @click="cancel"
+                            class="min-w-[20%] bg-white py-[1px] px-[2px] md:py-1 md:px-2 rounded-sm border-[1px] text-[#808080] border-[#808080]">
+                            點擊選擇相片
+                        </button>
+                    </div>
+                </template>
+            </conversationView>
         </Teleport>
     </div>
 </template>
@@ -264,6 +339,7 @@ import { useStore } from "vuex";
 import { ref,computed,provide } from 'vue'
 import { useRouter } from "vue-router";
 import dialogView from "@/components/dialogView.vue"
+import conversationView from "@/components/conversationView.vue"
 
 const router = useRouter()
 const store = useStore()
@@ -396,11 +472,28 @@ const takeTemperature = () => {
     dialogStatus.value = true
 }
 
+const modalStatus = ref(false)
+const openMedication = () => {
+    modalStatus.value = true
+}
+
 const cancel = () => {
     dialogStatus.value = false
+    modalStatus.value = false
 }
 
 provide('cancel', cancel)
+
+const inputMedication = ref({
+    time:'17:20',
+    word:'',
+    moment:'1',
+    startDate:new Date(),
+    endDate:new Date(),
+    disabledDate: function(time) {
+        return (time.getTime() > Date.now()) || (time.getTime() < (Date.now() - 2592000000))
+    },
+})
 
 </script>
 
