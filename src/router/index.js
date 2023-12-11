@@ -24,6 +24,7 @@ import temperatureView from '../views/setting/temperatureView'
 import chatView from '../views/chatroom/chatView'
 import chatroom from '../views/chatroom' 
 import messageView from '../views/message'
+import errorView from '../views/errorView.vue'
 import { useStore } from "vuex";
 
 const routes = [
@@ -245,7 +246,10 @@ const routes = [
     name: 'messageView',
     component: messageView,
   },
-  
+  { 
+    path: '/:pathMatch(.*)*', 
+    component: errorView 
+  },
   
   // {
   //   path: '/about',
