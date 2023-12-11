@@ -92,12 +92,22 @@ const routes = [
   {
     path: '/courseDetail',
     name: 'courseDetail',
-    component: courseDetail
+    component: courseDetail,
+    beforeEnter: (to) => {
+      if((!to.query?.CLSNO) || (!to.query?.HDYDATE)){
+        return '/course'
+      }
+    },
   },
   {
     path: '/signRecord',
     name: 'signRecord',
-    component: signRecord
+    component: signRecord,
+    beforeEnter: (to) => {
+      if((!to.query?.CLSNO) || (!to.query?.HDYDATE)){
+        return '/course'
+      }
+    },
   },
   {
     path: '/contact',

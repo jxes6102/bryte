@@ -44,6 +44,14 @@
                 <div>{{userProfile?.LINENotifyStatus}}</div>
             </div>
         </div>
+        <div class="w-[95%] md:w-[45%] h-[100%] text-base md:text-xl rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center ">
+            <div class="w-full h-auto flex flex-wrap items-center justify-between">
+                <div>點數</div>
+            </div>
+            <div class="w-full h-auto flex flex-wrap items-center justify-between">
+                <div>90</div>
+            </div>
+        </div>
         <dialogView v-if="dialogStatus">
             <template v-slot:message>
                 <div class="text-base md:text-2xl px-3">{{dialogData}}</div>
@@ -122,6 +130,7 @@ const cancel = () => {
 }
 
 provide('cancel', cancel)
+
 
 </script>
 

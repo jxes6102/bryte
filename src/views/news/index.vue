@@ -33,26 +33,24 @@
             v-else
             class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center gap-y-[10px]">
             <div 
-                @click="toNews(item)"
                 v-for="(item, index) in newsData" :key="index"
-                class="relative w-full h-[27vw] md:h-[210px] p-1 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between">
+                @click="toNews(item)"
+                class="relative w-full h-[auto] md:h-[210px] p-1 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between cursor-pointer">
                 <div 
                     v-if="item.PreviewImage" 
-                    class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-cover bg-center bg-no-repeat rounded-lg"
-                    :style="{
-                        'background-image': 'url(' + item.PreviewImage + ')',
-                    }"
+                    class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] bg-cover bg-center bg-no-repeat rounded-lg"
                     >
+                    <img :src="item.PreviewImage" alt="">
                 </div>
                 <div 
                     v-else 
                     class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] rounded-lg" >
                 </div>
-                <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] px-1 text-[0.5rem] md:text-2xl flex flex-col items-center justify-between">
+                <div class="w-[calc(100%_-_25vw)] md:w-[calc(100%_-_200px)] h-[100%] min-h-[25vw] md:min-h-[100%]  px-1 text-[14px] md:text-2xl flex flex-col items-center justify-between">
                     <div class="w-[100%] text-left text-[#0d6efd] font-semibold grow-[1]">{{item.Title}}</div>
                     <div class="w-[100%] text-left text-[#808080] grow-[9]">{{item.PreviewText}}</div>
-                    <div class="w-[100%] h-auto md:text-xl text-[#808080] flex flex-wrap items-center justify-between">
-                        <div>{{ "類別: " + item.Category}}</div>
+                    <div class="w-[100%] h-auto text-[12px] md:text-xl text-[#808080] flex items-center justify-between">
+                        <div>{{ "類別:" + item.Category}}</div>
                         <div>{{item.CreateTime}}</div>
                     </div>
                 </div>
@@ -115,6 +113,7 @@ watch(route, (newVal,oldval) => {
         hasNews.value = true
         initNew()
     }else{
+        hasNews.value = false
         initList()
     }
 },{ deep: true,immediate: true });
