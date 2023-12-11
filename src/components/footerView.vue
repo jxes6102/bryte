@@ -18,10 +18,11 @@
         </div>
         <div 
           class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
-          @click="tohome()"
+          @click="toMessage()"
           >
           <el-icon :size="25"><Message /></el-icon>
           訊息中心
+          <div class="absolute w-[16px] h-[16px] top-[5%] left-[calc(50%_+_10px)] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">2</div>
         </div>
         <div 
           class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
@@ -59,7 +60,11 @@ const tocenter = () => {
 }
 
 const tocontact = () => {
-    router.push({ path: '/contact' })
+  router.push({ path: '/contact' })
+}
+
+const toMessage = () => {
+  router.push({ path: '/messageView' })
 }
 
 </script>

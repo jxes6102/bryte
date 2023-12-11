@@ -23,6 +23,7 @@ import tipView from '../views/setting/tipView'
 import temperatureView from '../views/setting/temperatureView'
 import chatView from '../views/chatroom/chatView'
 import chatroom from '../views/chatroom' 
+import messageView from '../views/message'
 import { useStore } from "vuex";
 
 const routes = [
@@ -238,6 +239,11 @@ const routes = [
     path: '/chatroom',
     name: 'chatroom',
     component: chatroom,
+  },
+  {
+    path: '/messageView',
+    name: 'messageView',
+    component: messageView,
   },
   
   

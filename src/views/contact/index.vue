@@ -25,8 +25,8 @@
             <div>)</div>
         </div>
         <div class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
-            <div @click="toContactChart" class="px-2 text-[#F08080]">聯絡簿統計</div>
-            <div @click="toMedication" class="px-2 text-[#F08080]">今日餵藥列表</div>
+            <div @click="toContactChart" class="px-2 text-[#F08080] cursor-pointer">聯絡簿統計</div>
+            <div @click="toMedication" class="px-2 text-[#F08080] cursor-pointer">今日餵藥列表</div>
         </div>
         <div 
             v-for="(item,index) in data" :key="index" 

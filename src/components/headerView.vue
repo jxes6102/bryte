@@ -71,7 +71,7 @@ watch(route, (newVal,oldval) => {
 
     linkData.value = [
         {text:"聯絡簿",url:'/contact'},
-        {text:"訊息中心",url:'/'},
+        {text:"訊息中心",url:'/messageView'},
         {text:"個人中心",url:'/center'},
     ]
 
@@ -150,6 +150,9 @@ watch(route, (newVal,oldval) => {
     }else if(newVal.path == '/chatroom'){
         headerTitle.value = '家長留言'
         linkData.value = []
+    }else if(newVal.path == '/messageView'){
+        headerTitle.value = '訊息中心'
+        linkData.value = []
     }else{
         headerTitle.value = 'A機構家校e點通平台'
     }
@@ -162,7 +165,7 @@ const tohome = () => {
 
 const linkData = ref([
     {text:"聯絡簿",url:'/contact'},
-    {text:"訊息中心",url:'/'},
+    {text:"訊息中心",url:'/messageView'},
     {text:"個人中心",url:'/center'},
 ])
 
