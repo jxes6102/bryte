@@ -14,7 +14,7 @@
                 <div 
                     v-if="item.noReadCount > 0" 
                     class="w-full flex flex-wrap justify-center items-center">
-                    <div class="w-[17px] h-[17px] md:w-[23px] md:h-[23px] text-white bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">{{item.noReadCount}}</div>
+                    <div class="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">{{item.noReadCount+'+'}}</div>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@ const list = ref([
         classNum:'83',
         time:'18:00',
         message:'test1',
-        noReadCount:3
+        noReadCount:9
     },
     {
         name:'猴子二號',
@@ -58,7 +58,7 @@ const list = ref([
         classNum:'21',
         time:'18:00',
         message:'test3',
-        noReadCount:2
+        noReadCount:9
     },
 ])
 
