@@ -153,6 +153,9 @@ watch(route, (newVal,oldval) => {
     }else if(newVal.path == '/messageView'){
         headerTitle.value = '訊息中心'
         linkData.value = []
+    }else if(newVal.path == '/qrcodeView'){
+        headerTitle.value = '掃描'
+        linkData.value = []
     }else{
         headerTitle.value = 'A機構家校e點通平台'
     }

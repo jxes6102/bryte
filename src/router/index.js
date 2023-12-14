@@ -24,6 +24,7 @@ import temperatureView from '../views/setting/temperatureView'
 import chatView from '../views/chatroom/chatView'
 import chatroom from '../views/chatroom' 
 import messageView from '../views/message'
+import qrcodeView from '../views/qrcode'
 import errorView from '../views/errorView.vue'
 import { useStore } from "vuex";
 
@@ -245,6 +246,17 @@ const routes = [
     path: '/messageView',
     name: 'messageView',
     component: messageView,
+  },
+  {
+    path: '/qrcodeView',
+    name: 'qrcodeView',
+    component: qrcodeView,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
   },
   { 
     path: '/:pathMatch(.*)*', 

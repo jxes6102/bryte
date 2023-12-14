@@ -219,6 +219,14 @@
                 <el-icon :size="isMobile ? 15 : 30"><ArrowRightBold /></el-icon>
             </div>
         </div>
+        <div
+            v-if="isSchool"
+            @click="toScan"
+            class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
+            <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
+                <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">掃描</div>
+            </div>
+        </div>
         <div v-if="!isSchool"
             class="w-[90%] md:w-[40%] my-2 flex flex-col items-start justify-start"
             >
@@ -494,6 +502,10 @@ const inputMedication = ref({
         return (time.getTime() > Date.now()) || (time.getTime() < (Date.now() - 2592000000))
     },
 })
+
+const toScan = () => {
+    router.push({ path: '/qrcodeView' })
+}
 
 </script>
 
