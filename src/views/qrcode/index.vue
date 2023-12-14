@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col justify-center items-center">
-        <div class="w-[250px] h-[250px] my-1">
+        <div class="qrcodeStyle relative w-[250px] h-[250px] my-1">
             <!-- decode是扫描结果的函数，torch用于是否需要打开手电筒，init用于检查该设备是否能够调用摄像头的权限，camera可用于打开前面或者后面摄像头  -->
             <QrcodeDropZone @decode="onDecode">
               <QrcodeStream @decode="onDecode" :torch="torchActive" @init="onInit" :camera="camera" />
@@ -103,6 +103,10 @@ const onInit = async (promise) => {
 }
 
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+.qrcodeStyle div {
+    width: 100%;
+    height: 100%;
+}
 </style>
   
