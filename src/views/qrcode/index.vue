@@ -10,6 +10,7 @@
                 @error="onError">
             </QrcodeStream> -->
             <QrcodeStream
+                @camera-on="onReady"
                 :torch="torchActive"
                 :track="paintBoundingBox"
                 @detect="onDetect"
@@ -40,16 +41,42 @@
             </div>
         </div>
         <div class="w-[90%] my-1 text-xs flex flex-wrap justify-center items-center break-all">{{error}}</div>
+        <Teleport to="body">
+            <dialogView v-if="dialogStatus">
+                <template v-slot:message>
+                    <div
+                        v-for="(item,index) in resultArr" :key="index"
+                        class="w-[90%] h-[80px] text-xs flex flex-col justify-center items-center break-all overflow-hidden">
+                        {{item}}
+                    </div>
+                </template>
+                <template v-slot:control>
+                    <div class="absolute w-full bottom-4 flex flex-wrap justify-center items-center">
+                        <button
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            確定
+                        </button>
+                        <button
+                            @click="cancel"
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            取消
+                        </button>
+                    </div>
+                </template>
+            </dialogView>
+        </Teleport>
     </div>
     <div v-else class="w-full my-4 text-4xl flex flex-col justify-center items-center">
         請使用手機掃描
     </div>
+    
 </template>
 <script setup>
 /*eslint-disable*/
-import { ref,computed,onMounted } from 'vue';
+import { ref,computed,onMounted,provide } from 'vue';
 import { useStore } from "vuex";
 import { QrcodeStream } from 'vue-qrcode-reader'
+import dialogView from "@/components/dialogView.vue"
 
 onMounted(() => {
 })
@@ -100,8 +127,12 @@ const onError = (err) => {
 }
 
 const onDetect = (detectedCodes) => {
+    console.log('detectedCodes',detectedCodes)
+    
     result.value = JSON.stringify(detectedCodes.map(code => code.rawValue))
     resultArr.value = detectedCodes.map(code => code.rawValue)
+    dialogStatus.value = true
+    paused.value = true
 
 }
 
@@ -131,6 +162,19 @@ const delay = () => {
         }, 2000);
     });
 }
+
+const onReady = (item) => {
+    //console.log('onReady',item)
+}
+
+const dialogStatus = ref(false)
+const cancel = () => {
+    dialogStatus.value = false
+    paused.value = false
+}
+
+provide('cancel', cancel)
+
 
 </script>
 <style lang="scss" scoped>
