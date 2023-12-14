@@ -4,6 +4,9 @@ const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
+    devServer: {
+        https: true,
+    },
   publicPath: './',
   filenameHashing: true,
   transpileDependencies: true,
