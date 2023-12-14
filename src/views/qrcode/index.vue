@@ -23,11 +23,12 @@
             </button>
         </div>
         <div class="w-full my-1 px-2 text-xs flex-col justify-center items-center">
-            <div
+            {{ result }}
+            <!-- <div
                 class="w-full flex-col justify-center items-center"
                 v-for="(item,index) in result" :key="index">
                 {{item}}
-            </div>
+            </div> -->
         </div>
         <div class="w-full my-1 text-xs flex-wrap justify-center items-center">{{error}}</div>
     </div>
