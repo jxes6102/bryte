@@ -1,49 +1,67 @@
 <template>
-    <div class="flex flex-col justify-center items-center">
-        <div class="qrcodeStyle relative w-[75vw] h-[75vw] my-1">
-            <QrcodeStream
+    <div v-if="isMobile" class="flex flex-col justify-center items-center">
+        <div v-if="!paused" class="qrcodeStyle relative w-[75vw] h-[75vw] my-1">
+            <!-- <QrcodeStream
                 :paused="paused"
                 :constraints="{ facingMode }"
                 :track="paintBoundingBox"
                 :torch="torchActive"
                 @detect="onDetect"
                 @error="onError">
+            </QrcodeStream> -->
+            <QrcodeStream
+                :torch="torchActive"
+                :track="paintBoundingBox"
+                @detect="onDetect"
+                @error="onError">
             </QrcodeStream>
         </div>
+        <div v-else class="relative w-[75vw] h-[75vw] my-1 text-black flex flex-wrap justify-center items-center">
+            切換中
+        </div>
         <div class="w-full text-sm flex flex-wrap justify-center items-center">
-            <button
+            <!-- <button
                 @click="switchCamera"
                 class=" bg-blue-500 hover:bg-blue-600 text-white font-bold mx-1 py-1 px-2 md:py-2 md:px-3 rounded">
                 相機反轉
-            </button>
+            </button> -->
             <button
                 @click="clickFlash"
                 class=" bg-blue-500 hover:bg-blue-600 text-white font-bold mx-1 py-1 px-2 md:py-2 md:px-3 rounded">
                 打開手電筒
             </button>
         </div>
-        <div class="w-full my-1 px-2 text-xs flex-col justify-center items-center">
-            {{ result }}
-            <!-- <div
-                class="w-full flex-col justify-center items-center"
-                v-for="(item,index) in result" :key="index">
+        <div class="w-[90%] my-1 px-2 text-xs flex flex-col justify-center items-center break-all">
+            <!-- {{ result }} -->
+            <div
+                class="w-full flex flex-col justify-center items-center break-all"
+                v-for="(item,index) in resultArr" :key="index">
                 {{item}}
-            </div> -->
+            </div>
         </div>
-        <div class="w-full my-1 text-xs flex-wrap justify-center items-center">{{error}}</div>
+        <div class="w-[90%] my-1 text-xs flex flex-wrap justify-center items-center break-all">{{error}}</div>
+    </div>
+    <div v-else class="w-full my-4 text-4xl flex flex-col justify-center items-center">
+        請使用手機掃描
     </div>
 </template>
 <script setup>
 /*eslint-disable*/
 import { ref,computed,onMounted } from 'vue';
 import { useStore } from "vuex";
-import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
+import { QrcodeStream } from 'vue-qrcode-reader'
 
 onMounted(() => {
 })
 
+const store = useStore()
+const isMobile = computed(() => {
+    return store.state.isMobile
+})
+
 const torchActive = ref(false)
-const result = ref([])
+const result = ref('')
+const resultArr = ref([])
 const error = ref('')
 const facingMode = ref('environment')
 const paused = ref(false)
@@ -82,9 +100,9 @@ const onError = (err) => {
 }
 
 const onDetect = (detectedCodes) => {
-    result.value = JSON.stringify(
-        detectedCodes.map(code => code.rawValue)
-    )
+    result.value = JSON.stringify(detectedCodes.map(code => code.rawValue))
+    resultArr.value = detectedCodes.map(code => code.rawValue)
+
 }
 
 const switchCamera = () => {
@@ -98,8 +116,20 @@ const switchCamera = () => {
     }
 }
 
-const clickFlash = () => {
+const clickFlash = async() => {
+    paused.value = true
     torchActive.value = !torchActive.value
+    await delay()
+    paused.value = false
+}
+
+const delay = () => {   
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+
+            resolve('delay');
+        }, 2000);
+    });
 }
 
 </script>
