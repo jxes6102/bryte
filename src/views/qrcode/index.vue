@@ -1,6 +1,6 @@
 <template>
     <div v-if="isMobile" class="flex flex-col justify-center items-center">
-        <div v-if="!paused" class="qrcodeStyle relative w-[75vw] h-[75vw] my-1">
+        <div class="qrcodeStyle relative w-[75vw] h-[75vw] my-1">
             <!-- <QrcodeStream
                 :paused="paused"
                 :constraints="{ facingMode }"
@@ -10,15 +10,19 @@
                 @error="onError">
             </QrcodeStream> -->
             <QrcodeStream
+                :paused="paused"
                 @camera-on="onReady"
                 :torch="torchActive"
                 :track="paintBoundingBox"
                 @detect="onDetect"
                 @error="onError">
             </QrcodeStream>
-        </div>
-        <div v-else class="relative w-[75vw] h-[75vw] my-1 text-black flex flex-wrap justify-center items-center">
-            切換中
+            <div v-if="stopStatus" 
+                class="absolute top-0 left-0 text-black bg-white flex flex-wrap justify-center items-center"
+                style="width:75vw;height:75vw;"
+                >
+                切換中
+            </div>
         </div>
         <div class="w-full text-sm flex flex-wrap justify-center items-center">
             <!-- <button
@@ -29,25 +33,36 @@
             <button
                 @click="clickFlash"
                 class=" bg-blue-500 hover:bg-blue-600 text-white font-bold mx-1 py-1 px-2 md:py-2 md:px-3 rounded">
-                打開手電筒
+                開關手電筒
             </button>
         </div>
         <div class="w-[90%] my-1 px-2 text-xs flex flex-col justify-center items-center break-all">
-            <!-- {{ result }} -->
             <div
+                class="w-full flex flex-col justify-center items-center break-all">
+                {{result}}
+            </div>
+            <div
+                class="w-full flex flex-col justify-center items-center break-all">
+                {{error}}
+            </div>
+            <!-- <div
                 class="w-full flex flex-col justify-center items-center break-all"
                 v-for="(item,index) in resultArr" :key="index">
                 {{item}}
-            </div>
+            </div> -->
         </div>
         <div class="w-[90%] my-1 text-xs flex flex-wrap justify-center items-center break-all">{{error}}</div>
         <Teleport to="body">
             <dialogView v-if="dialogStatus">
                 <template v-slot:message>
-                    <div
+                    <!-- <div
                         v-for="(item,index) in resultArr" :key="index"
                         class="w-[90%] h-[80px] text-xs flex flex-col justify-center items-center break-all overflow-hidden">
                         {{item}}
+                    </div> -->
+                    <div
+                        class="w-[90%] h-[80px] text-xs flex flex-col justify-center items-center break-all overflow-hidden">
+                        {{result}}
                     </div>
                 </template>
                 <template v-slot:control>
@@ -85,14 +100,25 @@ const store = useStore()
 const isMobile = computed(() => {
     return store.state.isMobile
 })
-
+/*
+torchActive 手電筒狀態
+result  顯示文字
+resultArr qrcode資料陣列
+error 錯誤文字
+facingMode 鏡頭訊息
+stopStatus loading狀態
+paused 暫停狀態
+dialogStatus 彈出視窗狀態
+*/
 const torchActive = ref(false)
 const result = ref('')
 const resultArr = ref([])
 const error = ref('')
 const facingMode = ref('environment')
+const stopStatus = ref(true)
 const paused = ref(false)
-
+const dialogStatus = ref(false)
+//掃描框線設定
 const paintBoundingBox = (detectedCodes, ctx) => {
     for (const detectedCode of detectedCodes) {
         const {
@@ -104,9 +130,8 @@ const paintBoundingBox = (detectedCodes, ctx) => {
         ctx.strokeRect(x, y, width, height)
     }
 }
-
+//偵測到error觸發
 const onError = (err) => {
-
     if (err.name === 'NotAllowedError') {
         error.value += 'you need to grant camera access permission'
     } else if (err.name === 'NotFoundError') {
@@ -125,17 +150,15 @@ const onError = (err) => {
         error.value += err.message
     }
 }
-
+//偵測到QRCODE觸發
 const onDetect = (detectedCodes) => {
-    console.log('detectedCodes',detectedCodes)
-    
-    result.value = JSON.stringify(detectedCodes.map(code => code.rawValue))
+    //console.log('detectedCodes',detectedCodes)
     resultArr.value = detectedCodes.map(code => code.rawValue)
+    result.value = detectedCodes[0].rawValue
     dialogStatus.value = true
     paused.value = true
-
 }
-
+//切換前後鏡頭
 const switchCamera = () => {
     switch (facingMode.value) {
         case 'environment':
@@ -146,35 +169,34 @@ const switchCamera = () => {
             break
     }
 }
-
+//切換手電筒
 const clickFlash = async() => {
+    stopStatus.value = true
     paused.value = true
     torchActive.value = !torchActive.value
     await delay()
     paused.value = false
 }
-
+//延遲設定
 const delay = () => {   
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
-
             resolve('delay');
         }, 2000);
     });
 }
-
+//qrcode元件初始化時觸發
 const onReady = (item) => {
+    stopStatus.value = false
     //console.log('onReady',item)
 }
-
-const dialogStatus = ref(false)
+//關閉彈出視窗
 const cancel = () => {
     dialogStatus.value = false
     paused.value = false
 }
 
 provide('cancel', cancel)
-
 
 </script>
 <style lang="scss" scoped>
