@@ -26,7 +26,63 @@
             class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
             <div @click="toContactChart" class="px-2 text-[#F08080] cursor-pointer">聯絡簿統計</div>
         </div>
-        <div 
+        <div class="relative w-[100%] md:w-[45%] h-[auto] py-2 flex flex-wrap items-center justify-center md:justify-center gap-[10px]">
+            <div
+                @click="linkMedication" 
+                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                    餵藥
+                </div>
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><HotWater /></el-icon>
+            </div>
+            <div 
+                @click="linkTemperature"
+                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                    體溫測量
+                </div>
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Document /></el-icon>
+            </div>
+            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                    愛的叮嚀
+                </div>
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><BellFilled /></el-icon>
+            </div>
+            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                    聯絡簿簽名
+                </div>
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><EditPen /></el-icon>
+            </div>
+            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                    家長留言
+                </div>
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Microphone /></el-icon>
+            </div>
+            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                    今日發回
+                </div>
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Paperclip /></el-icon>
+            </div>
+            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                    學習狀況
+                </div>
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><GoodsFilled /></el-icon>
+            </div>
+            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                    掃描
+                </div>
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Stamp /></el-icon>
+            </div>
+            
+        </div>
+        
+        <!-- <div 
             class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
             <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
                 <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">餵藥</div>
@@ -226,7 +282,7 @@
             <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
                 <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">掃描</div>
             </div>
-        </div>
+        </div> -->
         <div v-if="!isSchool"
             class="w-[90%] md:w-[40%] my-2 flex flex-col items-start justify-start"
             >
@@ -505,6 +561,22 @@ const inputMedication = ref({
 
 const toScan = () => {
     router.push({ path: '/qrcodeView' })
+}
+
+const linkMedication = () => {
+    if(isSchool.value){
+        toMedication()
+    }else{
+        openMedication()
+    }
+}
+
+const linkTemperature = () => {
+    if(isSchool.value){
+        toTemperature()
+    }else{
+        takeTemperature()
+    }
 }
 
 </script>

@@ -29,7 +29,8 @@
             <div @click="toMedication" class="px-2 text-[#F08080] cursor-pointer">今日餵藥列表</div>
         </div>
         <div 
-            v-for="(item,index) in data" :key="index" 
+            v-for="(item,index) in data" :key="index"
+            @click="toContactDetail"
             class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
             <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
                 <div class="text-[16px] md:text-2xl font-semibold">{{ item.className }}</div>
@@ -42,7 +43,6 @@
                 <div class="">{{ '/' + item.peopleTotal + '人'}}</div>
             </div>
             <div 
-                @click="toContactDetail"
                 class="absolute right-[5px] top-[calc(50%_-_10px)] md:right-[15px] md:top-[calc(50%_-_20px)] cursor-pointer">
                 <el-icon :size="isMobile ? 20 : 40"><ArrowRightBold /></el-icon>
             </div>
