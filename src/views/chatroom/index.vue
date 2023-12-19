@@ -1,5 +1,5 @@
 <template>
-    <div class="w-auto h-[100vh] md:h-[80%] p-2 flex flex-col justify-start items-center ">
+    <div class="w-auto h-[100vh] md:h-[90%] p-2 flex flex-col justify-start items-center ">
         <div
             ref="chatBoard"
             v-tobottom
@@ -27,7 +27,7 @@
         </div>
         <div
             ref="sendEle"
-            class="w-[90%] md:w-[50%] h-[35px] my-1 flex flex-wrap justify-center items-end gap-[10px]"
+            class="w-[90%] md:w-[50%] h-[35px] max-h-[100px]  my-1 flex flex-wrap justify-center items-end gap-[10px]"
             >
             <!-- <button
                 @click="openChat"
