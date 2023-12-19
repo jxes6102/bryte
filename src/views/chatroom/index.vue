@@ -1,5 +1,5 @@
 <template>
-    <div class="w-auto h-[100vh] md:h-[90%] p-2 flex flex-col justify-start items-center ">
+    <div class="w-auto h-[80vh] md:h-[90%] p-2 flex flex-col justify-start items-center ">
         <div
             ref="chatBoard"
             v-tobottom
@@ -41,7 +41,7 @@
                     @keyup="changeHeight"
                     placeholder="請在此輸入留言"
                     required
-                    class="w-full h-full p-1 bg-gray-100 border-gray-300 border-[1px] overflow-hidden"
+                    class="w-full h-full p-1 bg-gray-100 border-gray-300 border-[1px]"
                     style="resize:none;"
                     maxlength="30"
                     >
