@@ -26,7 +26,7 @@
             class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
             <div @click="toContactChart" class="px-2 text-[#F08080] cursor-pointer">聯絡簿統計</div>
         </div>
-        <div class="relative w-[100%] md:w-[45%] h-[auto] py-2 flex flex-wrap items-center justify-center md:justify-center gap-[10px]">
+        <div class="relative w-[100%] md:w-[45%] h-[auto] py-2 flex flex-wrap items-center justify-center gap-[10px]">
             <div
                 @click="linkMedication" 
                 class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
@@ -407,6 +407,38 @@
                     </div>
                 </template>
             </conversationView>
+            <dialogView v-if="transmitStatus">
+                <template v-slot:message>
+                    <div class="w-full px-3 text-sm text-[#808080] md:text-2xl flex flex-col items-start justify-start">
+                        <div class="my-1" v-if="data.work.notification.status">{{'通知單，請於' + data.work.notification.day + '前繳回'}}</div>
+                        <div class="my-1" v-if="data.work.worksheet.status">{{'學習單，請於' + data.work.worksheet.day + '前繳回'}}</div>
+                        <div class="my-1" v-if="data.work.receipt.status">{{'附上收據，找回' + data.work.receipt.money + '元'}}</div>
+                        <div
+                            v-if="data.work.things.suit || data.work.things.shoe || data.work.things.bedding || data.work.things.toiletry" 
+                            class="w-full my-1 flex flex-wrap items-center justify-start" >
+                            <div>清洗衣物:</div>
+                            <div class="px-1" v-if="data.work.things.suit">衣褲</div>
+                            <div class="px-1" v-if="data.work.things.shoe">室內鞋</div>
+                            <div class="px-1" v-if="data.work.things.bedding">寢具</div>
+                            <div class="px-1" v-if="data.work.things.toiletry">牙刷、牙杯</div>
+                        </div>
+                    </div>
+                </template>
+            </dialogView>
+            <dialogView v-if="learnStatus">
+                <template v-slot:message>
+                    <div 
+                        class="w-full px-3 text-[#808080] text-sm md:text-2xl flex flex-col items-start md:items-center justify-start">
+                        <div>{{'身體狀況: ' + data.detail.body}}</div>
+                        <div>{{'飲食狀況: ' + data.detail.food}}</div>
+                        <div>{{'午睡狀況: ' + data.detail.sleep}}</div>
+                        <div>{{'是否排便: ' + data.detail.defecate}}</div>
+                        <div>{{'學習狀況: ' + data.detail.learn}}</div>
+                        <div>{{'人際互動: ' + data.detail.communication}}</div>
+                        <div>{{'情緒表現: ' + data.detail.mood}}</div>
+                    </div>
+                </template>
+            </dialogView>
         </Teleport>
     </div>
 </template>
@@ -558,6 +590,8 @@ const openMedication = () => {
 const cancel = () => {
     dialogStatus.value = false
     modalStatus.value = false
+    transmitStatus.value = false
+    learnStatus.value = false
 }
 
 provide('cancel', cancel)
@@ -601,19 +635,21 @@ const linkChat = () => {
     }
 }
 
+const transmitStatus = ref(false)
 const linkTransmit = () => {
     if(isSchool.value){
         toTransmit()
     }else{
-
+        transmitStatus.value = true
     }
 }
 
+const learnStatus = ref(false) 
 const linkLearn = () => {
     if(isSchool.value){
         toLearn()
     }else{
-
+        learnStatus.value = true
     }
 }
 
