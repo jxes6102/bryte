@@ -1,5 +1,5 @@
 <template>
-    <div class="w-auto h-auto md:h-[80%] p-2 flex flex-col justify-start items-center ">
+    <div class="w-auto h-[100vh] md:h-[80%] p-2 flex flex-col justify-start items-center ">
         <div
             ref="chatBoard"
             v-tobottom
@@ -25,14 +25,35 @@
                 </div>
             </div>
         </div>
-        <div class="w-[90%] md:w-[40%] my-2">
-            <button
+        <div
+            ref="sendEle"
+            class="w-[90%] md:w-[50%] h-[35px] my-1 flex flex-wrap justify-center items-end gap-[10px]"
+            >
+            <!-- <button
                 @click="openChat"
                 class="w-full bg-[#483D8B] text-sm md:text-xl text-white py-1 px-2 rounded">
                 {{isSchool ? '留言給家長' : '留言給導師'}}
+            </button> -->
+            <div class="relative w-[70%] h-full text-base md:text-2xl">
+                <textarea
+                    ref="textEle"
+                    v-model="word"
+                    @keyup="changeHeight"
+                    placeholder="請在此輸入留言"
+                    required
+                    class="w-full h-full p-1 bg-gray-100 border-gray-300 border-[1px] overflow-hidden"
+                    style="resize:none;"
+                    maxlength="30"
+                    >
+                </textarea>
+            </div>
+            <button
+                @click="sendMessage"
+                class="w-[auto] bg-[#483D8B] text-sm md:text-xl text-white py-1 px-2 rounded">
+                送出
             </button>
         </div>
-        <Teleport to="body">
+        <!-- <Teleport to="body">
             <dialogView v-if="dialogStatus">
                 <template v-slot:message>
                     <div class="w-[90%] md:w-[90%] h-[90px] md:h-[270px] rounded-lg m-1 p-1 flex flex-wrap items-start justify-center">
@@ -46,7 +67,6 @@
                                 maxlength="30"
                                 >
                             </textarea>
-                            <!-- <div class="absolute right-3 bottom-1">{{'字數' + word.length + '/30'}}</div> -->
                         </div>
                     </div>
                 </template>
@@ -60,7 +80,7 @@
                     </div>
                 </template>
             </dialogView>
-        </Teleport>
+        </Teleport> -->
     </div>
     
 </template>
@@ -207,6 +227,23 @@ const sendMessage = (el) => {
         chatBoard.value.scrollTo(target)
     })
   
+}
+
+const textEle = ref(null)
+const sendEle = ref(null)
+const changeHeight = () => {
+    sendEle.value.style.height = '35px'
+    sendEle.value.style.height = textEle.value.scrollHeight + 'px'
+    
+    const target = {
+        top: chatBoard.value.scrollHeight + 999,
+        left: 0,
+        behavior: 'smooth',
+    }
+
+    nextTick(()=>{
+        chatBoard.value.scrollTo(target)
+    })
 }
 
 </script>

@@ -15,7 +15,7 @@
     </Transition> -->
     <router-view v-slot="{ Component, route }" class="relative pb-[20vh] md:pb-0">
       <Transition enter-active-class="animate__animated animate__fadeIn">
-        <component :is="Component" :key="route.path" />
+        <component v-totop :is="Component" :key="route.path" />
       </Transition>
     </router-view>
     <footerView></footerView>

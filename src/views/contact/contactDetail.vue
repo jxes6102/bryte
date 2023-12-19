@@ -26,7 +26,7 @@
             class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
             <div @click="toContactChart" class="px-2 text-[#F08080] cursor-pointer">聯絡簿統計</div>
         </div>
-        <div class="relative w-[100%] md:w-[45%] h-[auto] py-2 flex flex-wrap items-center justify-center gap-[10px]">
+        <div class="relative w-[80%] md:w-[45%] h-[auto] py-2 grid grid-cols-2 md:grid-cols-3 justify-items-center gap-[10px]">
             <div
                 @click="linkMedication" 
                 class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">

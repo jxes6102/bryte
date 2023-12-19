@@ -35,5 +35,16 @@ app.directive('tobottom', {
     // },
 })
 
+app.directive('totop', {
+    mounted() {
+        const target = {
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+        }
+        document.querySelector('#main').scrollTo(target)
+    }
+})
+
 app.use(store).use(router).use(CKEditor).mount('#app')
 
