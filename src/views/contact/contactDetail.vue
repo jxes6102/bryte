@@ -43,37 +43,51 @@
                 </div>
                 <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Document /></el-icon>
             </div>
-            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+            <div
+                @click="toTip"  
+                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
                     愛的叮嚀
                 </div>
                 <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><BellFilled /></el-icon>
             </div>
-            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+            <div
+                v-if="isSchool"
+                @click="toSign()"
+                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
                     聯絡簿簽名
                 </div>
                 <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><EditPen /></el-icon>
             </div>
-            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+            <div 
+                @click="linkChat"
+                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
                     家長留言
                 </div>
                 <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Microphone /></el-icon>
             </div>
-            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+            <div 
+                @click="linkTransmit"
+                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
                     今日發回
                 </div>
                 <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Paperclip /></el-icon>
             </div>
-            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+            <div 
+                @click="linkLearn"
+                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
                     學習狀況
                 </div>
                 <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><GoodsFilled /></el-icon>
             </div>
-            <div class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
+            <div
+                v-if="isSchool"
+                @click="toScan"
+                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
                     掃描
                 </div>
@@ -576,6 +590,30 @@ const linkTemperature = () => {
         toTemperature()
     }else{
         takeTemperature()
+    }
+}
+
+const linkChat = () => {
+    if(isSchool.value){
+        toChat()
+    }else{
+        toRoom()
+    }
+}
+
+const linkTransmit = () => {
+    if(isSchool.value){
+        toTransmit()
+    }else{
+
+    }
+}
+
+const linkLearn = () => {
+    if(isSchool.value){
+        toLearn()
+    }else{
+
     }
 }
 

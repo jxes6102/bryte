@@ -5,7 +5,7 @@
             <div class="px-2">XX班</div>
         </div>
         <div class="w-[95%] md:w-[40%] my-2 text-[16px] md:text-2xl text-left text-[#6E6EFF] font-semibold">愛的叮嚀</div>
-        <div class="w-[90%] md:w-[40%] h-auto rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-start justify-center">
+        <div v-if="isSchool" class="w-[90%] md:w-[40%] h-auto rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-start justify-center">
             <div class="relative w-full h-full text-sm md:text-lg">
                 <textarea 
                     v-model="modifyData.reply"
@@ -18,7 +18,10 @@
                 <!-- <div class="absolute right-3 bottom-1">{{'字數' + modifyData.reply.length + '/30'}}</div> -->
             </div>
         </div>
-        <div class="w-[95%] md:w-[40%] h-auto min-h-[40px] my-1 md:my-3 flex flex-wrap justify-start items-center">
+        <div v-else class="w-[95%] md:w-[40%] py-1 md:py-3 text-left text-[14px] md:text-xl text-[#808080] flex flex-wrap items-center justify-start">
+            <div class="">腸病毒盛行，回家勤洗手，多吃水果</div>
+        </div>
+        <div v-if="isSchool" class="w-[95%] md:w-[40%] h-auto min-h-[40px] my-1 md:my-3 flex flex-wrap justify-start items-center">
             <button
                 v-if="isMobile"
                 @click="upLoadPhone"
@@ -76,6 +79,9 @@ const isMobile = computed(() => {
 })
 const roleID = computed(() => {
     return store.state.roleID
+})
+const isSchool = computed(() => {
+    return (roleID.value == 2) || (roleID.value == 1)
 })
 
 const modifyData = ref({

@@ -208,12 +208,12 @@ const routes = [
     path: '/tipView',
     name: 'tipView',
     component: tipView,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
+    // beforeEnter: () => {
+    //   const store = useStore()
+    //   if(store.state.roleID == 3){
+    //     return '/'
+    //   }
+    // },
   },
   {
     path: '/temperatureView',

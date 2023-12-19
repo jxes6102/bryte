@@ -80,7 +80,7 @@ const init = async() => {
 init()
 
 const toLink = (item) => {
-    console.log('toLink',item.Identifier)
+    // console.log('toLink',item.Identifier)
     if(item.Identifier == "News"){
         router.push({ path: 'news' })
     }else if(item.Identifier == "Profile"){
