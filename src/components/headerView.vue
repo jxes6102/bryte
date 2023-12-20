@@ -1,6 +1,6 @@
 <template>
     <div 
-        class="transition-all sticky w-full top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[#008AFF]"
+        class="transition-all sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[#008AFF]"
     >
         <div 
             v-show="route.path !== '/'"

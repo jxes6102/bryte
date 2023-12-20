@@ -1,5 +1,5 @@
 <template>
-    <div class="w-auto h-[80vh] md:h-[90%] p-2 flex flex-col justify-start items-center ">
+    <div class="w-auto h-auto p-2 flex flex-col justify-start items-center ">
         <div
             ref="chatBoard"
             v-tobottom
@@ -41,7 +41,7 @@
                     @keyup="changeHeight"
                     placeholder="請在此輸入留言"
                     required
-                    class="w-full h-full p-1 bg-gray-100 border-gray-300 border-[1px]"
+                    class="w-full h-full p-1 bg-gray-100 border-gray-300 border-[1px] overflow-y-auto"
                     style="resize:none;"
                     maxlength="30"
                     >
@@ -52,35 +52,8 @@
                 class="w-[auto] bg-[#483D8B] text-sm md:text-xl text-white py-1 px-2 rounded">
                 送出
             </button>
+            <!-- <el-icon size="30" @click="sendMessage"><Promotion /></el-icon> -->
         </div>
-        <!-- <Teleport to="body">
-            <dialogView v-if="dialogStatus">
-                <template v-slot:message>
-                    <div class="w-[90%] md:w-[90%] h-[90px] md:h-[270px] rounded-lg m-1 p-1 flex flex-wrap items-start justify-center">
-                        <div class="relative w-full h-full text-base md:text-2xl">
-                            <textarea 
-                                v-model="word"
-                                placeholder="請在此輸入留言"
-                                required
-                                class="w-full h-full p-1 bg-gray-100 border-gray-300 border-[1px]"
-                                style="resize:none;"
-                                maxlength="30"
-                                >
-                            </textarea>
-                        </div>
-                    </div>
-                </template>
-                <template v-slot:control>
-                    <div class="absolute w-full bottom-2 md:bottom-4 flex flex-wrap justify-center items-center">
-                        <button
-                            @click="sendMessage"
-                            class="min-w-[20%] w-[70%] bg-[#483D8B] text-sm md:text-xl text-white py-1 px-2 rounded">
-                            送出
-                        </button>
-                    </div>
-                </template>
-            </dialogView>
-        </Teleport> -->
     </div>
     
 </template>
@@ -88,9 +61,8 @@
 <script setup>
 /*eslint-disable*/
 import { useStore } from "vuex";
-import { ref,computed,provide,nextTick } from 'vue'
+import { ref,computed,provide,nextTick,onMounted } from 'vue'
 import { useRouter } from "vue-router";
-import dialogView from "@/components/dialogView.vue"
 
 const router = useRouter()
 const store = useStore()
@@ -234,6 +206,13 @@ const sendEle = ref(null)
 const changeHeight = () => {
     sendEle.value.style.height = '35px'
     sendEle.value.style.height = textEle.value.scrollHeight + 'px'
+
+    let allHeight = isMobile.value ? '60vh' : '80vh'
+    if(textEle.value.scrollHeight >= 100){
+        chatBoard.value.style.height = 'calc('+allHeight+' - 100px)'
+    }else{
+        chatBoard.value.style.height = 'calc('+allHeight+' - ' + textEle.value.scrollHeight + 'px)'
+    }
     
     const target = {
         top: chatBoard.value.scrollHeight + 999,
@@ -245,6 +224,10 @@ const changeHeight = () => {
         chatBoard.value.scrollTo(target)
     })
 }
+
+onMounted(() => {
+    changeHeight()
+})
 
 </script>
 
