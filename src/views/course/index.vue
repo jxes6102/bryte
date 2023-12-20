@@ -1,21 +1,6 @@
 <template>
     <div class="w-auto h-auto max-w-[100%] p-2 flex flex-col justify-center items-center ">
-        <div class="w-[100%] h-[auto] py-2 flex flex-wrap justify-center items-center">
-            <div class="w-auto text-lg md:text-3xl px-2 md:px-4">選擇日期</div>
-            <div class="w-[150px] md:w-[auto]">
-                <el-date-picker
-                    v-model="dayData"
-                    popper-class="custom-date-picker"
-                    type="date"
-                    placeholder="選擇查詢日期"
-                    :disabled-date="disabledDate"
-                    :disabled="apiLoading"
-                    :editable="false"
-                    :style="isMobile ? 'width: 150px;font-size: 12px;' : 'width: 100%;'"
-                />
-            </div>
-            
-        </div>
+        <dateSelect :date="dayData" @changeDate="changeData" :apiLoading="apiLoading"></dateSelect>
         <div class="w-[100%] h-auto rounded-lg bg-slate-50 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center">
             <div 
                 class="w-[100%] md:w-[50%] h-auto max-w-[600px] m-2 p-2 rounded-lg bg-slate-100 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center gap-y-[10px]"
@@ -89,11 +74,11 @@ import { getClassList } from '@/api/api'
 import { ref,computed,watch,provide  } from 'vue'
 import { useRouter } from "vue-router";
 import dialogView from "@/components/dialogView.vue"
+import dateSelect from '@/components/dateSelect.vue'
 
 const router = useRouter()
 const store = useStore()
 
-const dayData = ref(new Date())
 const classList = ref([])
 const apiLoading = ref(false)
 const init = async() => {
@@ -119,15 +104,12 @@ const init = async() => {
     })
 }
 
-//設定選擇日期範圍
-const disabledDate = (time) => {
-    return (time.getTime() > Date.now()) || (time.getTime() < (Date.now() - 2592000000))
-}
-
-//監聽日期改變
-watch(dayData, (newVal,oldVal)=>{
+const dayData = ref(new Date())
+init()
+const changeData = (value) => {
+    dayData.value = value
     init()
-},{immediate:true})
+}
 
 const isMobile = computed(() => {
     return store.state.isMobile
@@ -154,7 +136,6 @@ const toSign = (item) => {
         }
     })
 }
-
 
 const dialogStatus = ref(false)
 const dialogData = ref('')
