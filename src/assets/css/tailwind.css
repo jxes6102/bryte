@@ -20,3 +20,19 @@
 .mine-grid-style {
     @apply grid grid-cols-2 md:grid-cols-3 justify-items-center
 }
+
+.hover-style {
+    @apply transition-all hover:bg-slate-200 hover:scale-95 hover:border-0 hover:shadow-none
+}
+
+.border-style{
+    @apply border-2 border-gray-200 border-solid
+}
+
+.shadow-style-1 {
+    @apply shadow-[0_0_5px_5px_rgba(0,0,0,0.04)]
+}
+
+.shadow-style-2 {
+    @apply shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]
+}

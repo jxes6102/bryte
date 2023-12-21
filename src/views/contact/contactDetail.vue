@@ -12,74 +12,73 @@
             class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
             <div @click="toContactChart" class="px-2 text-[#F08080] cursor-pointer">聯絡簿統計</div>
         </div>
-        <div class="relative w-[80%] md:w-[45%] h-[auto] py-2 grid grid-cols-2 md:grid-cols-3 justify-items-center gap-[10px]">
+        <div class="relative w-[auto] h-[auto] my-1 py-2 grid grid-cols-2 md:grid-cols-4 justify-items-center gap-[5vw] md:gap-[2vw]">
             <div
                 @click="linkMedication" 
-                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
-                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><HotWater /></el-icon>
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     餵藥
                 </div>
-                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><HotWater /></el-icon>
             </div>
             <div 
                 @click="linkTemperature"
-                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
-                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><Document /></el-icon>
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     體溫測量
                 </div>
-                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Document /></el-icon>
             </div>
             <div
                 @click="toTip"  
-                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
-                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><BellFilled /></el-icon>
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     愛的叮嚀
                 </div>
-                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><BellFilled /></el-icon>
             </div>
             <div
                 v-if="isSchool"
                 @click="toSign()"
-                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
-                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><EditPen /></el-icon>
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     聯絡簿簽名
                 </div>
-                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><EditPen /></el-icon>
             </div>
             <div 
                 @click="linkChat"
-                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
-                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><Microphone /></el-icon>
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     家長留言
                 </div>
-                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Microphone /></el-icon>
             </div>
             <div 
                 @click="linkTransmit"
-                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
-                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><Paperclip /></el-icon>
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     今日發回
                 </div>
-                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Paperclip /></el-icon>
             </div>
             <div 
                 @click="linkLearn"
-                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
-                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><GoodsFilled /></el-icon>
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     學習狀況
                 </div>
-                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><GoodsFilled /></el-icon>
             </div>
             <div
                 v-if="isSchool"
                 @click="toScan"
-                class="relative w-[35vw] md:w-[12vw] lg:w-[13vw] h-[35vw] md:h-[12vw] lg:h-[13vw] rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center cursor-pointer">
-                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-[#6E6EFF] font-semibold flex flex-wrap items-center justify-center">
+                class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><Stamp /></el-icon>
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     掃描
                 </div>
-                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '5vw'"><Stamp /></el-icon>
             </div>
-            
         </div>
         
         <!-- <div 
