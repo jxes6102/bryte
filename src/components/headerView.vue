@@ -23,7 +23,7 @@
           @click="tohome"
           >{{ headerTitle }}
         </div>
-        <div 
+        <!-- <div 
             v-if="!isMobile" 
             class="relative w-[auto] h-[8vh] "
         >
@@ -36,6 +36,19 @@
                   >{{item.text}}</li>
                 </ul>
             </nav>
+            <div class="w-[auto] h-[8vh] px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">{{statement}}</div>
+        </div> -->
+        <div 
+            v-if="!isMobile" 
+            class="relative w-[auto] h-[8vh] px-4 mine-flex-center"
+        >
+            <div
+                class="w-[auto] h-[8vh] px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all" 
+                v-for="(item, index) in linkData" :key="index"
+                @click="toLink(item.url)">
+                {{item.text}}
+            </div>
+            <div @click="toCenter" class="w-[auto] h-[8vh] mx-4 px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">{{statement}}</div>
         </div>
     </div>
 </template>
@@ -58,6 +71,16 @@ const roleID = computed(() => {
     return store.state.roleID
 })
 
+const statement = computed(() => {
+    if(roleID.value == 1){
+        return '園長:施O漢'
+    } else if(roleID.value == 2) {
+        return '導師:羅O空'
+    } else if(roleID.value == 3) {
+        return '家長:孔O榮'
+    } 
+})
+
 const isSchool = computed(() => {
     return (roleID.value == 2) || (roleID.value == 1)
 })
@@ -72,7 +95,6 @@ watch(route, (newVal,oldval) => {
     linkData.value = [
         {text:"聯絡簿",url:'/contact'},
         {text:"訊息通知",url:'/messageView'},
-        {text:"個人中心",url:'/center'},
     ]
 
     if(newVal.path == '/center'){
@@ -175,7 +197,6 @@ const tohome = () => {
 const linkData = ref([
     {text:"聯絡簿",url:'/contact'},
     {text:"訊息通知",url:'/messageView'},
-    {text:"個人中心",url:'/center'},
 ])
 
 const toLink = (url) => {
@@ -192,6 +213,10 @@ const tocontactSet = () =>{
 
 const toDownload = () => {
     router.push({ path: '/contactDownload' })
+}
+
+const toCenter = () => {
+    router.push({ path: '/center' })
 }
 
 </script>
