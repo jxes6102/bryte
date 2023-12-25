@@ -21,7 +21,7 @@
           @click="toMessage()"
           >
           <el-icon :size="25"><Message /></el-icon>
-          訊息中心
+          訊息通知
           <div class="absolute w-[20px] h-[20px] top-[5%] left-[calc(50%_+_10px)] text-white text-xs font-normal bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">{{'9+'}}</div>
         </div>
         <div 

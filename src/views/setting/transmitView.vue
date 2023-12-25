@@ -62,7 +62,7 @@
             <dialogView v-if="modalStatus">
                 <template v-slot:message>
                     <div class="w-full h-full py-1 px-2 md:py-2 md:px-4 text-xs md:text-xl  flex flex-col items-center justify-center">
-                        <div class=" text-base md:text-2xl font-bold my-1 md:my-3 px-3">全班今日發回</div>
+                        <div class=" text-base md:text-2xl font-bold my-1 md:my-3 px-3">全班當日通知單</div>
                         <div class="w-full my-1 md:my-2 flex flex-wrap items-center justify-between">
                             <div class="w-full flex flex-wrap items-center justify-start" >
                                 <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="inputData.notification.status" />

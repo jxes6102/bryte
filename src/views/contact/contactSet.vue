@@ -114,7 +114,7 @@
                 <el-switch :size="isMobile ? 'default' : 'large'" v-model="statusList.parentSign" />
             </div>
             <div class="w-full md:w-[60%] h-auto rounded-lg bg-slate-50 py-1 px-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-between">
-                <div>啟用聯絡簿家長留言</div>
+                <div>啟用聯絡簿留言版</div>
                 <el-switch :size="isMobile ? 'default' : 'large'" v-model="statusList.parentNote" />
             </div>
             <div class="w-full md:w-[60%] h-auto rounded-lg bg-slate-50 py-1 px-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-between">

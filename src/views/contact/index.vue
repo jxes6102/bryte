@@ -2,6 +2,9 @@
     <div class="w-auto h-auto md:h-[80%] p-2 flex flex-col justify-start items-center ">
         <dateSelect :apiLoading="apiLoading"></dateSelect>
         <div class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-start">
+            <div>{{statement}}</div>
+        </div>
+        <div class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-start">
             <div>To:</div>
             <div class="px-2">全校</div>
         </div>
@@ -45,6 +48,22 @@ import dateSelect from '@/components/dateSelect.vue'
 
 const router = useRouter()
 const store = useStore()
+
+const isMobile = computed(() => {
+    return store.state.isMobile
+})
+
+const roleID = computed(() => {
+    return store.state.roleID
+})
+
+const statement = computed(() => {
+    if(roleID.value == 1){
+        return '園長:施O漢'
+    } else if(roleID.value == 2) {
+        return '導師:羅O空'
+    }
+})
 
 const data = ref([
     {
@@ -95,18 +114,13 @@ const apiLoading = ref(false)
 
 const init = async() => {
     apiLoading.value = true
+    if(roleID.value == 2){
+        data.value = data.value.slice(0,2)
+    }
     apiLoading.value = false
 }
 
 init()
-
-const isMobile = computed(() => {
-    return store.state.isMobile
-})
-
-const roleID = computed(() => {
-    return store.state.roleID
-})
 
 const toContactDetail = () => {
     router.push({ path: '/contactDetail' })

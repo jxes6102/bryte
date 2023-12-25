@@ -71,7 +71,7 @@ watch(route, (newVal,oldval) => {
 
     linkData.value = [
         {text:"聯絡簿",url:'/contact'},
-        {text:"訊息中心",url:'/messageView'},
+        {text:"訊息通知",url:'/messageView'},
         {text:"個人中心",url:'/center'},
     ]
 
@@ -109,6 +109,7 @@ watch(route, (newVal,oldval) => {
         if(isSchool.value){
             linkData.value.push({text:"設定",url:'/contactSet'})
         }
+        linkData.value.push({text:"聯絡簿",url:'/contact'})
         linkData.value.push({text:"下載專區",url:'/contactDownload'})
     }else if(newVal.path == '/contactDetail'){
         headerTitle.value = '電子聯絡簿'
@@ -116,6 +117,7 @@ watch(route, (newVal,oldval) => {
         if(isSchool.value){
             linkData.value.push({text:"設定",url:'/contactSet'})
         }
+        linkData.value.push({text:"聯絡簿",url:'/contactDetail'})
         linkData.value.push({text:"下載專區",url:'/contactDownload'})
     }else if(newVal.path == '/contactSet'){
         headerTitle.value = '設定'
@@ -130,7 +132,7 @@ watch(route, (newVal,oldval) => {
         headerTitle.value = '聯絡簿簽名'
         linkData.value = []
     }else if(newVal.path == '/transmitView'){
-        headerTitle.value = '今日發回'
+        headerTitle.value = '當日通知單'
         linkData.value = []
     }else if(newVal.path == '/learnSituation'){
         headerTitle.value = '學習狀況'
@@ -140,22 +142,22 @@ watch(route, (newVal,oldval) => {
         linkData.value = []
     }else if(newVal.path == '/tipView'){
         if(isSchool.value){
-            headerTitle.value = '編輯愛的叮嚀'
+            headerTitle.value = '編輯班級叮嚀'
         }else{
-            headerTitle.value = '愛的叮嚀'
+            headerTitle.value = '班級叮嚀'
         }
         linkData.value = []
     }else if(newVal.path == '/temperatureView'){
-        headerTitle.value = '體溫量測'
+        headerTitle.value = '體溫檢查'
         linkData.value = []
     }else if(newVal.path == '/chatView'){
-        headerTitle.value = '家長留言'
+        headerTitle.value = '留言版'
         linkData.value = []
     }else if(newVal.path == '/chatroom'){
-        headerTitle.value = '家長留言'
+        headerTitle.value = '留言版'
         linkData.value = []
     }else if(newVal.path == '/messageView'){
-        headerTitle.value = '訊息中心'
+        headerTitle.value = '訊息通知'
         linkData.value = []
     }else if(newVal.path == '/qrcodeView'){
         headerTitle.value = '掃描'
@@ -172,7 +174,7 @@ const tohome = () => {
 
 const linkData = ref([
     {text:"聯絡簿",url:'/contact'},
-    {text:"訊息中心",url:'/messageView'},
+    {text:"訊息通知",url:'/messageView'},
     {text:"個人中心",url:'/center'},
 ])
 
