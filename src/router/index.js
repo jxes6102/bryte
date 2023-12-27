@@ -18,13 +18,13 @@ import medicationList from '../views/setting/medicationList'
 import signView from '../views/setting/signView'
 import transmitView from '../views/setting/transmitView'
 import learnSituation from '../views/setting/learnSituation'
-// import contactDownload from '../views/contact/contactDownload'
 import tipView from '../views/setting/tipView'
 import temperatureView from '../views/setting/temperatureView'
 import chatView from '../views/chatroom/chatView'
 import chatroom from '../views/chatroom' 
 import messageView from '../views/message'
 import qrcodeView from '../views/qrcode'
+import recordView from '../views/record'
 import errorView from '../views/errorView.vue'
 import { useStore } from "vuex";
 
@@ -199,11 +199,6 @@ const routes = [
       }
     },
   },
-  // {
-  //   path: '/contactDownload',
-  //   name: 'contactDownload',
-  //   component: contactDownload
-  // },
   {
     path: '/tipView',
     name: 'tipView',
@@ -251,6 +246,17 @@ const routes = [
     path: '/qrcodeView',
     name: 'qrcodeView',
     component: qrcodeView,
+    beforeEnter: () => {
+      const store = useStore()
+      if(store.state.roleID == 3){
+        return '/'
+      }
+    },
+  },
+  {
+    path: '/recordView',
+    name: 'recordView',
+    component:recordView,
     beforeEnter: () => {
       const store = useStore()
       if(store.state.roleID == 3){

@@ -90,6 +90,7 @@
                 </div>
             </div>
             <div 
+                @click="toRecord"
                 v-if="isSchool"
                 class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
                 <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><CircleCheck /></el-icon>
@@ -595,6 +596,10 @@ const inputLeave = ref({
 const leaveStatus = ref(false)
 const askLeave = async() => {
     leaveStatus.value = true
+}
+
+const toRecord = () => {
+    router.push({ path: '/recordView' })
 }
 
 </script>

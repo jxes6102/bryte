@@ -167,6 +167,9 @@ watch(route, (newVal,oldval) => {
     }else if(newVal.path == '/qrcodeView'){
         headerTitle.value = '掃描'
         linkData.value = []
+    }else if(newVal.path == '/recordView'){
+        headerTitle.value = '簽到記錄'
+        linkData.value = []
     }else{
         headerTitle.value = '智光智慧園管理平台'
     }
