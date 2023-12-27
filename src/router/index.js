@@ -18,7 +18,7 @@ import medicationList from '../views/setting/medicationList'
 import signView from '../views/setting/signView'
 import transmitView from '../views/setting/transmitView'
 import learnSituation from '../views/setting/learnSituation'
-import contactDownload from '../views/contact/contactDownload'
+// import contactDownload from '../views/contact/contactDownload'
 import tipView from '../views/setting/tipView'
 import temperatureView from '../views/setting/temperatureView'
 import chatView from '../views/chatroom/chatView'
@@ -199,11 +199,11 @@ const routes = [
       }
     },
   },
-  {
-    path: '/contactDownload',
-    name: 'contactDownload',
-    component: contactDownload
-  },
+  // {
+  //   path: '/contactDownload',
+  //   name: 'contactDownload',
+  //   component: contactDownload
+  // },
   {
     path: '/tipView',
     name: 'tipView',

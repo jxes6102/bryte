@@ -80,13 +80,21 @@
                     學習狀況
                 </div>
             </div>
-            <div
-                v-if="isSchool"
-                @click="toScan"
+            <div 
+                v-if="!isSchool"
+                @click="askLeave"
                 class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
-                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><Stamp /></el-icon>
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><AlarmClock /></el-icon>
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
-                    掃描
+                    請假
+                </div>
+            </div>
+            <div 
+                v-if="isSchool"
+                class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
+                <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><CircleCheck /></el-icon>
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
+                    簽到記錄
                 </div>
             </div>
         </div>
@@ -232,6 +240,80 @@
                     </div>
                 </template>
             </dialogView>
+            <conversationView type="large" v-if="leaveStatus">
+                <template v-slot:content>
+                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">兒童姓名</div>
+                        <div class="w-full py-1 md:py-3 flex flex-col items-start justify-start">
+                            <el-input value="曾O樂" disabled placeholder="" />
+                        </div>
+                    </div>
+                    
+                    <div class="w-full py-1 md:py-3 px-3 md:px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">起訖日期</div>
+                        <div class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">
+                            <el-date-picker
+                                v-model="inputLeave.startDate"
+                                popper-class="custom-date-picker"
+                                type="date"
+                                placeholder="選擇查詢日期"
+                                :disabled-date="inputLeave.disabledDate"
+                                :disabled="apiLoading"
+                                :editable="false"
+                                :style="isMobile ? 'width: 110px;font-size: 12px;' : 'width: 40%;'"
+                            />
+                            <div>至</div>
+                            <el-date-picker
+                                v-model="inputLeave.endDate"
+                                popper-class="custom-date-picker"
+                                type="date"
+                                placeholder="選擇查詢日期"
+                                :disabled-date="inputLeave.disabledDate"
+                                :disabled="apiLoading"
+                                :editable="false"
+                                :style="isMobile ? 'width: 110px;font-size: 12px;' : 'width: 40%;'"
+                            />
+                        </div>
+                    </div>
+                    
+                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">類別</div>
+                        <div class="px-[1px] flex flex-wrap items-center justify-center">
+                            <el-select v-model="inputLeave.type" placeholder="Select">
+                                <el-option
+                                    v-for="item in inputLeave.options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                />
+                            </el-select>
+                        </div>
+                    </div>
+                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">備註</div>
+                        <div class="relative w-full h-[50px] md:h-[80px] text-base md:text-2xl">
+                            <textarea 
+                                v-model="inputLeave.word"
+                                placeholder="請在此輸入留言"
+                                required
+                                class="w-full h-full p-1 bg-gray-100 border-gray-300 border-[1px]"
+                                style="resize:none;"
+                                maxlength="30"
+                                >
+                            </textarea>
+                            <!-- <div class="absolute right-3 bottom-1">{{'字數' + word.length + '/30'}}</div> -->
+                        </div>
+                    </div>
+                </template>
+                <template v-slot:control>
+                    <div class="absolute w-full bottom-2 md:bottom-4 flex flex-wrap justify-center items-center">
+                        <button
+                            class="min-w-[20%] w-[90%] bg-[#483D8B] text-sm md:text-xl text-white py-1 px-2 rounded">
+                            送出
+                        </button>
+                    </div>
+                </template>
+            </conversationView>
         </Teleport>
     </div>
 </template>
@@ -389,6 +471,7 @@ const cancel = () => {
     modalStatus.value = false
     transmitStatus.value = false
     learnStatus.value = false
+    leaveStatus.value = false
 }
 
 provide('cancel', cancel)
@@ -403,10 +486,6 @@ const inputMedication = ref({
         return (time.getTime() > Date.now()) || (time.getTime() < (Date.now() - 2592000000))
     },
 })
-
-const toScan = () => {
-    router.push({ path: '/qrcodeView' })
-}
 
 const linkMedication = () => {
     if(isSchool.value){
@@ -448,6 +527,74 @@ const linkLearn = () => {
     }else{
         learnStatus.value = true
     }
+}
+
+const inputLeave = ref({
+    type:'Option3',
+    options:[
+        {
+            value: 'Option1',
+            label: '婚假',
+        },
+        {
+            value: 'Option2',
+            label: '喪假',
+        },
+        {
+            value: 'Option3',
+            label: '病假',
+        },
+        {
+            value: 'Option4',
+            label: '公傷病假',
+        },
+        {
+            value: 'Option5',
+            label: '事假',
+        },
+        {
+            value: 'Option6',
+            label: '公假',
+        },
+        {
+            value: 'Option7',
+            label: '生理假',
+        },
+        {
+            value: 'Option8',
+            label: '產假',
+        },
+        {
+            value: 'Option9',
+            label: '產檢假',
+        },
+        {
+            value: 'Option10',
+            label: '陪產檢及陪產假',
+        },
+        {
+            value: 'Option11',
+            label: '安胎假',
+        },
+        {
+            value: 'Option12',
+            label: '育嬰留職停薪',
+        },
+        {
+            value: 'Option13',
+            label: '家庭照顧假',
+        },
+    ],
+    word:'',
+    startDate:new Date(),
+    endDate:new Date(),
+    disabledDate: function(time) {
+        return (time.getTime() > Date.now()) || (time.getTime() < (Date.now() - 2592000000))
+    },
+})
+const leaveStatus = ref(false)
+const askLeave = async() => {
+    leaveStatus.value = true
 }
 
 </script>
