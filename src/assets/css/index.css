@@ -15,3 +15,19 @@
     border-bottom: 2px solid #D3D3D3;
     margin: auto;
 }
+
+.btn-style-1 {
+    background: #6E6EFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 4px 6px;
+    transition: transform 0.3s ease-in-out;
+    margin: 4px 4px;
+}
+
+.btn-style-1:hover {
+    scale: 1.05;
+    opacity: 0.8;
+}

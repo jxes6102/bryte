@@ -27,6 +27,7 @@
             v-if="!isMobile" 
             class="relative w-[auto] h-[8vh] px-4 mine-flex-center"
         >
+            <div @click="tohome" class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">最新消息</div>
             <div
                 class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all" 
                 v-for="(item, index) in linkData" :key="index"
