@@ -61,7 +61,74 @@
         </div>
       </div>
     </div>
-    
+    <div class="w-full my-4 md:my-8 flex flex-wrap items-center justify-center">
+      <div class="w-full my-2 md:my-4 flex flex-wrap items-center justify-center">
+        <div class="w-full text-xl md:text-3xl font-bold text-orange-500">六大特色 一次擁有</div>
+        <div class="w-full text-xl md:text-3xl font-bold">最親善使用者的補習班管理系統，讓你一用就欲罷不能</div>
+      </div>
+      
+      <div class="w-full md:w-[90%] my-2 md:my-4 grid grid-cols-1 md:grid-cols-2 justify-items-center gap-y-[5vw] md:gap-y-[2vw]">
+        <div class="w-[100%] flex flex-wrap justify-center items-center ">
+          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
+            <el-icon size="150"><CoffeeCup /></el-icon>
+          </div>
+          <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
+            <div class="text-2xl text-[#1D2088] font-bold">直覺的操作介面</div>
+            <div class="text-lg text-center md:text-left">18年以上的軟體開發經驗，針對補習班開發的全方位管理系統，操作介面簡單易上手</div>
+          </div>
+        </div>
+
+        <div class="w-[100%] flex flex-wrap justify-center items-center ">
+          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
+            <el-icon size="150"><CoffeeCup /></el-icon>
+          </div>
+          <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
+            <div class="text-2xl text-[#1D2088] font-bold">專業形象網站</div>
+            <div class="text-lg text-center md:text-left">只屬於你的形象網站，關於補習班的專業內容與孩子們的笑容都有地方可以展示</div>
+          </div>
+        </div>
+
+        <div class="w-[100%] flex flex-wrap justify-center items-center ">
+          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
+            <el-icon size="150"><CoffeeCup /></el-icon>
+          </div>
+          <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
+            <div class="my-1 text-2xl text-[#1D2088] font-bold">功能齊全 All In One</div>
+            <div class="my-1 text-lg text-center md:text-left">校務、教務、財務、前台網站功能、APP全部All In One，輕鬆整合所有系統</div>
+          </div>
+        </div>
+
+        <div class="w-[100%] flex flex-wrap justify-center items-center ">
+          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
+            <el-icon size="150"><CoffeeCup /></el-icon>
+          </div>
+          <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
+            <div class="text-2xl text-[#1D2088] font-bold">完整財務管理系統</div>
+            <div class="text-lg text-center md:text-left">學生繳費、教師薪資、雜項費用不再一團亂，一鍵輸出完整報表一目瞭然</div>
+          </div>
+        </div>
+
+        <div class="w-[100%] flex flex-wrap justify-center items-center ">
+          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
+            <el-icon size="150"><CoffeeCup /></el-icon>
+          </div>
+          <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
+            <div class="text-2xl text-[#1D2088] font-bold">擁有專屬APP</div>
+            <div class="text-lg text-center md:text-left">只屬於你的手機APP，享受指尖上的管理，一手掌握補習班大小事</div>
+          </div>
+        </div>
+
+        <div class="w-[100%] flex flex-wrap justify-center items-center ">
+          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
+            <el-icon size="150"><CoffeeCup /></el-icon>
+          </div>
+          <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
+            <div class="text-2xl text-[#1D2088] font-bold">提供系統測試</div>
+            <div class="text-lg text-center md:text-left">優先體驗系統功能，感受並了解"校掌雲"強大的補習班數位管理能力</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- <div class="w-full h-auto bg-red-400">
         <img src="@/assets/img/logo-2.png" alt="">
     </div> -->
