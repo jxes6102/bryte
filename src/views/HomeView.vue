@@ -38,6 +38,33 @@
         </swiper-slide>
       </swiper>
     </div>
+    <div class="w-full my-4 md:my-8">
+      <div class="w-full my-2 md:my-4 text-2xl md:text-4xl font-bold text-orange-500 flex flex-wrap items-center justify-center gap-x-[40px]">
+        <div>無紙化數位補習班</div>
+        <div>就是這樣實現的</div>
+      </div>
+      <div class="w-full h-auto flex flex-wrap items-center justify-center gap-[4vw] md:gap-[1vw]">
+        <div class="w-[80vw] h-[80vw] md:w-[15vw] md:h-[15vw] md:max-w-[250px] md:max-h-[250px] p-2 rounded-lg hover:border-4 hover:border-orange-500 transition-all">
+          <iframe class="w-full h-full" src="https://www.youtube.com/embed/E7vBKfzOzn4?si=3vVp4inVpSeXXH8z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="w-[80vw] h-[80vw] md:w-[15vw] md:h-[15vw] md:max-w-[250px] md:max-h-[250px] p-2 rounded-lg hover:border-4 hover:border-orange-500 transition-all">
+          <iframe class="w-full h-full" src="https://www.youtube.com/embed/YHXkYDZ8kZc?si=cBuynTXaaFS9WEpV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="w-[80vw] h-[80vw] md:w-[15vw] md:h-[15vw] md:max-w-[250px] md:max-h-[250px] p-2 rounded-lg hover:border-4 hover:border-orange-500 transition-all">
+          <iframe class="w-full h-full" src="https://www.youtube.com/embed/Mexj6rFLPsk?si=8406t_3uOHt39sBD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="w-[80vw] h-[80vw] md:w-[15vw] md:h-[15vw] md:max-w-[250px] md:max-h-[250px] p-2 rounded-lg hover:border-4 hover:border-orange-500 transition-all">
+          <iframe class="w-full h-full" src="https://www.youtube.com/embed/hVf0qu8Glqo?si=gHIBlUoFlWJkUKe3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="w-[80vw] h-[80vw] md:w-[15vw] md:h-[15vw] md:max-w-[250px] md:max-h-[250px] p-2 rounded-lg hover:border-4 hover:border-orange-500 transition-all">
+          <iframe class="w-full h-full" src="https://www.youtube.com/embed/jx9iGO_V53c?si=S8SENgX5CAAcWrYW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    
+    <!-- <div class="w-full h-auto bg-red-400">
+        <img src="@/assets/img/logo-2.png" alt="">
+    </div> -->
     <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center">
       <div class="w-full p-1 flex flex-wrap items-center justify-between">    
         <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800">單位簡介</div>
