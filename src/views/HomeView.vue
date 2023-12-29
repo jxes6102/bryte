@@ -66,7 +66,7 @@
         <div class="w-full text-xl md:text-3xl font-bold text-orange-500">六大特色 一次擁有</div>
         <div class="w-full text-xl md:text-3xl font-bold">最親善使用者的補習班管理系統，讓你一用就欲罷不能</div>
       </div>
-      
+
       <div class="w-full md:w-[90%] my-2 md:my-4 grid grid-cols-1 md:grid-cols-2 justify-items-center gap-y-[5vw] md:gap-y-[2vw]">
         <div class="w-[100%] flex flex-wrap justify-center items-center ">
           <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
@@ -129,9 +129,22 @@
         </div>
       </div>
     </div>
-    <!-- <div class="w-full h-auto bg-red-400">
-        <img src="@/assets/img/logo-2.png" alt="">
-    </div> -->
+    <div class="w-full h-auto flex flex-wrap justify-center items-center">
+      <div class="w-full h-auto pb-2 md:pb-6 bg-[#1E90FF] flex flex-col justify-center items-center">
+        <div class="w-auto">
+          <img class="w-[260px] md:w-[600px]" src="@/assets/img/logo-2.png" alt="">
+        </div>
+        <div class="w-full text-lg md:text-6xl text-white font-bold">建立管理制度 傳承學校文化</div> 
+      </div>
+
+      <div class="w-[100vw] h-[100vh] md:h-[36vw] bg-cover bg-repeat md:bg-no-repeat bg-center flex flex-wrap justify-center items-center"
+        :style="{backgroundImage:`url( ${require('@/assets/img/bg-1.jpg')} )`}">
+        <div class="w-[90%] md:w-[80%] h-[auto] grid grid-cols-4 md:grid-cols-10 justify-items-center gap-[2vw] md:gap-[1vw]" >
+          <div v-for="n in 40" :key="n" class="w-[15vw] h-[15vw] md:w-[6vw] md:h-[6vw] bg-gray-500 rounded-lg"></div>
+        </div>
+      </div>
+    </div>
+    
     <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center">
       <div class="w-full p-1 flex flex-wrap items-center justify-between">    
         <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800">單位簡介</div>
