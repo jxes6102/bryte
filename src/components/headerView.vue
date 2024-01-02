@@ -39,7 +39,15 @@
                 {{item.text}}
                 <div v-if="item?.isAlert" class="absolute top-[5px] right-[2px] w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">9+</div>
             </div>
-            <div @click="toCenter" class="w-[auto] h-[8vh] mx-4 px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">{{statement}}</div>
+            <div id="primary_nav_wrap" class="text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">
+                <ul>
+                    <li @click.stop="toCenter">{{ statement }}
+                        <ul v-if="isSchool">
+                            <li @click.stop="tocontactSet">設定</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -118,63 +126,38 @@ watch(route, (newVal,oldval) => {
         headerTitle.value = '簽到記錄'
     }else if(newVal.path == '/contact'){
         headerTitle.value = '全校電子聯絡簿'
-        linkData.value = []
-        if(isSchool.value){
-            linkData.value.push({text:"設定",url:'/contactSet'})
-        }
-        linkData.value.push({text:"聯絡簿",url:'/contact'})
-        linkData.value.push({text:"訊息通知",url:'/messageView',isAlert:true})
     }else if(newVal.path == '/contactDetail'){
         headerTitle.value = '電子聯絡簿'
-        linkData.value = []
-        if(isSchool.value){
-            linkData.value.push({text:"設定",url:'/contactSet'})
-        }
-        linkData.value.push({text:"聯絡簿",url:'/contactDetail'})
-        linkData.value.push({text:"訊息通知",url:'/messageView',isAlert:true})
     }else if(newVal.path == '/contactSet'){
         headerTitle.value = '設定'
-        linkData.value = []
     }else if(newVal.path == '/contactChart'){
         headerTitle.value = '聯絡簿統計'
-        linkData.value = []
     }else if(newVal.path == '/medicationList'){
         headerTitle.value = '餵藥'
-        linkData.value = []
     }else if(newVal.path == '/signView'){
         headerTitle.value = '聯絡簿簽名'
-        linkData.value = []
     }else if(newVal.path == '/transmitView'){
         headerTitle.value = '當日通知單'
-        linkData.value = []
     }else if(newVal.path == '/learnSituation'){
         headerTitle.value = '學習狀況'
-        linkData.value = []
     }else if(newVal.path == '/tipView'){
         if(isSchool.value){
             headerTitle.value = '編輯班級叮嚀'
         }else{
             headerTitle.value = '班級叮嚀'
         }
-        linkData.value = []
     }else if(newVal.path == '/temperatureView'){
         headerTitle.value = '體溫檢查'
-        linkData.value = []
     }else if(newVal.path == '/chatView'){
         headerTitle.value = '留言版'
-        linkData.value = []
     }else if(newVal.path == '/chatroom'){
         headerTitle.value = '留言版'
-        linkData.value = []
     }else if(newVal.path == '/messageView'){
         headerTitle.value = '訊息通知'
-        linkData.value = []
     }else if(newVal.path == '/qrcodeView'){
         headerTitle.value = '掃描'
-        linkData.value = []
     }else if(newVal.path == '/recordView'){
         headerTitle.value = '簽到記錄'
-        linkData.value = []
     }else if(newVal.path == '/latestNewsView'){
         headerTitle.value = '最新消息'
     }else{
@@ -224,7 +207,7 @@ const tolatest = () =>  {
     }
     #primary_nav_wrap
     {
-      width: 100%;
+      width: auto;
       height: auto;
     }
 
@@ -259,7 +242,7 @@ const tolatest = () =>  {
 
     #primary_nav_wrap ul li.current-menu-item
     {
-        background:#ddd
+        background:#008AFF
     }
 
     //#primary_nav_wrap ul li:hover
@@ -273,14 +256,14 @@ const tolatest = () =>  {
         position:absolute;
         top:100%;
         left:0;
-        background:#fff;
+        background:#008AFF;
         padding:0
     }
 
     #primary_nav_wrap ul ul li
     {
         float:none;
-        width:200px
+        width:100px;
     }
 
     //#primary_nav_wrap ul ul a
@@ -299,4 +282,6 @@ const tolatest = () =>  {
     {
         display:block
     }
+
+    
 </style>
