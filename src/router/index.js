@@ -25,6 +25,7 @@ import chatroom from '../views/chatroom'
 import messageView from '../views/message'
 import qrcodeView from '../views/qrcode'
 import recordView from '../views/record'
+import latestNewsView from '../views/news/latestNews.vue'
 import errorView from '../views/errorView.vue'
 import { useStore } from "vuex";
 
@@ -263,6 +264,11 @@ const routes = [
         return '/'
       }
     },
+  },
+  {
+    path: '/latestNewsView',
+    name: 'latestNewsView',
+    component: latestNewsView,
   },
   { 
     path: '/:pathMatch(.*)*', 

@@ -31,7 +31,7 @@
             v-if="!isMobile" 
             class="relative w-[auto] h-[8vh] px-4 mine-flex-center"
         >
-            <div @click="tohome" class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">最新消息</div>
+            <div @click="tolatest" class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">最新消息</div>
             <div
                 class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all" 
                 v-for="(item, index) in linkData" :key="index"
@@ -82,7 +82,7 @@ const setStatus = computed(() => {
 
 const headerTitle = ref('智光智慧園管理平台')
 watch(route, (newVal,oldval) => {
-    console.log('newVal',newVal)
+
     linkData.value = [
         {text:"聯絡簿",url:'/contact'},
         {text:"訊息通知",url:'/messageView',isAlert:true},
@@ -175,6 +175,8 @@ watch(route, (newVal,oldval) => {
     }else if(newVal.path == '/recordView'){
         headerTitle.value = '簽到記錄'
         linkData.value = []
+    }else if(newVal.path == '/latestNewsView'){
+        headerTitle.value = '最新消息'
     }else{
         headerTitle.value = '智光智慧園管理平台'
     }
@@ -208,6 +210,10 @@ const toCenter = () => {
 
 const toScan = () => {
     router.push({ path: '/qrcodeView' })
+}
+
+const tolatest = () =>  {
+    router.push({ path: '/latestNewsView' })
 }
 
 </script>
