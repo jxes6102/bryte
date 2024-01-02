@@ -19,9 +19,13 @@
             </div>
         </div>
         <div 
-          class="relative w-[auto] h-[8vh] text-white text-xl md:text-3xl flex flex-wrap justify-center items-center font-extrabold"
-          @click="tohome"
-          >{{ headerTitle }}
+            class="relative w-[auto] h-[8vh] text-white text-xl md:text-3xl flex flex-wrap justify-center items-center font-extrabold"
+            @click="tohome"
+            >
+            <div v-if="headerTitle == '智光智慧園管理平台'">
+                <img class="h-[8vh]" src="@/assets/img/logo-3.png" alt="">
+            </div>
+            <div v-else>{{ headerTitle }}</div>
         </div>
         <div 
             v-if="!isMobile" 
@@ -78,7 +82,7 @@ const setStatus = computed(() => {
 
 const headerTitle = ref('智光智慧園管理平台')
 watch(route, (newVal,oldval) => {
-
+    console.log('newVal',newVal)
     linkData.value = [
         {text:"聯絡簿",url:'/contact'},
         {text:"訊息通知",url:'/messageView',isAlert:true},
