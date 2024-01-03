@@ -1,6 +1,6 @@
 <template>
     <div 
-        class="transition-all sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[#008AFF]"
+        class="transition-all sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-zinc-50"
     >
         <div 
             v-show="route.path !== '/'"
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div 
-            class="relative w-[auto] h-[8vh] text-white text-xl md:text-3xl flex flex-wrap justify-center items-center font-extrabold"
+            class="relative w-[auto] h-[8vh] text-xl md:text-3xl flex flex-wrap justify-center items-center font-extrabold"
             @click="tohome"
             >
             <div v-if="headerTitle == '智光智慧園管理平台'">
@@ -31,19 +31,20 @@
             v-if="!isMobile" 
             class="relative w-[auto] h-[8vh] px-4 mine-flex-center"
         >
-            <div @click="tolatest" class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">最新消息</div>
+            <div @click="tolatest" class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all hover:text-orange-500">最新消息</div>
             <div
-                class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all" 
+                class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-xl font-bold cursor-pointer hover:scale-[1.1] hover:text-orange-500 transition-all" 
                 v-for="(item, index) in linkData" :key="index"
                 @click="toLink(item.url)">
                 {{item.text}}
                 <div v-if="item?.isAlert" class="absolute top-[5px] right-[2px] w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">9+</div>
             </div>
-            <div id="primary_nav_wrap" class="text-white text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">
+            <div id="primary_nav_wrap" class="mx-4 text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">
                 <ul>
-                    <li @click.stop="toCenter">{{ statement }}
+                    <li @click.stop="toCenter">
+                        <div class="hover:text-orange-500">{{ statement }}</div>
                         <ul v-if="isSchool">
-                            <li @click.stop="tocontactSet">設定</li>
+                            <li class="hover:text-orange-500" @click.stop="tocontactSet">設定</li>
                         </ul>
                     </li>
                 </ul>
@@ -242,7 +243,7 @@ const tolatest = () =>  {
 
     #primary_nav_wrap ul li.current-menu-item
     {
-        background:#008AFF
+        background:rgb(250 250 250);
     }
 
     //#primary_nav_wrap ul li:hover
@@ -256,7 +257,7 @@ const tolatest = () =>  {
         position:absolute;
         top:100%;
         left:0;
-        background:#008AFF;
+        background:rgb(250 250 250);
         padding:0
     }
 

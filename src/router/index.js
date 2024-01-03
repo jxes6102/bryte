@@ -1,4 +1,5 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+/*eslint-disable*/
+import { createRouter,createWebHistory,createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import introductionView from '../views/Introduction'
 import editIntroduction from '../views/Introduction/editIntroduction'

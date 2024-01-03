@@ -1,8 +1,8 @@
 <template>
   <div class="home flex flex-col items-center justify-center">
-    <!-- <div class="h-[2222px]"></div> -->
-    <!-- <img class="mine-fixed-center" alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <!-- <div class="w-full flex flex-wrap items-start justify-start">
+      <div class="run text-2xl text-[red] font-bold">test</div>
+    </div> -->
     <div class="w-[95%] h-auto p-1 mine-flex-center" v-if="bannerData.length">
       <swiper 
         class="relative text-black w-[100vw] md:w-[50vw] h-auto rounded-md mine-flex-center"
@@ -40,8 +40,8 @@
     </div>
     <div class="w-full my-4 md:my-8">
       <div class="w-full my-2 md:my-4 text-2xl md:text-4xl font-bold text-orange-500 flex flex-wrap items-center justify-center gap-x-[40px]">
-        <div>無紙化數位補習班</div>
-        <div>就是這樣實現的</div>
+        <div>無漏創造孩童防護網</div>
+        <div>智光園守護校園安全</div>
       </div>
       <div class="w-full h-auto flex flex-wrap items-center justify-center gap-[4vw] md:gap-[1vw]">
         <div class="w-[80vw] h-[80vw] md:w-[15vw] md:h-[15vw] md:max-w-[250px] md:max-h-[250px] p-2 rounded-lg hover:border-4 hover:border-orange-500 transition-all">
@@ -142,6 +142,12 @@
         <div class="w-[90%] md:w-[80%] h-[auto] grid grid-cols-4 md:grid-cols-10 justify-items-center gap-[2vw] md:gap-[1vw]" >
           <div v-for="n in 40" :key="n" class="w-[15vw] h-[15vw] md:w-[6vw] md:h-[6vw] bg-gray-500 rounded-lg"></div>
         </div>
+      </div>
+    </div>
+    <div class="w-[90%] md:w-full mt-2 md:mt-0 py-[50px] md:py-[100px] bg-zinc-100 flex flex-wrap justify-center items-center">
+      <div class="text-base md:text-2xl text-[#1D2088] font-bold">超過三千家客戶使用傑人校掌雲補習班管理系統，不試試嗎?</div>
+      <div class="mx-4">
+        <button class="bg-orange-500 hover:bg-orange-600 text-base md:text-2xl text-white font-bold py-2 px-3 md:py-3 md:px-4 rounded-full">立即體驗</button>
       </div>
     </div>
 <!--     
@@ -270,25 +276,38 @@ const countHeight = (w,h) => {
   return isMobile.value ? (Math.round(h*100/w))+'vw' : (Math.round(h*100/w)/2)+'vw'
 }
 
-const toIntroduction = () => {
-  router.push({ path: 'introduction' })
-}
+// const toIntroduction = () => {
+//   router.push({ path: 'introduction' })
+// }
 
-const toNews = (item) => {
-  if(item){
-    router.push({ 
-      name: 'news',
-      query:{
-        NewsID:item.NewsID
-      }
-    })
-  }else{
-    router.push({ path: 'news' })
-  }
-}
+// const toNews = (item) => {
+//   if(item){
+//     router.push({ 
+//       name: 'news',
+//       query:{
+//         NewsID:item.NewsID
+//       }
+//     })
+//   }else{
+//     router.push({ path: 'news' })
+//   }
+// }
 
 </script>
 
-<style>
+<style lang="scss" scoped>
+/*
+.run {
+  position: relative;
+  animation: Marquee 6s linear 2s infinite;
+}
 
+@keyframes Marquee {
+  0%   {transform: translateX(0vw);}
+  25%  {transform: translateX(25vw);}
+  50%  {transform: translateX(50vw);}
+  75%  {transform: translateX(75vw);}
+  100% {transform: translateX(100vw);}
+}
+*/
 </style>
