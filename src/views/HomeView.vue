@@ -131,8 +131,8 @@
     </div>
     <div class="w-full h-auto flex flex-wrap justify-center items-center">
       <div class="w-full h-auto pb-2 md:pb-6 bg-[#1E90FF] flex flex-col justify-center items-center">
-        <div class="w-auto">
-          <img class="w-[260px] md:w-[600px]" src="@/assets/img/logo-2.png" alt="">
+        <div class="w-auto p-2">
+          <img class="w-[200px] md:w-[600px]" src="@/assets/img/logo-3.png" alt="">
         </div>
         <div class="w-full text-lg md:text-6xl text-white font-bold">建立管理制度 傳承學校文化</div> 
       </div>
@@ -144,7 +144,7 @@
         </div>
       </div>
     </div>
-    
+<!--     
     <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center">
       <div class="w-full p-1 flex flex-wrap items-center justify-between">    
         <div class="text-lg md:text-3xl leading-tight font-semibold text-neutral-800">單位簡介</div>
@@ -166,14 +166,6 @@
         v-for="(item, index) in newsData" :key="index"
         @click="toNews(item)"
         class="relative w-full h-[auto] md:h-[210px] p-1 border-t-[1px] border-gray-300 text-neutral-800 flex flex-wrap items-center justify-between cursor-pointer">
-        <!-- <div 
-          v-if="item.PreviewImage" 
-          class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-cover bg-center bg-no-repeat rounded-lg"
-          :style="{
-            'background-image': 'url(' + item.PreviewImage + ')',
-          }"
-          >
-        </div> -->
         <div 
           v-if="item.PreviewImage" 
           class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] bg-cover bg-center bg-no-repeat rounded-lg"
@@ -194,7 +186,7 @@
         </div>
         
       </div>
-    </div>
+    </div> -->
     
   </div>
 </template>

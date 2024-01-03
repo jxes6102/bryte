@@ -23,7 +23,7 @@
             @click="tohome"
             >
             <div v-if="headerTitle == '智光智慧園管理平台'">
-                <img class="h-[8vh]" src="@/assets/img/logo-3.png" alt="">
+                <img class="h-[8vh]" src="@/assets/img/logo-5.png" alt="">
             </div>
             <div v-else>{{ headerTitle }}</div>
         </div>
