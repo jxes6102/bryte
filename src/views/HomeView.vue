@@ -38,7 +38,7 @@
         </swiper-slide>
       </swiper>
     </div>
-    <div class="w-full my-4 md:my-8 flex flex-col items-center justify-center">
+    <div class="w-full h-auto my-4 md:my-8 flex flex-col items-center justify-center">
       <!-- <div class="w-full my-2 md:my-4 text-2xl md:text-4xl font-bold text-orange-500 flex flex-wrap items-center justify-center gap-x-[40px]">
         <div>無漏創造孩童防護網</div>
         <div>智光園守護校園安全</div>
@@ -51,24 +51,24 @@
           <img class="w-[90vw] md:w-[50vw]" src="@/assets/img/comic-1.png" alt="">
         </div>
       </div>
-      <div class="w-[95%] md:w-[90%] md:mt-4 p-5 md:p-2 grid grid-cols-1 md:grid-cols-5 justify-items-center gap-[5vw] md:gap-[1vw]">
-        <div class="w-full flex flex-col">
+      <div class="w-[95%] md:mt-4 p-5 md:p-1 grid grid-cols-1 md:grid-cols-5 justify-items-center gap-[5vw] md:gap-[1vw]">
+        <div class="w-full p-2 flex flex-col rounded-xl hover:border-4 hover:border-orange-500 transition-all">
           <img class="w-full" src="@/assets/img/comic-2.png" alt="">
           <div class="text-sm md:text-lg font-semibold text-left">當爸媽總是擔心著寶貝們在校生活</div>
         </div>
-        <div class="w-full flex flex-col">
+        <div class="w-full p-2 flex flex-col rounded-xl hover:border-4 hover:border-orange-500 transition-all">
           <img class="w-full" src="@/assets/img/comic-3.png" alt="">
           <div class="text-sm md:text-lg font-semibold text-left">不用再另外下載，只要輕鬆打開智光園Line官方，即可馬上查看</div>
         </div>
-        <div class="w-full flex flex-col">
+        <div class="w-full p-2 flex flex-col rounded-xl hover:border-4 hover:border-orange-500 transition-all">
           <img class="w-full" src="@/assets/img/comic-4.png" alt="">
           <div class="text-sm md:text-lg font-semibold text-left">操作不在像以前一樣要安裝多種APP</div>
         </div>
-        <div class="w-full flex flex-col">
+        <div class="w-full p-2 flex flex-col rounded-xl hover:border-4 hover:border-orange-500 transition-all">
           <img class="w-full" src="@/assets/img/comic-5.png" alt="">
           <div class="text-sm md:text-lg font-semibold text-left">輕鬆點擊加入，寶貝校園查看應有盡有</div>
         </div>
-        <div class="w-full flex flex-col">
+        <div class="w-full p-2 flex flex-col rounded-xl hover:border-4 hover:border-orange-500 transition-all">
           <img class="w-full" src="@/assets/img/comic-6.png" alt="">
           <div class="text-sm md:text-lg font-semibold text-left">加入後，隨時隨地都能知道寶貝們情況，讓孩童安全保護網更強大!!</div>
         </div>
