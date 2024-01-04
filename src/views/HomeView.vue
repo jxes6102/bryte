@@ -67,7 +67,7 @@
         <div class="w-full text-xl md:text-3xl font-bold">最親善使用者的補習班管理系統，讓你一用就欲罷不能</div>
       </div>
 
-      <div class="w-full md:w-[95%] my-2 md:my-4 grid grid-cols-1 md:grid-cols-2 justify-items-center gap-[5vw] md:gap-[2vw]">
+      <div class="w-full md:w-[80%] my-2 md:my-4 grid grid-cols-1 md:grid-cols-2 justify-items-center gap-[5vw] md:gap-[1vw]">
         <div class="w-[100%] flex flex-wrap justify-center items-center ">
           <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
             <el-icon size="150"><CoffeeCup /></el-icon>

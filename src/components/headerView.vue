@@ -1,12 +1,12 @@
 <template>
     <div 
-        class="transition-all sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-zinc-50"
+        class="transition-all sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-zinc-100"
     >
         <div 
             v-show="route.path !== '/'"
             @click="toback"
             class="absolute w-[auto] h-[8vh] top-[0px] left-[5px] md:left-[20px] mine-flex-center cursor-pointer">
-            <el-icon :size="isMobile ? '25' : '40'" color="#fff"><Back /></el-icon>
+            <el-icon :size="isMobile ? '25' : '40'" color="#000"><Back /></el-icon>
         </div>
         <div 
             v-if="setStatus"
@@ -37,14 +37,14 @@
                 v-for="(item, index) in linkData" :key="index"
                 @click="toLink(item.url)">
                 {{item.text}}
-                <div v-if="item?.isAlert" class="absolute top-[5px] right-[2px] w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">9+</div>
+                <div v-if="item?.isAlert" class="absolute top-[15%] xl:top-[20%] right-[2px] w-[22px] h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">9+</div>
             </div>
             <div id="primary_nav_wrap" class="mx-4 text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">
                 <ul>
                     <li @click.stop="toCenter">
-                        <div class="hover:text-orange-500">{{ statement }}</div>
-                        <ul v-if="isSchool">
-                            <li class="hover:text-orange-500" @click.stop="tocontactSet">設定</li>
+                        <div class="py-[10px] hover:text-orange-500 ">{{ statement }}</div>
+                        <ul class="" v-if="isSchool">
+                            <li class="py-[5px] hover:text-orange-500" @click.stop="tocontactSet">設定</li>
                         </ul>
                     </li>
                 </ul>
@@ -264,7 +264,7 @@ const tolatest = () =>  {
     #primary_nav_wrap ul ul li
     {
         float:none;
-        width:100px;
+        width:150px;
     }
 
     //#primary_nav_wrap ul ul a
