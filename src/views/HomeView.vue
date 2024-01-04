@@ -38,12 +38,42 @@
         </swiper-slide>
       </swiper>
     </div>
-    <div class="w-full my-4 md:my-8">
-      <div class="w-full my-2 md:my-4 text-2xl md:text-4xl font-bold text-orange-500 flex flex-wrap items-center justify-center gap-x-[40px]">
+    <div class="w-full my-4 md:my-8 flex flex-col items-center justify-center">
+      <!-- <div class="w-full my-2 md:my-4 text-2xl md:text-4xl font-bold text-orange-500 flex flex-wrap items-center justify-center gap-x-[40px]">
         <div>無漏創造孩童防護網</div>
         <div>智光園守護校園安全</div>
+      </div> -->
+      <div class="w-full flex flex-wrap items-center justify-center">
+        <img class="w-[90vw] md:w-[70vw]" src="@/assets/img/show-1.png" alt="">
       </div>
-      <div class="w-full h-auto flex flex-wrap items-center justify-center gap-[4vw] md:gap-[1vw]">
+      <div class="w-full flex flex-wrap items-center justify-center">
+        <div class="w-auto">
+          <img class="w-[90vw] md:w-[50vw]" src="@/assets/img/comic-1.png" alt="">
+        </div>
+      </div>
+      <div class="w-[95%] md:w-[90%] md:mt-4 p-5 md:p-2 grid grid-cols-1 md:grid-cols-5 justify-items-center gap-[5vw] md:gap-[1vw]">
+        <div class="w-full flex flex-col">
+          <img class="w-full" src="@/assets/img/comic-2.png" alt="">
+          <div class="text-sm md:text-lg font-semibold text-left">當爸媽總是擔心著寶貝們在校生活</div>
+        </div>
+        <div class="w-full flex flex-col">
+          <img class="w-full" src="@/assets/img/comic-3.png" alt="">
+          <div class="text-sm md:text-lg font-semibold text-left">不用再另外下載，只要輕鬆打開智光園Line官方，即可馬上查看</div>
+        </div>
+        <div class="w-full flex flex-col">
+          <img class="w-full" src="@/assets/img/comic-4.png" alt="">
+          <div class="text-sm md:text-lg font-semibold text-left">操作不在像以前一樣要安裝多種APP</div>
+        </div>
+        <div class="w-full flex flex-col">
+          <img class="w-full" src="@/assets/img/comic-5.png" alt="">
+          <div class="text-sm md:text-lg font-semibold text-left">輕鬆點擊加入，寶貝校園查看應有盡有</div>
+        </div>
+        <div class="w-full flex flex-col">
+          <img class="w-full" src="@/assets/img/comic-6.png" alt="">
+          <div class="text-sm md:text-lg font-semibold text-left">加入後，隨時隨地都能知道寶貝們情況，讓孩童安全保護網更強大!!</div>
+        </div>
+      </div>
+      <!-- <div class="w-full h-auto flex flex-wrap items-center justify-center gap-[4vw] md:gap-[1vw]">
         <div class="w-[80vw] h-[80vw] md:w-[15vw] md:h-[15vw] md:max-w-[250px] md:max-h-[250px] p-2 rounded-lg hover:border-4 hover:border-orange-500 transition-all">
           <iframe class="w-full h-full" src="https://www.youtube.com/embed/E7vBKfzOzn4?si=3vVp4inVpSeXXH8z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
@@ -59,7 +89,7 @@
         <div class="w-[80vw] h-[80vw] md:w-[15vw] md:h-[15vw] md:max-w-[250px] md:max-h-[250px] p-2 rounded-lg hover:border-4 hover:border-orange-500 transition-all">
           <iframe class="w-full h-full" src="https://www.youtube.com/embed/jx9iGO_V53c?si=S8SENgX5CAAcWrYW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="w-full my-4 md:my-8 flex flex-wrap items-center justify-center">
       <div class="w-full my-2 md:my-4 flex flex-wrap items-center justify-center">
@@ -129,23 +159,23 @@
         </div>
       </div>
     </div>
-    <div class="w-full h-auto flex flex-wrap justify-center items-center">
-      <div class="w-full h-auto pb-2 md:pb-6 bg-[#1E90FF] flex flex-col justify-center items-center">
+    <div class="w-full h-auto flex flex-col justify-center items-center">
+      <div class="w-auto h-auto my-4 p-4 md:p-6 rounded-2xl bg-[#BFCF79] flex flex-col justify-center items-center">
         <div class="w-auto p-2">
           <img class="w-[200px] md:w-[600px]" src="@/assets/img/logo-3.png" alt="">
         </div>
-        <div class="w-full text-lg md:text-6xl text-white font-bold">建立管理制度 傳承學校文化</div> 
+        <div class="w-full text-lg md:text-6xl font-bold">建立管理制度 傳承學校文化</div> 
       </div>
 
-      <div class="w-[100vw] h-[100vh] md:h-[36vw] bg-cover bg-repeat md:bg-no-repeat bg-center flex flex-wrap justify-center items-center"
-        :style="{backgroundImage:`url( ${require('@/assets/img/bg-1.jpg')} )`}">
-        <div class="w-[90%] md:w-[80%] h-[auto] grid grid-cols-4 md:grid-cols-10 justify-items-center gap-[2vw] md:gap-[1vw]" >
-          <div v-for="n in 40" :key="n" class="w-[15vw] h-[15vw] md:w-[6vw] md:h-[6vw] bg-gray-500 rounded-lg"></div>
+      <div class="w-[90vw] h-[100vh] md:w-[84vw] md:h-[30vw] bg-cover bg-repeat md:bg-no-repeat bg-center flex flex-wrap justify-center items-center"
+        :style="{backgroundImage:`url( ${require('@/assets/img/bg-2.png')} )`}">
+        <div class="w-[90%] md:w-[95%] h-[auto] grid grid-cols-4 md:grid-cols-10 justify-items-center gap-[2vw] md:gap-[1vw]" >
+          <div v-for="n in 40" :key="n" class="w-[15vw] h-[15vw] md:w-[6vw] md:h-[6vw] bg-red-500 rounded-lg"></div>
         </div>
       </div>
     </div>
     <div class="w-[90%] md:w-full mt-2 md:mt-0 py-[50px] md:py-[100px] bg-zinc-100 flex flex-wrap justify-center items-center">
-      <div class="text-base md:text-2xl text-[#1D2088] font-bold">超過三千家客戶使用傑人校掌雲補習班管理系統，不試試嗎?</div>
+      <div class="text-base md:text-2xl text-[#1D2088] font-bold">超過三千家客戶使用補習班管理系統，不試試嗎?</div>
       <div class="mx-4">
         <button class="bg-orange-500 hover:bg-orange-600 text-base md:text-2xl text-white font-bold py-2 px-3 md:py-3 md:px-4 rounded-full">立即體驗</button>
       </div>

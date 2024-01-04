@@ -12,10 +12,10 @@
             v-if="setStatus"
             class="absolute w-[auto] h-[8vh] top-[0px] right-[5px] mine-flex-center">
             <div v-if="isSchool" @click="tocontactSet" class="px-1">
-                <el-icon size="25" color="#fff"><Setting /></el-icon>
+                <el-icon size="25" color="#000"><Setting /></el-icon>
             </div>
             <div v-if="isSchool" @click="toScan" class="px-1">
-                <el-icon size="25" color="#fff"><Stamp /></el-icon>
+                <el-icon size="25" color="#000"><Stamp /></el-icon>
             </div>
         </div>
         <div 
