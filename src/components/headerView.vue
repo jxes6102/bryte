@@ -1,6 +1,6 @@
 <template>
     <div 
-        class="transition-all sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-zinc-100"
+        class="shadow-style-1 transition-all sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[rgb(255,255,255,0.9)]"
     >
         <div 
             v-show="route.path !== '/'"
@@ -243,7 +243,7 @@ const tolatest = () =>  {
 
     #primary_nav_wrap ul li.current-menu-item
     {
-        background:rgb(250 250 250);
+        background:rgb(255,255,255,0.9);
     }
 
     //#primary_nav_wrap ul li:hover
@@ -257,7 +257,7 @@ const tolatest = () =>  {
         position:absolute;
         top:100%;
         left:0;
-        background:rgb(250 250 250);
+        background:rgb(255,255,255,0.9);
         padding:0
     }
 

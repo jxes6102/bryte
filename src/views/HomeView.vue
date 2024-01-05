@@ -3,9 +3,9 @@
     <!-- <div class="w-full flex flex-wrap items-start justify-start">
       <div class="run text-2xl text-[red] font-bold">test</div>
     </div> -->
-    <div class="w-[95%] h-auto p-1 mine-flex-center" v-if="bannerData.length">
+    <div class="w-full h-auto mine-flex-center" v-if="bannerData.length">
       <swiper 
-        class="relative text-black w-[100vw] md:w-[50vw] h-auto rounded-md mine-flex-center"
+        class="relative text-black w-[100vw] h-auto rounded-md mine-flex-center"
         :slides-per-view="1"
         :space-between="0"
         :navigation="{
@@ -26,14 +26,22 @@
           class="relative w-full h-auto flex justify-center"
           v-for="(item, index) in bannerData" :key="index"
         >
-          <div
+          <!-- <div
             class="w-[100vw] md:w-[50vw] bg-cover bg-center bg-no-repeat mine-flex-center"
             :style="{
               'background-image': 'url(' + item.ImageUrl + ')',
               'height': countHeight(item.width,item.height)
             }"
+            
           >
-            <!-- <div class="text-3xl bg-[red]">{{ '這是標題:' + (index+1)}}</div> -->
+          </div> -->
+          <div
+            class="w-[100vw] bg-cover bg-center bg-no-repeat mine-flex-center"
+            :style="{
+              backgroundImage:'url('+item.ImageUrl+ ')',
+              'height': countHeight(item.width,item.height)
+            }"
+          >
           </div>
         </swiper-slide>
       </swiper>
@@ -160,11 +168,11 @@
       </div>
     </div>
     <div class="w-full h-auto flex flex-col justify-center items-center">
-      <div class="w-auto h-auto my-4 p-4 md:p-6 rounded-2xl bg-[#BFCF79] flex flex-col justify-center items-center">
-        <div class="w-auto p-2">
+      <div class="w-auto h-auto min-w-[70vw] md:min-w-[40vw] min-h-[50px] md:min-h-[70px] my-4 p-4 md:p-6 rounded-2xl bg-[#bfcf79] flex flex-col justify-center items-center">
+        <!-- <div class="w-auto p-2">
           <img class="w-[200px] md:w-[600px]" src="@/assets/img/logo-3.png" alt="">
         </div>
-        <div class="w-full text-lg md:text-6xl font-bold">建立管理制度 傳承學校文化</div> 
+        <div class="w-full text-lg md:text-6xl font-bold">建立管理制度 傳承學校文化</div>  -->
       </div>
 
       <div class="w-[90vw] h-[100vh] md:w-[84vw] md:h-[30vw] bg-cover bg-repeat md:bg-no-repeat bg-center flex flex-wrap justify-center items-center"
@@ -180,6 +188,7 @@
         <button class="bg-orange-500 hover:bg-orange-600 text-base md:text-2xl text-white font-bold py-2 px-3 md:py-3 md:px-4 rounded-full">立即體驗</button>
       </div>
     </div>
+    <tailView></tailView>
 <!--     
     <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center">
       <div class="w-full p-1 flex flex-wrap items-center justify-between">    
@@ -237,6 +246,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import { useRouter } from "vue-router";
 import 'swiper/css';
 import 'swiper/css/navigation';
+import tailView from "@/components/tailView.vue"
 
 const store = useStore()
 const router = useRouter()
@@ -249,44 +259,56 @@ const isMobile = computed(() => {
 
 const init = async() => {
   //輪播資訊
-  await getBannerSearch({
-    DepartmentID:"2bd3434f-1e95-4fdb-ab29-315921e06868"
-  }).then((res) => {
-    bannerData.value = res.data.Result
+  // await getBannerSearch({
+  //   DepartmentID:"2bd3434f-1e95-4fdb-ab29-315921e06868"
+  // }).then((res) => {
+  //   bannerData.value = res.data.Result
     
-    for(let item of bannerData.value){
+  //   for(let item of bannerData.value){
       
+  //     const img = new Image();
+  //     img.src = item.ImageUrl;
+      
+  //     img.onload = function() {
+  //       item.width = img.width
+  //       item.height = img.height
+  //       //console.log(img.width + 'x' + img.height)
+  //     }
+  //   }
+  //   //console.log('bannerData.value',bannerData.value)
+    
+  // })
+  // .catch((error) => {
+  //   // handle error
+  //   console.log(error);
+  // })
+    bannerData.value = [
+      {ImageUrl:require('@/assets/img/carousel-1.jpg')},
+      {ImageUrl:require('@/assets/img/carousel-1.jpg')}
+    ]
+    for(let item of bannerData.value){
       const img = new Image();
       img.src = item.ImageUrl;
-      
       img.onload = function() {
         item.width = img.width
         item.height = img.height
-        //console.log(img.width + 'x' + img.height)
       }
     }
-    //console.log('bannerData.value',bannerData.value)
-    
-  })
-  .catch((error) => {
-    // handle error
-    console.log(error);
-  })
-  //最新消息
-  let newsSearchPayload = {
-    "DepartmentID":"2bd3434f-1e95-4fdb-ab29-315921e06868",
-    "page":0,
-    "rowsInPage":2,
-    "HideExpired":false
-  }
-  await getNewsSearch(newsSearchPayload).then((res) => {
-    newsData.value = res.data.Result.NewsList
-    // console.log('newsData.value',newsData.value)
-  })
-  .catch((error) => {
-    // handle error
-    console.log(error);
-  })
+    //最新消息
+    let newsSearchPayload = {
+      "DepartmentID":"2bd3434f-1e95-4fdb-ab29-315921e06868",
+      "page":0,
+      "rowsInPage":2,
+      "HideExpired":false
+    }
+    await getNewsSearch(newsSearchPayload).then((res) => {
+      newsData.value = res.data.Result.NewsList
+      // console.log('newsData.value',newsData.value)
+    })
+    .catch((error) => {
+      // handle error
+      console.log(error);
+    })
 }
 
 init()
@@ -303,7 +325,8 @@ const onSlideChange = () => {
 
 const countHeight = (w,h) => {
   //pc width 50vw phone width 100vw
-  return isMobile.value ? (Math.round(h*100/w))+'vw' : (Math.round(h*100/w)/2)+'vw'
+  return (Math.round(h*100/w))+'vw'
+  // return isMobile.value ? (Math.round(h*100/w))+'vw' : (Math.round(h*100/w)/2)+'vw'
 }
 
 // const toIntroduction = () => {
