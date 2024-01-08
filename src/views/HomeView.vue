@@ -54,11 +54,6 @@
       <div class="w-full flex flex-wrap items-center justify-center">
         <img class="w-[90vw] md:w-[70vw]" src="@/assets/img/show-1.png" alt="">
       </div>
-      <div class="w-full flex flex-wrap items-center justify-center">
-        <div class="w-auto">
-          <img class="w-[90vw] md:w-[50vw]" src="@/assets/img/comic-1.png" alt="">
-        </div>
-      </div>
       <div class='w-full h-auto my-4 py-[50px] md:py-[100px] px-[5vw] md:px-[10vw] bg-[#0cb59b] flex flex-wrap items-center justify-center'>
         <div class="w-[50%] md:w-[25%] pb-[20px] md:pb-0 md:border-x-[1px] md:border-r-[0.5px] border-white flex flex-col items-center justify-center">
           <div class=" text-white py-2">
@@ -87,6 +82,11 @@
             <span class="text-base md:text-lg">縣市</span>
           </div>
           <div class=" text-white text-base md:text-lg">學生分布</div>
+        </div>
+      </div>
+      <div class="w-full flex flex-wrap items-center justify-center">
+        <div class="w-auto">
+          <img class="w-[90vw] md:w-[50vw]" src="@/assets/img/comic-1.png" alt="">
         </div>
       </div>
       <div class="w-[95%] md:mt-4 p-5 md:p-1 grid grid-cols-1 md:grid-cols-5 justify-items-center gap-[5vw] md:gap-[1vw]">
