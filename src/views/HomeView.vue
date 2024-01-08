@@ -219,6 +219,7 @@
       </div>
     </div>
     <tailView></tailView>
+    <bookView></bookView>
 <!--     
     <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center">
       <div class="w-full p-1 flex flex-wrap items-center justify-between">    
@@ -277,6 +278,7 @@ import { useRouter } from "vue-router";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import tailView from "@/components/tailView.vue"
+import bookView from "@/components/bookView.vue"
 
 const store = useStore()
 const router = useRouter()
