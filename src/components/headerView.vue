@@ -1,29 +1,30 @@
 <template>
     <div 
-        class="shadow-style-1 transition-all sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[rgb(255,255,255,0.9)]"
+        class="shadow-style-1 transition-all text-white sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[rgb(92,225,230,0.9)]"
     >
         <div 
             v-show="route.path !== '/'"
             @click="toback"
             class="absolute w-[auto] h-[8vh] top-[0px] left-[5px] md:left-[20px] mine-flex-center cursor-pointer">
-            <el-icon :size="isMobile ? '25' : '40'" color="#000"><Back /></el-icon>
+            <el-icon :size="isMobile ? '25' : '40'" color="#fff"><Back /></el-icon>
         </div>
         <div 
             v-if="setStatus"
             class="absolute w-[auto] h-[8vh] top-[0px] right-[5px] mine-flex-center">
             <div v-if="isSchool" @click="tocontactSet" class="px-1">
-                <el-icon size="25" color="#000"><Setting /></el-icon>
+                <el-icon size="25" color="#fff"><Setting /></el-icon>
             </div>
             <div v-if="isSchool" @click="toScan" class="px-1">
-                <el-icon size="25" color="#000"><Stamp /></el-icon>
+                <el-icon size="25" color="#fff"><Stamp /></el-icon>
             </div>
         </div>
         <div 
             class="relative w-[auto] h-[8vh] text-xl md:text-3xl flex flex-wrap justify-center items-center font-extrabold"
             @click="tohome"
             >
-            <div v-if="headerTitle == '智光智慧園管理平台'">
-                <img class="h-[8vh]" src="@/assets/img/logo-5.png" alt="">
+            <div class="w-auto h-auto flex flex-wrap justify-center items-center" v-if="headerTitle == '智光智慧園管理平台'">
+                <img class="h-[8vh]" src="@/assets/img/logo-1.png" alt="">
+                <img class="h-[8vh]" src="@/assets/img/logo-6.jpg" alt="">
             </div>
             <div v-else>{{ headerTitle }}</div>
         </div>
@@ -243,7 +244,7 @@ const tolatest = () =>  {
 
     #primary_nav_wrap ul li.current-menu-item
     {
-        background:rgb(255,255,255,0.9);
+        background:rgb(92,225,230,0.9);
     }
 
     //#primary_nav_wrap ul li:hover
@@ -257,7 +258,7 @@ const tolatest = () =>  {
         position:absolute;
         top:100%;
         left:0;
-        background:rgb(255,255,255,0.9);
+        background:rgb(92,225,230,0.9);
         padding:0
     }
 
