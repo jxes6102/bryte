@@ -3,7 +3,7 @@
     <!-- <div class="w-full flex flex-wrap items-start justify-start">
       <div class="run text-2xl text-[red] font-bold">test</div>
     </div> -->
-    <div class="w-[80%] md:w-[80%] h-auto mine-flex-center" v-if="bannerData.length">
+    <div class="w-[80%] md:w-[80%] h-auto mt-4 md:mt-6 mine-flex-center" v-if="bannerData.length">
       <swiper 
         class="relative text-black w-[100vw] h-auto rounded-md mine-flex-center"
         :slides-per-view="1"
@@ -53,36 +53,6 @@
       </div> -->
       <div class="w-full flex flex-wrap items-center justify-center">
         <img class="w-[90vw] md:w-[70vw]" src="@/assets/img/show-1.png" alt="">
-      </div>
-      <div class='w-full h-auto my-4 py-[50px] md:py-[100px] px-[5vw] md:px-[10vw] bg-[#0cb59b] flex flex-wrap items-center justify-center'>
-        <div class="w-[50%] md:w-[25%] pb-[20px] md:pb-0 md:border-x-[1px] md:border-r-[0.5px] border-white flex flex-col items-center justify-center">
-          <div class=" text-white py-2">
-            <span class="text-4xl md:text-6xl px-1">4</span>
-            <span class="text-base md:text-lg">所</span>
-          </div>
-          <div class=" text-white text-base md:text-lg">我們的分校</div>
-        </div>
-        <div class="w-[50%] md:w-[25%] pb-[20px] md:pb-0 md:border-r-[1px] border-white flex flex-col items-center justify-center">
-          <div class=" text-white py-2">
-            <span class="text-4xl md:text-6xl px-1">40</span>
-            <span class="text-base md:text-lg">年</span>
-          </div>
-          <div class=" text-white text-base md:text-lg">創立</div>
-        </div>
-        <div class="w-[50%] md:w-[25%] pt-[20px] md:pt-0 border-t-[1px] md:border-0 border-white flex flex-col items-center justify-center">
-          <div class=" text-white py-2">
-            <span class="text-4xl md:text-6xl px-1">240</span>
-            <span class="text-base md:text-lg">所</span>
-          </div>
-          <div class=" text-white text-base md:text-lg">學生來源(學校)</div>
-        </div>
-        <div class="w-[50%] md:w-[25%] pt-[20px] md:pt-0 border-t-[1px] md:border-0 md:border-x-[1px] border-white flex flex-col items-center justify-center">
-          <div class=" text-white py-2">
-            <span class="text-4xl md:text-6xl px-1">5</span>
-            <span class="text-base md:text-lg">縣市</span>
-          </div>
-          <div class=" text-white text-base md:text-lg">學生分布</div>
-        </div>
       </div>
       <div class="w-full flex flex-wrap items-center justify-center">
         <div class="w-auto">
@@ -195,6 +165,36 @@
             <div class="text-lg text-center md:text-left">率先體驗智光I學院，整體系統，有效提升園所辦公效率，並讓孩童受到更安全的保護管理</div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class='w-full h-auto my-4 py-[50px] md:py-[100px] px-[5vw] md:px-[10vw] bg-[#0cb59b] flex flex-wrap items-center justify-center'>
+      <div class="w-[50%] md:w-[25%] pb-[20px] md:pb-0 md:border-x-[1px] md:border-r-[0.5px] border-white flex flex-col items-center justify-center">
+        <div class=" text-white py-2">
+          <span class="text-4xl md:text-6xl px-1">4</span>
+          <span class="text-base md:text-lg">所</span>
+        </div>
+        <div class=" text-white text-base md:text-lg">我們的分校</div>
+      </div>
+      <div class="w-[50%] md:w-[25%] pb-[20px] md:pb-0 md:border-r-[1px] border-white flex flex-col items-center justify-center">
+        <div class=" text-white py-2">
+          <span class="text-4xl md:text-6xl px-1">40</span>
+          <span class="text-base md:text-lg">年</span>
+        </div>
+        <div class=" text-white text-base md:text-lg">創立</div>
+      </div>
+      <div class="w-[50%] md:w-[25%] pt-[20px] md:pt-0 border-t-[1px] md:border-0 border-white flex flex-col items-center justify-center">
+        <div class=" text-white py-2">
+          <span class="text-4xl md:text-6xl px-1">240</span>
+          <span class="text-base md:text-lg">所</span>
+        </div>
+        <div class=" text-white text-base md:text-lg">學生來源(學校)</div>
+      </div>
+      <div class="w-[50%] md:w-[25%] pt-[20px] md:pt-0 border-t-[1px] md:border-0 md:border-x-[1px] border-white flex flex-col items-center justify-center">
+        <div class=" text-white py-2">
+          <span class="text-4xl md:text-6xl px-1">5</span>
+          <span class="text-base md:text-lg">縣市</span>
+        </div>
+        <div class=" text-white text-base md:text-lg">學生分布</div>
       </div>
     </div>
     <div class="w-full h-auto flex flex-col justify-center items-center">
