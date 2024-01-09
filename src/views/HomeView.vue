@@ -3,7 +3,7 @@
     <!-- <div class="w-full flex flex-wrap items-start justify-start">
       <div class="run text-2xl text-[red] font-bold">test</div>
     </div> -->
-    <div class="w-full h-auto mine-flex-center" v-if="bannerData.length">
+    <div class="w-[80%] md:w-[80%] h-auto mine-flex-center" v-if="bannerData.length">
       <swiper 
         class="relative text-black w-[100vw] h-auto rounded-md mine-flex-center"
         :slides-per-view="1"
@@ -36,10 +36,10 @@
           >
           </div> -->
           <div
-            class="w-[100vw] bg-cover bg-center bg-no-repeat mine-flex-center"
+            class="w-[80vw] md:w-[80vw] bg-cover bg-center bg-no-repeat mine-flex-center"
             :style="{
               backgroundImage:'url('+item.ImageUrl+ ')',
-              'height': countHeight(item.width,item.height)
+              'height': countHeight(item.width,item.height,(isMobile ? 80 : 80))
             }"
           >
           </div>
@@ -191,8 +191,8 @@
             <el-icon size="150"><CoffeeCup /></el-icon>
           </div>
           <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
-            <div class="text-2xl text-[#1D2088] font-bold">提供系統測試</div>
-            <div class="text-lg text-center md:text-left">優先體驗系統功能，感受並了解"校掌雲"強大的補習班數位管理能力</div>
+            <div class="text-2xl text-[#1D2088] font-bold">系統測試體驗</div>
+            <div class="text-lg text-center md:text-left">率先體驗智光I學院，整體系統，有效提升園所辦公效率，並讓孩童受到更安全的保護管理</div>
           </div>
         </div>
       </div>
@@ -352,9 +352,9 @@ const onSlideChange = () => {
   // console.log('slide change');
 };
 
-const countHeight = (w,h) => {
+const countHeight = (w,h,width) => {
   //pc width 50vw phone width 100vw
-  return (Math.round(h*100/w))+'vw'
+  return (Math.round(h*width/w))+'vw'
   // return isMobile.value ? (Math.round(h*100/w))+'vw' : (Math.round(h*100/w)/2)+'vw'
 }
 

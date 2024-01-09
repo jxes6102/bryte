@@ -1,31 +1,38 @@
 <template>
     <div class="w-full my-2 flex flex-wrap items-center justify-center">
         <div ref="bookItem" class="book-bg w-[80vw] h-[56vw] md:w-[70vw] md:h-[49vw] flex flex-wrap items-center justify-center">
-            <div class="w-[100%] h-[90%] flex flex-wrap items-center justify-center">
-                <div @click="toLeft" class="w-[50%] h-[100%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]" >
-                    <div v-for="n in 24" :key="n" class="w-[5vw] h-[5vw] md:w-[5vw] md:h-[5vw] bg-red-500 rounded-sm md:rounded-lg"></div>
+            <Transition
+                enter-active-class="animate__animated animate__fadeIn"
+                leave-active-class="animate__animated animate__fadeOut"
+                >
+                <div v-if="bookAnimationStatus" class="w-[100%] h-[90%] flex flex-wrap items-center justify-center">
+                    <div @click="toLeft" class="w-[50%] h-[100%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]" >
+                        <!-- <div v-for="(item,index) in bookShowLeft" :key="index" class="w-[5vw] h-[5vw] md:w-[5vw] md:h-[5vw] bg-red-500 rounded-sm md:rounded-lg flex flex-wrap items-center justify-center">
+                            <div class="text-xs">{{item}}</div>
+                        </div> -->
+                    </div>
+                    <div @click="toRight" class="w-[50%] h-[100%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]" >
+                        <!-- <div v-for="(item,index) in bookShowRight" :key="index" class="w-[5vw] h-[5vw] md:w-[5vw] md:h-[5vw] bg-red-500 rounded-sm md:rounded-lg flex flex-wrap items-center justify-center">
+                            <div class="text-xs">{{item}}</div>
+                        </div> -->
+                    </div>
                 </div>
-                <div @click="toRight" class="w-[50%] h-[100%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]" >
-                    <div v-for="n in 24" :key="n" class="w-[5vw] h-[5vw] md:w-[5vw] md:h-[5vw] bg-red-500 rounded-sm md:rounded-lg"></div>
-                </div>
-            </div>
+            </Transition>
             
             <Transition enter-active-class="toLeft">
                 <div 
                     v-if="leftAnimationStatus"
                     class="book-cover-left flex flex-wrap items-center justify-center">
-                    <div class="w-[100%] h-[90%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]">
-                        <div v-for="n in 24" :key="n" class="w-[5vw] h-[5vw] md:w-[5vw] md:h-[5vw] bg-red-500 rounded-sm md:rounded-lg"></div>
-                    </div>
+                    <!-- <div class="w-[100%] h-[90%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]">
+                    </div> -->
                 </div>
             </Transition>
             <Transition enter-active-class="toRight">
                 <div 
                     v-if="rightAnimationStatus"
                     class="book-cover-right flex flex-wrap items-center justify-center">
-                    <div class="w-[100%] h-[90%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]">
-                        <div v-for="n in 24" :key="n" class="w-[5vw] h-[5vw] md:w-[5vw] md:h-[5vw] bg-red-500 rounded-sm md:rounded-lg"></div>
-                    </div>
+                    <!-- <div class="w-[100%] h-[90%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]">
+                    </div> -->
                 </div>
             </Transition>
         </div>
@@ -48,29 +55,55 @@ const store = useStore()
 const router = useRouter()
 
 const bookData = ref([])
+for(let i = 0;i<=150;i++){
+    bookData.value.push(i)
+}
+const bookKey = ref(0)
+const bookShow = computed(() => {
+    return bookData.value.slice((bookKey.value)*48,(bookKey.value+1)*48)
+})
+const bookShowLeft = computed(() => {
+    return bookShow.value.slice(0,24)
+})
+const bookShowRight = computed(() => {
+    return bookShow.value.slice(24,48)
+})
+const bookAnimationStatus = ref(true)
 const rightAnimationStatus = ref(false)
 const toRight = () => {
-    if(rightAnimationStatus.value || leftAnimationStatus.value){
+    if(rightAnimationStatus.value || leftAnimationStatus.value || (bookKey.value >= (bookData.value.length/48-1))){
         return false
     }
+    
+    bookKey.value++
     rightAnimationStatus.value = true
+    bookAnimationStatus.value = false
+    // console.log('toRight',bookKey.value)
+    // console.log('bookShowRight',bookShow.value)
     setTimeout(() => {
         rightAnimationStatus.value = false
+        bookAnimationStatus.value = true
     }, 1000);
 }
 const leftAnimationStatus = ref(false)
 const toLeft = () => {
-    if(leftAnimationStatus.value || rightAnimationStatus.value){
+    if(leftAnimationStatus.value || rightAnimationStatus.value || (bookKey.value == 0)){
         return false
     }
+    
+    bookKey.value--
     leftAnimationStatus.value = true
+    bookAnimationStatus.value = false
+    // console.log('toLeft',bookKey.value)
+    // console.log('bookShowLeft',bookShow.value)
     setTimeout(() => {
         leftAnimationStatus.value = false
+        bookAnimationStatus.value = true
     }, 1000);
 }
 
-const bookItem = ref(null)
-let bookStatus = false
+// const bookItem = ref(null)
+// let bookStatus = false
 // const turning = (event) => {
 //     if(bookStatus){
 //         return false
