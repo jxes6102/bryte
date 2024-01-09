@@ -107,8 +107,8 @@
 
       <div class="w-full md:w-[80%] my-2 md:my-4 grid grid-cols-1 md:grid-cols-2 justify-items-center gap-[5vw] md:gap-[1vw]">
         <div class="w-[100%] flex flex-wrap justify-center items-center ">
-          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
-            <el-icon size="150"><CoffeeCup /></el-icon>
+          <div class="w-[150px] h-[150px] bg-gray-50 flex flex-wrap items-center justify-center">
+            <img class="w-full h-full" src="@/assets/img/feature-4.png" alt="">
           </div>
           <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
             <div class="text-2xl text-[#1D2088] font-bold">直覺的操作介面</div>
@@ -117,8 +117,8 @@
         </div>
 
         <div class="w-[100%] flex flex-wrap justify-center items-center ">
-          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
-            <el-icon size="150"><CoffeeCup /></el-icon>
+          <div class="w-[150px] h-[150px] bg-gray-50 flex flex-wrap items-center justify-center">
+            <img class="w-full h-full" src="@/assets/img/feature-1.png" alt="">
           </div>
           <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
             <div class="text-2xl text-[#1D2088] font-bold">專業形象網站</div>
@@ -127,8 +127,8 @@
         </div>
 
         <div class="w-[100%] flex flex-wrap justify-center items-center ">
-          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
-            <el-icon size="150"><CoffeeCup /></el-icon>
+          <div class="w-[150px] h-[150px] bg-gray-50 flex flex-wrap items-center justify-center">
+            <el-icon size="150"><Document /></el-icon>
           </div>
           <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
             <div class="my-1 text-2xl text-[#1D2088] font-bold">功能齊全 All In One</div>
@@ -137,8 +137,8 @@
         </div>
 
         <div class="w-[100%] flex flex-wrap justify-center items-center ">
-          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
-            <el-icon size="150"><CoffeeCup /></el-icon>
+          <div class="w-[150px] h-[150px] bg-gray-50 flex flex-wrap items-center justify-center">
+            <el-icon size="150"><Platform /></el-icon>
           </div>
           <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
             <div class="text-2xl text-[#1D2088] font-bold">完整財務管理系統</div>
@@ -147,8 +147,8 @@
         </div>
 
         <div class="w-[100%] flex flex-wrap justify-center items-center ">
-          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
-            <el-icon size="150"><CoffeeCup /></el-icon>
+          <div class="w-[150px] h-[150px] bg-gray-50 flex flex-wrap items-center justify-center">
+            <img class="w-full h-full" src="@/assets/img/feature-3.png" alt="">
           </div>
           <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
             <div class="text-2xl text-[#1D2088] font-bold">擁有專屬APP</div>
@@ -157,8 +157,8 @@
         </div>
 
         <div class="w-[100%] flex flex-wrap justify-center items-center ">
-          <div class="w-[150px] h-[150px] bg-gray-100 flex flex-wrap items-center justify-center">
-            <el-icon size="150"><CoffeeCup /></el-icon>
+          <div class="w-[150px] h-[150px] bg-gray-50 flex flex-wrap items-center justify-center">
+            <img class="w-full h-full" src="@/assets/img/feature-2.png" alt="">
           </div>
           <div class="w-[95%] md:w-[calc(100%_-_170px)] h-[auto] mx-2 flex flex-col justify-between items-cneter md:items-start">
             <div class="text-2xl text-[#1D2088] font-bold">系統測試體驗</div>
@@ -198,7 +198,8 @@
       </div>
     </div>
     <div class="w-full h-auto flex flex-col justify-center items-center">
-      <div class="w-auto h-auto min-w-[70vw] md:min-w-[40vw] min-h-[50px] md:min-h-[70px] my-4 p-4 md:p-6 rounded-2xl bg-[#bfcf79] flex flex-col justify-center items-center">
+      <div class="w-auto h-auto min-w-[70vw] md:min-w-[40vw] min-h-[50px] md:min-h-[70px] my-4 p-2 md:p-4 text-3xl md:text-6xl text-white font-bold rounded-2xl bg-[#bfcf79] flex flex-col justify-center items-center">
+        合作廠商
       </div>
 
       <!-- <div class="w-[90vw] h-[100vh] md:w-[84vw] md:h-[30vw] bg-cover bg-repeat md:bg-no-repeat bg-center flex flex-wrap justify-center items-center"
