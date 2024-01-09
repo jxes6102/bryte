@@ -1,26 +1,39 @@
 <template>
-    <div class="w-full flex flex-wrap items-center justify-center">
-        <!-- width:60vw;
-    height: 42vw; -->
-        <div class="book-bg w-[80vw] h-[56vw] md:w-[60vw] md:h-[42vw]" @click="turning">
+    <div class="w-full my-2 flex flex-wrap items-center justify-center">
+        <div ref="bookItem" class="book-bg w-[80vw] h-[56vw] md:w-[70vw] md:h-[49vw] flex flex-wrap items-center justify-center">
+            <div class="w-[100%] h-[90%] flex flex-wrap items-center justify-center">
+                <div @click="toLeft" class="w-[50%] h-[100%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]" >
+                    <div v-for="n in 24" :key="n" class="w-[5vw] h-[5vw] md:w-[5vw] md:h-[5vw] bg-red-500 rounded-sm md:rounded-lg"></div>
+                </div>
+                <div @click="toRight" class="w-[50%] h-[100%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]" >
+                    <div v-for="n in 24" :key="n" class="w-[5vw] h-[5vw] md:w-[5vw] md:h-[5vw] bg-red-500 rounded-sm md:rounded-lg"></div>
+                </div>
+            </div>
+            
             <Transition enter-active-class="toLeft">
                 <div 
                     v-if="leftAnimationStatus"
-                    class="book-cover-left">
+                    class="book-cover-left flex flex-wrap items-center justify-center">
+                    <div class="w-[100%] h-[90%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]">
+                        <div v-for="n in 24" :key="n" class="w-[5vw] h-[5vw] md:w-[5vw] md:h-[5vw] bg-red-500 rounded-sm md:rounded-lg"></div>
+                    </div>
                 </div>
             </Transition>
             <Transition enter-active-class="toRight">
                 <div 
                     v-if="rightAnimationStatus"
-                    class="book-cover-right">
+                    class="book-cover-right flex flex-wrap items-center justify-center">
+                    <div class="w-[100%] h-[90%] p-2 grid grid-rows-6 grid-cols-4 justify-items-center gap-[2vw] md:gap-[1vw]">
+                        <div v-for="n in 24" :key="n" class="w-[5vw] h-[5vw] md:w-[5vw] md:h-[5vw] bg-red-500 rounded-sm md:rounded-lg"></div>
+                    </div>
                 </div>
             </Transition>
         </div>
     </div>
-    <div class="w-full flex flex-wrap items-center justify-center gap-[50px]">
+    <!-- <div class="w-full flex flex-wrap items-center justify-center gap-[50px]">
         <button @click="toLeft" type="button">往左翻</button>
         <button @click="toRight" type="button">往右翻</button>
-    </div>
+    </div> -->
     <!-- <div class="w-full flex flex-wrap items-center justify-center">
         <button @click="addTime">add</button>
     </div> -->
@@ -33,7 +46,6 @@ import {ref,computed,onBeforeUnmount } from 'vue'
 import { useRouter } from "vue-router";
 const store = useStore()
 const router = useRouter()
-
 
 const bookData = ref([])
 const rightAnimationStatus = ref(false)
@@ -57,51 +69,27 @@ const toLeft = () => {
     }, 1000);
 }
 
-const turning = (event) => {
-    console.log('event',event)
-}
+const bookItem = ref(null)
+let bookStatus = false
+// const turning = (event) => {
+//     if(bookStatus){
+//         return false
+//     }
+//     bookStatus = true
 
+//     let isLeft = event.offsetX <= (bookItem.value.offsetWidth/2)
 
-// /*
-// time計時記時間
-// timer計時記時器物件
-// showKey當前展示品指標
-// showItem展示品陣列
-// */
-// let time = 1000
-// let timer = null
-// let showKey = 0
-// let showItem = ['a','b','c','d','e','f']
-// //建立計時器
-// const createTimer = () => {
-//     timer = setInterval(( () => {
-//         console.log('==================================')
-//         console.log('test=>'+'時間:'+time+'顯示:'+showItem[showKey])
+//     if(isLeft){
+//         toLeft()
+//     }else{
+//         toRight()
+//     }
 
-//         if(showKey<showItem.length-1){
-//             showKey++
-//         }else{
-//             showKey = 0
-//         }
-        
-//     } ), time);
+//     setTimeout(() => {
+//         bookStatus = false
+//     }, 1500);
+
 // }
-// //清除計時器
-// const clearTimer = () => {
-//     clearInterval(timer)   
-// }
-// //增加時間
-// const addTime = () => {
-//     time+=3000
-//     clearInterval(timer)  
-//     createTimer()
-// }
-// //初始化計時器
-// createTimer()
-// //換頁時需清除
-// onBeforeUnmount(() => {
-//     clearTimer()
-// })
 
 </script>
 
@@ -120,6 +108,7 @@ const turning = (event) => {
     position:absolute;
     background:url('@/assets/img/book-right.png') no-repeat;
     background-size: contain;
+    top:0;
     left:50%;
     width:50%;
     height:100%;
@@ -136,6 +125,7 @@ const turning = (event) => {
     position:absolute;
     background:url('@/assets/img/book-left.png') no-repeat;
     background-size: contain;
+    top:0;
     right:50%;
     width:50%;
     height:100%;

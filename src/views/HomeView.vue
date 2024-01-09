@@ -199,19 +199,16 @@
     </div>
     <div class="w-full h-auto flex flex-col justify-center items-center">
       <div class="w-auto h-auto min-w-[70vw] md:min-w-[40vw] min-h-[50px] md:min-h-[70px] my-4 p-4 md:p-6 rounded-2xl bg-[#bfcf79] flex flex-col justify-center items-center">
-        <!-- <div class="w-auto p-2">
-          <img class="w-[200px] md:w-[600px]" src="@/assets/img/logo-3.png" alt="">
-        </div>
-        <div class="w-full text-lg md:text-6xl font-bold">建立管理制度 傳承學校文化</div>  -->
       </div>
 
-      <div class="w-[90vw] h-[100vh] md:w-[84vw] md:h-[30vw] bg-cover bg-repeat md:bg-no-repeat bg-center flex flex-wrap justify-center items-center"
+      <!-- <div class="w-[90vw] h-[100vh] md:w-[84vw] md:h-[30vw] bg-cover bg-repeat md:bg-no-repeat bg-center flex flex-wrap justify-center items-center"
         :style="{backgroundImage:`url( ${require('@/assets/img/bg-2.png')} )`}">
         <div class="w-[90%] md:w-[95%] h-[auto] grid grid-cols-4 md:grid-cols-10 justify-items-center gap-[2vw] md:gap-[1vw]" >
           <div v-for="n in 40" :key="n" class="w-[15vw] h-[15vw] md:w-[6vw] md:h-[6vw] bg-red-500 rounded-lg"></div>
         </div>
-      </div>
+      </div> -->
     </div>
+    <bookView></bookView>
     <div class="w-[90%] md:w-full mt-2 md:mt-0 py-[50px] md:py-[100px] bg-zinc-100 flex flex-wrap justify-center items-center">
       <div class="text-base md:text-2xl text-[#1D2088] font-bold">超過三千家客戶使用補習班管理系統，不試試嗎?</div>
       <div class="mx-4">
@@ -219,7 +216,7 @@
       </div>
     </div>
     <tailView></tailView>
-    <bookView></bookView>
+    
 <!--     
     <div class="w-[95%] rounded-lg bg-slate-50 my-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center">
       <div class="w-full p-1 flex flex-wrap items-center justify-between">    
