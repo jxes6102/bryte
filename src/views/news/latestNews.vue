@@ -69,21 +69,21 @@ const isMobile = computed(() => {
 })
 
 const init = async() => {
-    //最新消息
-    let newsSearchPayload = {
-        "DepartmentID":"2bd3434f-1e95-4fdb-ab29-315921e06868",
-        "page":0,
-        "rowsInPage":2,
-        "HideExpired":false
-    }
-    await getNewsSearch(newsSearchPayload).then((res) => {
-        newsData.value = res.data.Result.NewsList
-        // console.log('newsData.value',newsData.value)
-    })
-    .catch((error) => {
-        // handle error
-        console.log(error);
-    })
+    // //最新消息
+    // let newsSearchPayload = {
+    //     "DepartmentID":"2bd3434f-1e95-4fdb-ab29-315921e06868",
+    //     "page":0,
+    //     "rowsInPage":2,
+    //     "HideExpired":false
+    // }
+    // await getNewsSearch(newsSearchPayload).then((res) => {
+    //     newsData.value = res.data.Result.NewsList
+    //     // console.log('newsData.value',newsData.value)
+    // })
+    // .catch((error) => {
+    //     // handle error
+    //     console.log(error);
+    // })
 }
 
 init()

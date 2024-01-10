@@ -55,26 +55,26 @@ const store = useStore()
 const userMenu = ref(null)
 const userProfile = ref(null)
 const init = async() => {
-    let payload = {
-        UserID:"50ceb08b-9174-453f-9bfc-2b57cb4f86be"
-    }
-    await getUserMenu(payload).then((res) => {
-        userMenu.value = res.data.Result[0]
-        // console.log('userMenu.value',userMenu.value)
-    })
-    .catch((error) => {
-        // handle error
-        console.log(error);
-    })
+    // let payload = {
+    //     UserID:"50ceb08b-9174-453f-9bfc-2b57cb4f86be"
+    // }
+    // await getUserMenu(payload).then((res) => {
+    //     userMenu.value = res.data.Result[0]
+    //     // console.log('userMenu.value',userMenu.value)
+    // })
+    // .catch((error) => {
+    //     // handle error
+    //     console.log(error);
+    // })
 
-    await getProfile(payload).then((res) => {
-        userProfile.value = res.data.Result
-        // console.log('userProfile.value',userProfile.value)
-    })
-    .catch((error) => {
-        // handle error
-        console.log(error);
-    })
+    // await getProfile(payload).then((res) => {
+    //     userProfile.value = res.data.Result
+    //     // console.log('userProfile.value',userProfile.value)
+    // })
+    // .catch((error) => {
+    //     // handle error
+    //     console.log(error);
+    // })
 }
 
 init()

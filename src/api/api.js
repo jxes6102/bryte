@@ -99,3 +99,23 @@ export const getSignRecord = (data) => {
     data,
   })
 }
+
+export const testLogin = (data) => {
+  const url = '/Auth/Login' + addToUrl(data)
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+const addToUrl = (payload) => {
+  let str = '?'
+  for(let key in payload){
+      console.log('key',key)
+      str += key + '=' + payload[key] + '&'
+  }
+  str = str.substring(0,str.length-1)
+  return str
+}

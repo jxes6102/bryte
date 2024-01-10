@@ -1,6 +1,6 @@
 <template>
     <div 
-        class="shadow-style-1 transition-all text-white sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[rgb(92,225,230,0.9)]"
+        class="shadow-style-1 transition-all text-white sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[rgb(13,181,156,0.9)]"
     >
         <div 
             v-show="route.path !== '/'"
@@ -33,23 +33,26 @@
             class="relative w-[auto] h-[8vh] px-4 mine-flex-center"
         >
             <div @click="tolatest" class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all hover:text-orange-500">最新消息</div>
-            <div
-                class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-xl font-bold cursor-pointer hover:scale-[1.1] hover:text-orange-500 transition-all" 
-                v-for="(item, index) in linkData" :key="index"
-                @click="toLink(item.url)">
-                {{item.text}}
-                <div v-if="item?.isAlert" class="absolute top-[15%] xl:top-[20%] right-[2px] w-[22px] h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">9+</div>
-            </div>
-            <div id="primary_nav_wrap" class="mx-4 text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">
+            <template v-if="isLogin">
+                <div class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-xl font-bold cursor-pointer hover:scale-[1.1] hover:text-orange-500 transition-all" 
+                    v-for="(item, index) in linkData" :key="index"
+                    @click="toLink(item.url)">
+                    {{item.text}}
+                    <div v-if="item?.isAlert" class="absolute top-[15%] xl:top-[20%] right-[2px] w-[22px] h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">9+</div>
+                </div>
+            </template>
+            <div v-if="isLogin" id="primary_nav_wrap" class="mx-4 text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">
                 <ul>
                     <li @click.stop="toCenter">
                         <div class="py-[10px] hover:text-orange-500 ">{{ statement }}</div>
                         <ul class="" v-if="isSchool">
                             <li class="py-[5px] hover:text-orange-500" @click.stop="tocontactSet">設定</li>
+                            <li class="py-[5px] hover:text-orange-500">登出</li>
                         </ul>
                     </li>
                 </ul>
             </div>
+            <div v-else @click="toLogin" class="relative w-[auto] h-[8vh] px-4 mine-flex-center text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all hover:text-orange-500">登入</div>
         </div>
     </div>
 </template>
@@ -66,6 +69,10 @@ const route = useRoute()
 
 const isMobile = computed(() => {
     return store.state.isMobile
+})
+
+const isLogin = computed(() => {
+    return store.state.isLogin
 })
 
 const roleID = computed(() => {
@@ -201,6 +208,10 @@ const tolatest = () =>  {
     router.push({ path: '/latestNewsView' })
 }
 
+const toLogin = () => {
+    router.push({ path: '/login' })
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -244,7 +255,7 @@ const tolatest = () =>  {
 
     #primary_nav_wrap ul li.current-menu-item
     {
-        background:rgb(92,225,230,0.9);
+        background:rgb(13,181,156,0.9);
     }
 
     //#primary_nav_wrap ul li:hover
@@ -258,7 +269,7 @@ const tolatest = () =>  {
         position:absolute;
         top:100%;
         left:0;
-        background:rgb(92,225,230,0.9);
+        background:rgb(13,181,156,0.9);
         padding:0
     }
 

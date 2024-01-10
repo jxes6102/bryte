@@ -27,6 +27,7 @@ import messageView from '../views/message'
 import qrcodeView from '../views/qrcode'
 import recordView from '../views/record'
 import latestNewsView from '../views/news/latestNews.vue'
+import loginView from '../views/login/'
 import errorView from '../views/errorView.vue'
 import { useStore } from "vuex";
 
@@ -270,6 +271,11 @@ const routes = [
     path: '/latestNewsView',
     name: 'latestNewsView',
     component: latestNewsView,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: loginView,
   },
   { 
     path: '/:pathMatch(.*)*', 

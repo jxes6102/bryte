@@ -2,35 +2,47 @@
     <div v-if="isMobile"
         class="transition-all fixed h-auto w-full py-1 bottom-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[#f9f7f0]"
     >
-        <div 
-          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
-          @click="tohome()"
-          >
-          <el-icon :size="25"><HomeFilled /></el-icon>
-          首頁
-        </div>
-        <div 
-          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
-          @click="tocontact()"
-          >
-          <el-icon :size="25"><Document /></el-icon>
-          聯絡簿
-        </div>
-        <div 
-          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
-          @click="toMessage()"
-          >
-          <el-icon :size="25"><Message /></el-icon>
-          訊息通知
-          <div class="absolute w-[20px] h-[20px] top-[5%] left-[calc(50%_+_10px)] text-white text-xs font-normal bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">{{'9+'}}</div>
-        </div>
-        <div 
-          class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
-          @click="tocenter()"
-          >
-          <el-icon :size="25"><User /></el-icon>
-          個人中心
-        </div>
+        <template v-if="isLogin">
+          <div 
+            class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
+            @click="tohome()"
+            >
+            <el-icon :size="25"><HomeFilled /></el-icon>
+            首頁
+          </div>
+          <div 
+            class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
+            @click="tocontact()"
+            >
+            <el-icon :size="25"><Document /></el-icon>
+            聯絡簿
+          </div>
+          <div 
+            class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
+            @click="toMessage()"
+            >
+            <el-icon :size="25"><Message /></el-icon>
+            訊息通知
+            <div class="absolute w-[20px] h-[20px] top-[5%] left-[calc(50%_+_10px)] text-white text-xs font-normal bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">{{'9+'}}</div>
+          </div>
+          <div 
+            class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
+            @click="tocenter()"
+            >
+            <el-icon :size="25"><User /></el-icon>
+            個人中心
+          </div>
+        </template>
+        <template v-else>
+          <div 
+            class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
+            @click="toLogin"
+            >
+            <el-icon :size="25"><User /></el-icon>
+            請先登入
+          </div>
+        </template>
+        
     </div>
 </template>
 
@@ -44,6 +56,10 @@ const router = useRouter()
 
 const isMobile = computed(() => {
     return store.state.isMobile
+})
+
+const isLogin = computed(() => {
+    return store.state.isLogin
 })
 
 // const toLink = (val) => {
@@ -65,6 +81,10 @@ const tocontact = () => {
 
 const toMessage = () => {
   router.push({ path: '/messageView' })
+}
+
+const toLogin = () => {
+    router.push({ path: '/login' })
 }
 
 </script>
