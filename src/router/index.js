@@ -292,9 +292,22 @@ const routes = [
   // }
 ]
 
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from) => {
+  let allow = ['login','home','latestNewsView']
+  const store = useStore()
+
+  if(!(allow.includes(to.name) || store.state.isLogin)){
+    return false
+  }
+  // console.log('to',to.name)
+  // explicitly return false to cancel the navigation
+  // return false
 })
 
 export default router

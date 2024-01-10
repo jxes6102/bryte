@@ -110,10 +110,27 @@ export const testLogin = (data) => {
   })
 }
 
+export const testLogout = () => {
+  const url = '/Auth/Logout'
+  const method = 'post'
+  return request({
+    method,
+    url,
+  })
+}
+
+export const checkQR = () => {
+  const url = '/Pickup/Arrived'
+  const method = 'post'
+  return request({
+    method,
+    url,
+  })
+}
+
 const addToUrl = (payload) => {
   let str = '?'
   for(let key in payload){
-      console.log('key',key)
       str += key + '=' + payload[key] + '&'
   }
   str = str.substring(0,str.length-1)

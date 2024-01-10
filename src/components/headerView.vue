@@ -47,7 +47,7 @@
                         <div class="py-[10px] hover:text-orange-500 ">{{ statement }}</div>
                         <ul class="" v-if="isSchool">
                             <li class="py-[5px] hover:text-orange-500" @click.stop="tocontactSet">設定</li>
-                            <li class="py-[5px] hover:text-orange-500">登出</li>
+                            <li class="py-[5px] hover:text-orange-500" @click.stop="logout">登出</li>
                         </ul>
                     </li>
                 </ul>
@@ -59,6 +59,7 @@
 
 <script setup>
 /*eslint-disable*/
+import { testLogout } from '@/api/api'
 import { ref,computed,watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter,useRoute } from "vue-router";
@@ -210,6 +211,18 @@ const tolatest = () =>  {
 
 const toLogin = () => {
     router.push({ path: '/login' })
+}
+
+const logout = async() => {
+    await testLogout().then((res) => {
+        console.log('res',res.data)
+        if(res.data.status){
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }else{
+            console.log(res.data.message)
+        }
+    })
 }
 
 </script>

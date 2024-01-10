@@ -155,6 +155,9 @@ const onDetect = (detectedCodes) => {
     //console.log('detectedCodes',detectedCodes)
     resultArr.value = detectedCodes.map(code => code.rawValue)
     result.value = detectedCodes[0].rawValue
+
+    console.log('add check')
+
     dialogStatus.value = true
     paused.value = true
 }

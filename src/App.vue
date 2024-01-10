@@ -25,7 +25,7 @@
 /*eslint-disable*/
   import headerView from './components/headerView.vue';
   import footerView from './components/footerView.vue';
-  import { ref,computed,onMounted } from 'vue';
+  import { ref,computed,onMounted,onBeforeUnmount } from 'vue';
   import { useStore } from "vuex";
   import 'animate.css';
   //console.log('test 2')
@@ -50,11 +50,13 @@
   
   const headerItem = ref(null)
 
-  // watch(num, (nV, oV) => {
-  //   console.log(nV, oV)
-  // }, {
-  //   immediate: true
-  // })
+  const init = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      store.commit('changeLoginStatus',true)
+    }
+  }
+  init()
 
   onMounted(() => {
     // console.log('headerItem.value',headerItem.value.$el.clientHeight)
@@ -63,6 +65,10 @@
       setWidth()
     }, false);
     
+  })
+
+  onBeforeUnmount(() => {
+    // store.commit('clearToken')
   })
 
 </script>

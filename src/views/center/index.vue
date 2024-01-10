@@ -27,7 +27,7 @@
                 v-for="(item, index) in userMenu?.Menus" :key="index">
                 {{item.Name}}
             </div>
-            <div class="text-[#dc3545] my-1 md:my-2 text-lg md:text-2xl cursor-pointer">登出</div>
+            <div @click="logout" class="text-[#dc3545] my-1 md:my-2 text-lg md:text-2xl cursor-pointer">登出</div>
         </div>
         <div class="w-[95%] flex flex-col md:flex-row items-center justify-center">
             <div class="mx-1">身分切換:</div>
@@ -45,7 +45,7 @@
 <script setup>
 /*eslint-disable*/
 import { useStore } from "vuex";
-import { getUserMenu,getProfile } from '@/api/api'
+import { getUserMenu,getProfile,testLogout } from '@/api/api'
 import { ref,computed } from 'vue'
 import { useRouter } from "vue-router";
 
@@ -102,6 +102,18 @@ const roleID = computed({
 const changeRole = (value) => {
     //console.log('value',value)
     store.commit('setRole',value)
+}
+
+const logout = async() => {
+    await testLogout().then((res) => {
+        console.log('res',res.data)
+        if(res.data.status){
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }else{
+            console.log(res.data.message)
+        }
+    })
 }
 
 </script>

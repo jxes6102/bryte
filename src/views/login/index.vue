@@ -57,8 +57,9 @@
 import { testLogin } from '@/api/api'
 import { ref,computed,onMounted } from 'vue';
 import { useStore } from "vuex";
-//console.log('test 2')
+import { useRouter } from "vue-router";
 const store = useStore()
+const router = useRouter()
 
 const form = ref({
   account: '',
@@ -66,19 +67,27 @@ const form = ref({
   phone: '',
   checkNum:''
 })
-//?account=parent001&password=parent001
+
 const login = async() => {
+    // let payload = {
+    //     'account': 'teacher001',
+    //     'password': 'teacher001'
+    // }
     let payload = {
-        'account': 'teacher001',
-        'password': 'teacher001'
+        'account': form.value.account,
+        'password': form.value.password
     }
+
     await testLogin(payload).then((res) => {
-        console.log('res',res)
+        console.log('res',res.data)
+        if(res.data.status){
+            store.commit('setToken',res.data.data)
+            router.push({ path: '/' })
+        }else{
+            console.log(res.data.message)
+        }
     })
-    .catch((error) => {
-        // handle error
-        console.log(error);
-    })
+
 }
   
 </script>
