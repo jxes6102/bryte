@@ -45,6 +45,10 @@
                 class="w-full flex flex-col justify-center items-center break-all">
                 {{error}}
             </div>
+            <div
+                class="w-full flex flex-col justify-center items-center break-all">
+                {{apiData}}
+            </div>
             <!-- <div
                 class="w-full flex flex-col justify-center items-center break-all"
                 v-for="(item,index) in resultArr" :key="index">
@@ -63,6 +67,10 @@
                     <div
                         class="w-[90%] h-[80px] text-xs flex flex-col justify-center items-center break-all overflow-hidden">
                         {{result}}
+                    </div>
+                    <div
+                        class="w-[90%] h-[80px] text-xs flex flex-col justify-center items-center break-all overflow-hidden">
+                        {{apiData}}
                     </div>
                 </template>
                 <template v-slot:control>
@@ -89,6 +97,7 @@
 <script setup>
 /*eslint-disable*/
 import { ref,computed,onMounted,provide } from 'vue';
+import { checkQR } from '@/api/api'
 import { useStore } from "vuex";
 import { QrcodeStream } from 'vue-qrcode-reader'
 import dialogView from "@/components/dialogView.vue"
@@ -150,13 +159,27 @@ const onError = (err) => {
         error.value += err.message
     }
 }
+const apiData = ref({})
 //偵測到QRCODE觸發
-const onDetect = (detectedCodes) => {
+const onDetect = async(detectedCodes) => {
     //console.log('detectedCodes',detectedCodes)
     resultArr.value = detectedCodes.map(code => code.rawValue)
     result.value = detectedCodes[0].rawValue
 
+
+    let payload = {
+        'arrivedId':detectedCodes[0].rawValue
+    }
     console.log('add check')
+    await checkQR(payload).then((res) => {
+        apiData.value = res.data
+        console.log('res',res.data)
+        if(res.data.status){
+            console.log(res.data.message)
+        }else{
+            console.log(res.data.message)
+        }
+    })
 
     dialogStatus.value = true
     paused.value = true

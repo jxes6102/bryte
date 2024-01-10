@@ -119,8 +119,8 @@ export const testLogout = () => {
   })
 }
 
-export const checkQR = () => {
-  const url = '/Pickup/Arrived'
+export const checkQR = (data) => {
+  const url = '/Pickup/Arrived' + addToUrl(data)
   const method = 'post'
   return request({
     method,
