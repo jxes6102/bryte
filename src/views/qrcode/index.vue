@@ -70,12 +70,13 @@
                     </div>
                     <div
                         class="w-[90%] h-[80px] text-xs flex flex-col justify-center items-center break-all overflow-hidden">
-                        {{apiData}}
+                        {{apiData.message}}
                     </div>
                 </template>
                 <template v-slot:control>
                     <div class="absolute w-full bottom-4 flex flex-wrap justify-center items-center">
                         <button
+                            @click="cancel"
                             class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
                             確定
                         </button>
@@ -159,9 +160,14 @@ const onError = (err) => {
         error.value += err.message
     }
 }
+let loadStatus = false
 const apiData = ref({})
 //偵測到QRCODE觸發
 const onDetect = async(detectedCodes) => {
+    if(loadStatus) {
+        return false
+    }
+    loadStatus = true
     //console.log('detectedCodes',detectedCodes)
     resultArr.value = detectedCodes.map(code => code.rawValue)
     result.value = detectedCodes[0].rawValue
@@ -219,6 +225,7 @@ const onReady = (item) => {
 }
 //關閉彈出視窗
 const cancel = () => {
+    loadStatus = false
     dialogStatus.value = false
     paused.value = false
 }
