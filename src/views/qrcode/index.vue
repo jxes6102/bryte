@@ -64,12 +64,12 @@
                         class="w-[90%] h-[80px] text-xs flex flex-col justify-center items-center break-all overflow-hidden">
                         {{item}}
                     </div> -->
-                    <div
+                    <!-- <div
                         class="w-[90%] h-[80px] text-xs flex flex-col justify-center items-center break-all overflow-hidden">
                         {{result}}
-                    </div>
+                    </div> -->
                     <div
-                        class="w-[90%] h-[80px] text-xs flex flex-col justify-center items-center break-all overflow-hidden">
+                        class="w-[80%] h-[80px] text-lg flex flex-col justify-center items-center break-all overflow-hidden">
                         {{apiData.message}}
                     </div>
                 </template>
