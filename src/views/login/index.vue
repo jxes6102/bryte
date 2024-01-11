@@ -3,11 +3,13 @@
         <div class="w-full mt-1 md:mt-4 text-4xl font-semibold">登入</div>
         <div class="w-[80%] my-4 flex flex-wrap justify-center items-center">
             <el-form
+                :rules="rules"
+                ref="formItem"
                 label-width="0px"
                 :model="form"
                 style="width:100%;max-width:700px;"
             >
-                <el-form-item label="">
+                <el-form-item label="" prop="account">
                     <el-input 
                         placeholder="帳號" v-model="form.account"
                         style="width: 100%;height: 40px;font-size: 18px;">
@@ -16,7 +18,7 @@
                         </template>
                     </el-input>
                 </el-form-item>
-                <el-form-item label="">
+                <el-form-item label="" prop="password">
                     <el-input type="password" placeholder="密碼" v-model="form.password" 
                         style="width: 100%;height: 40px;font-size: 18px;">
                         <template #prepend>
@@ -24,19 +26,19 @@
                         </template>
                     </el-input>
                 </el-form-item>
-                <el-form-item label="">
+                <!-- <el-form-item label="" prop="phone">
                     <el-input placeholder="手機" v-model="form.phone" 
                         style="width: 100%;height: 40px;font-size: 18px;">
                         <template #prepend>
                             <el-button icon="Iphone" />
                         </template>
                     </el-input>
-                </el-form-item>
-                <el-form-item label="">
+                </el-form-item> -->
+                <el-form-item label="" prop="checkNum">
                     <el-input placeholder="驗證碼" v-model="form.checkNum" 
                         style="width: 50%;min-width:220px;max-width:300px;height: 40px;font-size: 18px;">
                         <template #prepend>
-                            <el-button icon="Key" />
+                            <el-button icon="Umbrella" />
                         </template>
                         <template #append>
                             <div class="w-[50px] md:w-[100px]">圖片</div>
@@ -46,8 +48,8 @@
             </el-form>
             <div class="w-full mt-1">忘記了您的密碼嗎? 請與各分校老師進行詢問，謝謝。</div>
             <div class="w-full mt-1 flex flex-col justify-center items-center">
-                <button @click="login" class="w-full md:w-[80%] max-w-[700px] bg-[#6E6EFF] py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">登入</button>
-                <button class="w-full md:w-[80%] max-w-[700px] bg-[rgb(13,181,156,0.9)] mt-4 py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">LINE登入</button>
+                <button @click="send" class="w-full md:w-[700px] max-w-[700px] bg-[#6E6EFF] py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">登入</button>
+                <button class="w-full md:w-[700px] max-w-[700px] bg-[rgb(13,181,156,0.9)] mt-4 py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">LINE登入</button>
             </div>
         </div>
     </div>
@@ -61,33 +63,104 @@ import { useRouter } from "vue-router";
 const store = useStore()
 const router = useRouter()
 
+const formItem = ref(null)
 const form = ref({
   account: '',
   password: '',
-  phone: '',
   checkNum:''
+  // phone: '',
 })
 
-const login = async() => {
-    // let payload = {
-    //     'account': 'teacher001',
-    //     'password': 'teacher001'
-    // }
-    let payload = {
-        'account': form.value.account,
-        'password': form.value.password
-    }
+const rules = ref({
+    account: [
+        { required: true, message: '請輸入帳號', trigger: 'blur' },
+        { min: 3, max: 15, message: 'Length should be 3 to 15', trigger: 'change' },
+    ],
+    password: [
+        { required: true, message: '請輸入密碼', trigger: 'blur' },
+        { min: 3, max: 15, message: 'Length should be 3 to 15', trigger: 'change' },
+    ],
+    checkNum: [
+        { required: true,message: '請輸入驗證碼',trigger: 'blur' },
+    ],
+})
 
-    await testLogin(payload).then((res) => {
-        console.log('res',res.data)
-        if(res.data.status){
-            store.commit('setToken',res.data.data)
-            router.push({ path: '/' })
-        }else{
-            console.log(res.data.message)
+// const accountCheck = (rule, value, callback) => {
+//   if (value === '') {
+//     callback(new Error('請輸入帳號'))
+//   }else {
+//     callback()
+//   }
+// }
+
+// const passwordCheck = (rule, value, callback) => {
+//   if (value === '') {
+//     callback(new Error('請輸入密碼'))
+//   }else {
+//     callback()
+//   }
+// }
+
+// const checkNumCheck = (rule, value, callback) => {
+//   if (value === '') {
+//     callback(new Error('請輸入驗證碼'))
+//   }else {
+//     callback()
+//   }
+// }
+
+// const rules = reactive({
+//     account: [{ validator: accountCheck, trigger: 'blur' }],
+//     password: [{ validator: passwordCheck, trigger: 'blur' }],
+//     checkNum: [{ validator: checkNumCheck, trigger: 'blur' }],
+// })
+
+const send = async() => {
+    if (loadStatus) {
+      return false
+    }
+    await formItem.value.validate((valid, fields) => {
+        // console.log('formItem',formItem.value)
+        // console.log('fields',fields)
+        // console.log('valid',valid)
+        
+        if (valid) {
+            // console.log('submit!')
+            login()
+        } else {
+            console.log('error submit!')
         }
     })
+}
 
+let loadStatus = false
+const login = async() => {
+  // let payload = {
+  //     'account': 'teacher001',
+  //     'password': 'teacher001'
+  // }
+  loadStatus = true
+  let payload = {
+      'account': form.value?.account,
+      'password': form.value?.password
+  }
+
+  await testLogin(payload).then((res) => {
+      // console.log('res',res.data)
+      if(res.data.status){
+          store.commit('setToken',res.data.data)
+          resetForm()
+          router.push({ path: '/' })
+      }else{
+          console.log(res.data.message)
+      }
+      loadStatus = false
+  })
+
+}
+
+const resetForm = () => {
+  formItem.value.resetFields()
 }
   
 </script>
