@@ -51,23 +51,11 @@ const routes = [
     path: '/editNews',
     name: 'editNews',
     component: editNewsView,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/editIntroduction',
     name: 'editIntroduction',
     component: editIntroduction,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/center',
@@ -83,12 +71,6 @@ const routes = [
     path: '/user',
     name: 'user',
     component: userView,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/course',
@@ -140,100 +122,46 @@ const routes = [
     path: '/contactSet',
     name: 'contactSet',
     component: contactSet,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/contactChart',
     name: 'contactChart',
     component: contactChart,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/medicationList',
     name: 'medicationList',
     component: medicationList,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/signView',
     name: 'signView',
     component: signView,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/transmitView',
     name: 'transmitView',
     component: transmitView,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/learnSituation',
     name: 'learnSituation',
     component: learnSituation,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/tipView',
     name: 'tipView',
     component: tipView,
-    // beforeEnter: () => {
-    //   const store = useStore()
-    //   if(store.state.roleID == 3){
-    //     return '/'
-    //   }
-    // },
   },
   {
     path: '/temperatureView',
     name: 'temperatureView',
     component: temperatureView,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/chatView',
     name: 'chatView',
     component: chatView,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/chatroom',
@@ -249,23 +177,11 @@ const routes = [
     path: '/qrcodeView',
     name: 'qrcodeView',
     component: qrcodeView,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/recordView',
     name: 'recordView',
     component:recordView,
-    beforeEnter: () => {
-      const store = useStore()
-      if(store.state.roleID == 3){
-        return '/'
-      }
-    },
   },
   {
     path: '/latestNewsView',
@@ -298,14 +214,35 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from) => {
-  let allow = ['login','home','latestNewsView']
-  const store = useStore()
+//可在未登入時進入
+const allow = ['login','home','latestNewsView']
+//需特定權限
+const authority = [
+  'editNews',
+  'editIntroduction',
+  'user',
+  'contactSet',
+  'contactChart',
+  'medicationList',
+  'signView',
+  'transmitView',
+  'learnSituation',
+  'temperatureView',
+  'chatView',
+  'qrcodeView',
+  'recordView'
+]
 
-  if(!(allow.includes(to.name) || store.state.isLogin)){
-    return false
-  }
+router.beforeEach((to, from) => {
+  const store = useStore()
   // console.log('to',to.name)
+  if(!(allow.includes(to.name) || store.state.isLogin)){
+    return '/'
+  }
+  if((authority.includes(to.name)) && (store.state.roleID == 3)){
+    return '/'
+  }
+
   // explicitly return false to cancel the navigation
   // return false
 })

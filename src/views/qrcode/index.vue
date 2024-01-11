@@ -166,9 +166,10 @@ const onDetect = async(detectedCodes) => {
     resultArr.value = detectedCodes.map(code => code.rawValue)
     result.value = detectedCodes[0].rawValue
 
-
+    let positionIndex =  result.value.indexOf("arrivedId=")
+    let value = result.value.substring(positionIndex+10,result.value.length)
     let payload = {
-        'arrivedId':detectedCodes[0].rawValue
+        'arrivedId':value
     }
     console.log('add check')
     await checkQR(payload).then((res) => {
