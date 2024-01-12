@@ -49,7 +49,7 @@
             <div class="w-full mt-1">忘記了您的密碼嗎? 請與各分校老師進行詢問，謝謝。</div>
             <div class="w-full mt-1 flex flex-col justify-center items-center">
                 <button @click="send" class="w-full md:w-[700px] max-w-[700px] bg-[#6E6EFF] py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">登入</button>
-                <button class="w-full md:w-[700px] max-w-[700px] bg-[rgb(13,181,156,0.9)] mt-4 py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">LINE登入</button>
+                <button @click="lineLogin" class="w-full md:w-[700px] max-w-[700px] bg-[rgb(13,181,156,0.9)] mt-4 py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">LINE登入</button>
             </div>
         </div>
     </div>
@@ -162,7 +162,20 @@ const login = async() => {
 const resetForm = () => {
   formItem.value.resetFields()
 }
-  
+
+const lineLogin = () => {
+    console.log('lineLogin')
+    let client_id = '1656734224';
+    let redirect_uri = 'https://192.168.1.102:8080/#/checkView';
+    let link = 'https://access.line.me/oauth2/v2.1/authorize?';
+    link += 'response_type=code';
+    link += '&client_id=' + client_id;
+    link += '&redirect_uri=' + redirect_uri;
+    link += '&state=login';
+    link += '&scope=openid%20profile';
+    //window.location.href = link;
+}
+
 </script>
 <style lang="scss" scoped>
 </style>

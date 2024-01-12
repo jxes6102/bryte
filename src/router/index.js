@@ -28,6 +28,7 @@ import qrcodeView from '../views/qrcode'
 import recordView from '../views/record'
 import latestNewsView from '../views/news/latestNews.vue'
 import loginView from '../views/login/'
+import checkView from '../views/login/checkView.vue'
 import errorView from '../views/errorView.vue'
 import { useStore } from "vuex";
 
@@ -193,6 +194,11 @@ const routes = [
     name: 'login',
     component: loginView,
   },
+  {
+    path: '/checkView',
+    name: 'checkView',
+    component: checkView,
+  },
   { 
     path: '/:pathMatch(.*)*', 
     component: errorView 
@@ -215,7 +221,7 @@ const router = createRouter({
 })
 
 //可在未登入時進入
-const allow = ['login','home','latestNewsView']
+const allow = ['login','home','latestNewsView','checkView']
 //需特定權限
 const authority = [
   'editNews',
