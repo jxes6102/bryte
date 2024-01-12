@@ -71,6 +71,19 @@
     // store.commit('clearToken')
   })
 
+  const checkLineLogin = () =>  {
+    console.log('line login')
+    const urlParams = new URLSearchParams(window.location.search);
+    // console.log('urlParams',urlParams)
+    const codeParam = urlParams.get('code');
+    console.log('codeParam',codeParam)
+    const stateParam = urlParams.get('state');
+    console.log('stateParam',stateParam)
+
+  }
+  
+  checkLineLogin()
+
 </script>
 <style lang="scss">
 #app {

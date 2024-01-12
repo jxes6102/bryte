@@ -166,14 +166,14 @@ const resetForm = () => {
 const lineLogin = () => {
     console.log('lineLogin')
     let client_id = '1656734224';
-    let redirect_uri = 'https://192.168.1.102:8080/#/checkView';
+    let redirect_uri = 'https://jxes6102.github.io/bryte/';
     let link = 'https://access.line.me/oauth2/v2.1/authorize?';
     link += 'response_type=code';
     link += '&client_id=' + client_id;
     link += '&redirect_uri=' + redirect_uri;
-    link += '&state=login';
+    link += '&state=zxcasdqew';
     link += '&scope=openid%20profile';
-    //window.location.href = link;
+    window.location.href = link;
 }
 
 </script>
