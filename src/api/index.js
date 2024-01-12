@@ -4,9 +4,10 @@ export const TIMEOUT = 10000
 
 // const DEFAULT_CACHE_EXPIRY_TIME = 3000
 // https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-391D3550-2FAB-43F0-AA4D-06929689EB22
+
 const CONFIG = {
   // baseURL: 'https://cet.bryte.com.tw/api/v2',
-  baseURL: 'https://1c74-2001-b011-8007-355b-10a8-97ee-d112-6d9d.ngrok-free.app',
+  baseURL: 'https://5bc7-2001-b011-8007-3b17-3cae-bde3-9aea-e67b.ngrok-free.app/',
   timeout: TIMEOUT,
   // headers: { Authorization: `Bearer ${token}` }
 }
