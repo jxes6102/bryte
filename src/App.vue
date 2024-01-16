@@ -26,10 +26,12 @@
   import headerView from './components/headerView.vue';
   import footerView from './components/footerView.vue';
   import { ref,computed,onMounted,onBeforeUnmount } from 'vue';
+  import { useRouter } from "vue-router";
   import { useStore } from "vuex";
   import 'animate.css';
   //console.log('test 2')
   const store = useStore()
+  const router = useRouter()
   const scrollStutus = ref(true)
 
   const menuStatus = computed(() => {
@@ -72,14 +74,20 @@
   })
 
   const checkLineLogin = () =>  {
-    console.log('line login')
+    //https://192.168.1.102:8080/?code=FHvFFCRr91OeZEfdqH5W&state=zxcasdqew#/
+    // console.log('line login')
     const urlParams = new URLSearchParams(window.location.search);
     // console.log('urlParams',urlParams)
     const codeParam = urlParams.get('code');
     console.log('codeParam',codeParam)
     const stateParam = urlParams.get('state');
     console.log('stateParam',stateParam)
+    if(stateParam || codeParam){
+      // console.log(window.location)
+      window.location.href = window.location.origin + window.location.pathname
+    }
 
+    
   }
   
   checkLineLogin()

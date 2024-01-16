@@ -16,9 +16,10 @@
 import { fabric } from 'fabric'
 import { ref,computed,onMounted } from 'vue';
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useRouter,useRoute } from "vue-router";
 const store = useStore()
 const router = useRouter()
+const route = useRoute()
 
 const imgUrl = ref('')
 let boardItem = null
@@ -30,12 +31,9 @@ const init = () => {
     console.log(boardItem)
 }
 
-
-
 onMounted(() => {
     init()
 })
-
 
 const reset = () => {
     console.log('reset')

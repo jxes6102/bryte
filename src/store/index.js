@@ -6,6 +6,7 @@ export default createStore({
     //1主任 2老師 3家長
     roleID:2,
     isLogin:false,
+    lineHtml:''
   },
   getters: {
   },
@@ -27,6 +28,9 @@ export default createStore({
       state.isLogin = false
       localStorage.removeItem("token");
     },
+    setLineDom(state,value){
+      state.lineHtml = value
+    }
   },
   actions: {
   },

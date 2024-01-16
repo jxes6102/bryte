@@ -101,7 +101,7 @@ export const getSignRecord = (data) => {
 }
 
 export const testLogin = (data) => {
-  const url = '/Auth/Login' + addToUrl(data)
+  const url = '/Auth/Login'
   const method = 'post'
   return request({
     method,
@@ -122,6 +122,15 @@ export const testLogout = () => {
 export const checkQR = (data) => {
   const url = '/Pickup/Arrived' + addToUrl(data)
   const method = 'post'
+  return request({
+    method,
+    url,
+  })
+}
+
+export const getLineInformation = () => {
+  const url = '/Auth/LineLogin'
+  const method = 'get'
   return request({
     method,
     url,

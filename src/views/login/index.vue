@@ -10,7 +10,7 @@
                 style="width:100%;max-width:700px;"
             >
                 <el-form-item label="" prop="account">
-                    <el-input 
+                    <el-input
                         placeholder="帳號" v-model="form.account"
                         style="width: 100%;height: 40px;font-size: 18px;">
                         <template #prepend>
@@ -19,7 +19,7 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item label="" prop="password">
-                    <el-input type="password" placeholder="密碼" v-model="form.password" 
+                    <el-input type="password" placeholder="密碼" v-model="form.password"
                         style="width: 100%;height: 40px;font-size: 18px;">
                         <template #prepend>
                             <el-button icon="Key" />
@@ -27,7 +27,7 @@
                     </el-input>
                 </el-form-item>
                 <!-- <el-form-item label="" prop="phone">
-                    <el-input placeholder="手機" v-model="form.phone" 
+                    <el-input placeholder="手機" v-model="form.phone"
                         style="width: 100%;height: 40px;font-size: 18px;">
                         <template #prepend>
                             <el-button icon="Iphone" />
@@ -35,7 +35,7 @@
                     </el-input>
                 </el-form-item> -->
                 <el-form-item label="" prop="checkNum">
-                    <el-input placeholder="驗證碼" v-model="form.checkNum" 
+                    <el-input placeholder="驗證碼" v-model="form.checkNum"
                         style="width: 50%;min-width:220px;max-width:300px;height: 40px;font-size: 18px;">
                         <template #prepend>
                             <el-button icon="Umbrella" />
@@ -56,7 +56,7 @@
 </template>
 <script setup>
 /*eslint-disable*/
-import { testLogin } from '@/api/api'
+import { testLogin,getLineInformation } from '@/api/api'
 import { ref,computed,onMounted } from 'vue';
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -123,7 +123,7 @@ const send = async() => {
         // console.log('formItem',formItem.value)
         // console.log('fields',fields)
         // console.log('valid',valid)
-        
+
         if (valid) {
             // console.log('submit!')
             login()
@@ -145,7 +145,11 @@ const login = async() => {
       'password': form.value?.password
   }
 
-  await testLogin(payload).then((res) => {
+  const formData = new FormData();
+  formData.append("account", form.value?.account);
+  formData.append("password", form.value?.password);
+
+  await testLogin(formData).then((res) => {
       // console.log('res',res.data)
       if(res.data.status){
           store.commit('setToken',res.data.data)
@@ -163,9 +167,23 @@ const resetForm = () => {
   formItem.value.resetFields()
 }
 
+const htmlData = ref('')
 const lineLogin = () => {
+    getLineInformation().then((res) => {
+        console.log('res',res)
+        //https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2001937495&redirect_uri=https%3a%2f%2fjxes6102.github.io%2fbryte%2f&state=a1561e4078dc03b657ac93195a9f68934fd9fae1622d8e5239ad87a8d7aabb8f&scope=profile&openId
+        // store.commit('setLineDom',res.data)
+        // router.push({ path: '/checkView' })
+    })
+
+    // "https://access.line.me/oauth2/v2.1/authorize
+    // ?response_type=code
+    // &client_id=2001937495
+    // &redirect_uri=https%3a%2f%2fjxes6102.github.io%2fbryte%2f
+    // &state=a1561e4078dc03b657ac93195a9f68934fd9fae1622d8e5239ad87a8d7aabb8f
+    // &scope=profile&openId"
     console.log('lineLogin')
-    let client_id = '1656734224';
+    let client_id = '2001937495';
     let redirect_uri = 'https://jxes6102.github.io/bryte/';
     let link = 'https://access.line.me/oauth2/v2.1/authorize?';
     link += 'response_type=code';
@@ -173,10 +191,9 @@ const lineLogin = () => {
     link += '&redirect_uri=' + redirect_uri;
     link += '&state=zxcasdqew';
     link += '&scope=openid%20profile';
-    window.location.href = link;
+    // window.location.href = link;
 }
 
 </script>
 <style lang="scss" scoped>
 </style>
-  

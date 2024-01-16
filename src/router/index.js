@@ -200,11 +200,11 @@ const routes = [
     name: 'checkView',
     component: checkView,
   },
-  // {
-  //   path: '/testView',
-  //   name: 'testView',
-  //   component: testView,
-  // },
+  {
+    path: '/testView',
+    name: 'testView',
+    component: testView,
+  },
   { 
     path: '/:pathMatch(.*)*', 
     component: errorView 
