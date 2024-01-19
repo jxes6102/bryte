@@ -55,6 +55,7 @@
             <div class="w-full mt-1 flex flex-col justify-center items-center">
                 <button @click="send" class="w-full md:w-[700px] max-w-[700px] bg-[#6E6EFF] py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">登入</button>
                 <button @click="lineLogin" class="w-full md:w-[700px] max-w-[700px] bg-[rgb(13,181,156,0.9)] mt-4 py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">LINE登入</button>
+                <button @click="testOpen" class="w-full md:w-[700px] max-w-[700px] bg-red-500 mt-4 py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">測試開啟</button>
             </div>
         </div>
     </div>
@@ -67,6 +68,10 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 const store = useStore()
 const router = useRouter()
+
+const isMobile = computed(() => {
+    return store.state.isMobile
+})
 
 const captchaData = ref({})
 const setCaptcha = () => {
@@ -197,25 +202,33 @@ const resetForm = () => {
 const htmlData = ref('')
 const lineLogin = () => {
     // console.log('lineLogin')
+
     getLineInformation().then((res) => {
+        console.log('getLineInformation',res.data.data)
         if(res.data.status){
+            // window.open(res.data.data, '_self')
+            // window.location.replace(res.data.data)
+            //未知 在手機板必新開分頁顯示
             window.location.href = res.data.data;
         }
 
-        //https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2001937495&redirect_uri=https%3a%2f%2fjxes6102.github.io%2fbryte%2f&state=a1561e4078dc03b657ac93195a9f68934fd9fae1622d8e5239ad87a8d7aabb8f&scope=profile&openId
-        // store.commit('setLineDom',res.data)
-        // router.push({ path: '/checkView' })
     })
+    // https://access.line.me/oauth2/v2.1/login?returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fresponse_type%3Dcode%26client_id%3D2001937495%26redirect_uri%3Dhttps%253A%252F%252Fjxes6102.github.io%252Fbryte%252F%26state%3Da1561e4078dc03b657ac93195a9f68934fd9fae1622d8e5239ad87a8d7aabb8f%26scope%3Dprofile%26openId%3D&loginChannelId=2001937495&loginState=70feooN8nomIsavCwLnhJM
+}
 
-    // let client_id = '2001937495';
-    // let redirect_uri = 'https://jxes6102.github.io/bryte/';
-    // let link = 'https://access.line.me/oauth2/v2.1/authorize?';
-    // link += 'response_type=code';
-    // link += '&client_id=' + client_id;
-    // link += '&redirect_uri=' + redirect_uri;
-    // link += '&state=zxcasdqew';
-    // link += '&scope=openid%20profile';
-    // window.location.href = link;
+const testOpen = () => {
+    // window.location.href = 'https://tw.dictionary.search.yahoo.com/'
+    // window.open('https://tw.dictionary.search.yahoo.com/', '_self')
+
+    let client_id = '2001937495';
+    let redirect_uri = 'https://jxes6102.github.io/bryte/';
+    let link = 'https://access.line.me/oauth2/v2.1/authorize?';
+    link += 'response_type=code';
+    link += '&client_id=' + client_id;
+    link += '&redirect_uri=' + redirect_uri;
+    link += '&state=zxcasdqew';
+    link += '&scope=openid%20profile';
+    window.location.href = link;
 }
 
 </script>

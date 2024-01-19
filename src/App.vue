@@ -27,16 +27,21 @@
   import footerView from './components/footerView.vue';
   import { getLineLoginCallback } from '@/api/api'
   import { ref,computed,onMounted,onBeforeUnmount } from 'vue';
-  import { useRouter } from "vue-router";
+  import { useRouter,useRoute } from "vue-router";
   import { useStore } from "vuex";
   import 'animate.css';
   //console.log('test 2')
   const store = useStore()
   const router = useRouter()
+  const route = useRoute()
   const scrollStutus = ref(true)
 
   const menuStatus = computed(() => {
       return store.state.menuStatus
+  })
+
+  const isMobile = computed(() => {
+      return store.state.isMobile
   })
 
   const handleScroll = (el) => {
@@ -61,19 +66,6 @@
   }
   init()
 
-  onMounted(() => {
-    // console.log('headerItem.value',headerItem.value.$el.clientHeight)
-    setWidth()
-    window.addEventListener('resize', () => {
-      setWidth()
-    }, false);
-    
-  })
-
-  onBeforeUnmount(() => {
-    // store.commit('clearToken')
-  })
-
   const checkLineLogin = () =>  {
     //https://192.168.1.102:8080/?code=FHvFFCRr91OeZEfdqH5W&state=zxcasdqew#/
     // console.log('line login')
@@ -92,8 +84,12 @@
       getLineLoginCallback(payload).then((res) => {
         // console.log('getLineLoginCallback',res)
         if(res.data.status){
+          console.log('getLineLoginCallback',res.data.data)
           store.commit('setToken',res.data.data)
-          window.location.href = window.location.origin + window.location.pathname
+          // window.location.href = window.location.origin + window.location.pathname
+          // window.open((window.location.origin + window.location.pathname), '_self')
+          window.location.replace((window.location.origin + window.location.pathname))
+          
         }else{
           console.log(res.data.message)
         }
@@ -101,8 +97,20 @@
     }
     
   }
-  
-  checkLineLogin()
+
+  onMounted(() => {
+    // console.log('headerItem.value',headerItem.value.$el.clientHeight)
+    setWidth()
+    window.addEventListener('resize', () => {
+      setWidth()
+    }, false);
+    
+    checkLineLogin()
+  })
+
+  onBeforeUnmount(() => {
+    // store.commit('clearToken')
+  })
 
 </script>
 <style lang="scss">
