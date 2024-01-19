@@ -35,17 +35,20 @@
                     </el-input>
                 </el-form-item> -->
                 <el-form-item label="" prop="checkNum">
-                    <el-input placeholder="驗證碼" v-model="form.checkNum"
+                    <el-input placeholder="驗證碼" maxlength="4" v-model="form.checkNum"
                         style="width: 50%;min-width:220px;max-width:300px;height: 40px;font-size: 18px;">
                         <template #prepend>
                             <el-button icon="Umbrella" />
                         </template>
                         <template #append>
-                            <div class="w-[50px] md:w-[100px]">圖片</div>
+                            <div @click="setCaptcha" class="w-[90px] md:w-[100px]">
+                                <img class="w-full h-full" :src="captchaData?.dataUrl" alt="圖片錯誤">
+                            </div>
                         </template>
                     </el-input>
                 </el-form-item>
             </el-form>
+            <div class="text-red-600 text-sm md:text-lg" v-if="loginMessage">{{loginMessage}}</div>
             <div class="w-full mt-1">忘記了您的密碼嗎? 請與各分校老師進行詢問，謝謝。</div>
             <div class="w-full mt-1 flex flex-col justify-center items-center">
                 <button @click="send" class="w-full md:w-[700px] max-w-[700px] bg-[#6E6EFF] py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">登入</button>
@@ -56,12 +59,30 @@
 </template>
 <script setup>
 /*eslint-disable*/
-import { testLogin,getLineInformation } from '@/api/api'
+import { testLogin,getLineInformation,getCaptcha } from '@/api/api'
 import { ref,computed,onMounted } from 'vue';
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 const store = useStore()
 const router = useRouter()
+
+const captchaData = ref({})
+const setCaptcha = () => {
+    getCaptcha().then((res) => {
+        // console.log('res',res)
+        if(res.data.status){
+            captchaData.value = res.data.data
+            // console.log('captchaData',captchaData.value)
+        }else{
+            console.log(res.data.message)
+        }
+    })
+}
+const init = () => {
+    setCaptcha()
+}
+
+init()
 
 const formItem = ref(null)
 const form = ref({
@@ -82,6 +103,7 @@ const rules = ref({
     ],
     checkNum: [
         { required: true,message: '請輸入驗證碼',trigger: 'blur' },
+        { min: 4, message: 'Length should be 4', trigger: 'change' },
     ],
 })
 
@@ -133,30 +155,33 @@ const send = async() => {
     })
 }
 
+const loginMessage = ref('')
 let loadStatus = false
 const login = async() => {
-  // let payload = {
-  //     'account': 'teacher001',
-  //     'password': 'teacher001'
-  // }
+// teacher001
+//   let payload = {
+//       'account': form.value?.account,
+//       'password': form.value?.password,
+//       'captchaId': captchaData.value?.captchaId,
+//       'captchaCode': form.value?.checkNum
+//   }
   loadStatus = true
-  let payload = {
-      'account': form.value?.account,
-      'password': form.value?.password
-  }
 
   const formData = new FormData();
   formData.append("account", form.value?.account);
   formData.append("password", form.value?.password);
+  formData.append("captchaId", captchaData.value?.captchaId);
+  formData.append("captchaCode", form.value?.checkNum);
 
   await testLogin(formData).then((res) => {
-      // console.log('res',res.data)
       if(res.data.status){
           store.commit('setToken',res.data.data)
           resetForm()
           router.push({ path: '/' })
       }else{
-          console.log(res.data.message)
+          setCaptcha()
+          loginMessage.value = res.data.message
+        //   console.log(res.data.message)
       }
       loadStatus = false
   })
@@ -169,31 +194,31 @@ const resetForm = () => {
 
 const htmlData = ref('')
 const lineLogin = () => {
+    console.log('lineLogin')
     getLineInformation().then((res) => {
-        console.log('res',res)
+        if(res.data.status){
+            window.location.href = res.data.data;
+        }
+
         //https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=2001937495&redirect_uri=https%3a%2f%2fjxes6102.github.io%2fbryte%2f&state=a1561e4078dc03b657ac93195a9f68934fd9fae1622d8e5239ad87a8d7aabb8f&scope=profile&openId
         // store.commit('setLineDom',res.data)
         // router.push({ path: '/checkView' })
     })
 
-    // "https://access.line.me/oauth2/v2.1/authorize
-    // ?response_type=code
-    // &client_id=2001937495
-    // &redirect_uri=https%3a%2f%2fjxes6102.github.io%2fbryte%2f
-    // &state=a1561e4078dc03b657ac93195a9f68934fd9fae1622d8e5239ad87a8d7aabb8f
-    // &scope=profile&openId"
-    console.log('lineLogin')
-    let client_id = '2001937495';
-    let redirect_uri = 'https://jxes6102.github.io/bryte/';
-    let link = 'https://access.line.me/oauth2/v2.1/authorize?';
-    link += 'response_type=code';
-    link += '&client_id=' + client_id;
-    link += '&redirect_uri=' + redirect_uri;
-    link += '&state=zxcasdqew';
-    link += '&scope=openid%20profile';
+    // let client_id = '2001937495';
+    // let redirect_uri = 'https://jxes6102.github.io/bryte/';
+    // let link = 'https://access.line.me/oauth2/v2.1/authorize?';
+    // link += 'response_type=code';
+    // link += '&client_id=' + client_id;
+    // link += '&redirect_uri=' + redirect_uri;
+    // link += '&state=zxcasdqew';
+    // link += '&scope=openid%20profile';
     // window.location.href = link;
 }
 
 </script>
 <style lang="scss" scoped>
+:deep(.el-input-group__append) {
+    padding: 0px;
+}
 </style>

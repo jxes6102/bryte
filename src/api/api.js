@@ -137,6 +137,25 @@ export const getLineInformation = () => {
   })
 }
 
+export const getLineLoginCallback = (data) => {
+  const url = '/Auth/LineLoginCallback'+addToUrl(data)
+  const method = 'get'
+  return request({
+    method,
+    url,
+    data
+  })
+}
+
+export const getCaptcha = () => {
+  const url = '/Auth/Captcha'
+  const method = 'get'
+  return request({
+    method,
+    url,
+  })
+}
+
 const addToUrl = (payload) => {
   let str = '?'
   for(let key in payload){

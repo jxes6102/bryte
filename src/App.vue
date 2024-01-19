@@ -25,6 +25,7 @@
 /*eslint-disable*/
   import headerView from './components/headerView.vue';
   import footerView from './components/footerView.vue';
+  import { getLineLoginCallback } from '@/api/api'
   import { ref,computed,onMounted,onBeforeUnmount } from 'vue';
   import { useRouter } from "vue-router";
   import { useStore } from "vuex";
@@ -82,11 +83,22 @@
     console.log('codeParam',codeParam)
     const stateParam = urlParams.get('state');
     console.log('stateParam',stateParam)
-    if(stateParam || codeParam){
-      // console.log(window.location)
-      window.location.href = window.location.origin + window.location.pathname
-    }
+    if(stateParam && codeParam){
+      let payload = {
+          "code": codeParam,
+          "state": stateParam
+      }
 
+      getLineLoginCallback(payload).then((res) => {
+        console.log('getLineLoginCallback',res)
+        if(res.data.status){
+          store.commit('setToken',res.data.data)
+          window.location.href = window.location.origin + window.location.pathname
+        }else{
+          console.log(res.data.message)
+        }
+      })
+    }
     
   }
   
