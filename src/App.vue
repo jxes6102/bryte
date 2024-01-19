@@ -80,9 +80,9 @@
     const urlParams = new URLSearchParams(window.location.search);
     // console.log('urlParams',urlParams)
     const codeParam = urlParams.get('code');
-    console.log('codeParam',codeParam)
+    // console.log('codeParam',codeParam)
     const stateParam = urlParams.get('state');
-    console.log('stateParam',stateParam)
+    // console.log('stateParam',stateParam)
     if(stateParam && codeParam){
       let payload = {
           "code": codeParam,
@@ -90,7 +90,7 @@
       }
 
       getLineLoginCallback(payload).then((res) => {
-        console.log('getLineLoginCallback',res)
+        // console.log('getLineLoginCallback',res)
         if(res.data.status){
           store.commit('setToken',res.data.data)
           window.location.href = window.location.origin + window.location.pathname

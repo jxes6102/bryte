@@ -48,7 +48,9 @@
                     </el-input>
                 </el-form-item>
             </el-form>
-            <div class="text-red-600 text-sm md:text-lg" v-if="loginMessage">{{loginMessage}}</div>
+            <div class="w-full min-h-[15px] text-red-600 text-sm md:text-lg">
+                {{loginMessage || ''}}
+            </div>
             <div class="w-full mt-1">忘記了您的密碼嗎? 請與各分校老師進行詢問，謝謝。</div>
             <div class="w-full mt-1 flex flex-col justify-center items-center">
                 <button @click="send" class="w-full md:w-[700px] max-w-[700px] bg-[#6E6EFF] py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">登入</button>
@@ -194,7 +196,7 @@ const resetForm = () => {
 
 const htmlData = ref('')
 const lineLogin = () => {
-    console.log('lineLogin')
+    // console.log('lineLogin')
     getLineInformation().then((res) => {
         if(res.data.status){
             window.location.href = res.data.data;
