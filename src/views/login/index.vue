@@ -220,13 +220,13 @@ const testOpen = () => {
     // window.location.href = 'https://tw.dictionary.search.yahoo.com/'
     // window.open('https://tw.dictionary.search.yahoo.com/', '_self')
 
-    let client_id = '2001937495';
+    let client_id = '1656734224';
     let redirect_uri = 'https://jxes6102.github.io/bryte/';
     let link = 'https://access.line.me/oauth2/v2.1/authorize?';
     link += 'response_type=code';
     link += '&client_id=' + client_id;
     link += '&redirect_uri=' + redirect_uri;
-    link += '&state=zxcasdqew';
+    link += '&state=logintest';
     link += '&scope=openid%20profile';
     window.location.href = link;
 }
