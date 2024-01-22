@@ -18,7 +18,11 @@ instance.interceptors.request.use(
     // before request is sent
     const token = localStorage.getItem('token');
     config.headers['ngrok-skip-browser-warning'] = 69420
-    if (token) {
+    // console.log('config',config.url)
+    let noTokenArr = [
+      '/Pickup/Monitor','/Init/InitTodayRollCall','/Init/InitTodayPickup'
+    ]
+    if (token && !noTokenArr.includes(config.url)) {
       config.headers.Authorization = `Bearer ${token}`
     }
     return config

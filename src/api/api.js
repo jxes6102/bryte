@@ -156,6 +156,33 @@ export const getCaptcha = () => {
   })
 }
 
+export const getCall = () => {
+  const url = '/Pickup/Monitor'
+  const method = 'post'
+  return request({
+    method,
+    url,
+  })
+}
+
+export const initTodayRollCall = () => {
+  const url = '/Init/InitTodayRollCall'
+  const method = 'post'
+  return request({
+    method,
+    url,
+  })
+}
+
+export const initTodayPickup = () => {
+  const url = '/Init/InitTodayPickup'
+  const method = 'post'
+  return request({
+    method,
+    url,
+  })
+}
+
 const addToUrl = (payload) => {
   let str = '?'
   for(let key in payload){

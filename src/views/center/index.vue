@@ -27,6 +27,7 @@
                 v-for="(item, index) in userMenu?.Menus" :key="index">
                 {{item.Name}}
             </div>
+            <div @click="openAnnounce" class="text-[#0d6efd] text-lg md:text-2xl my-1 md:my-2 cursor-pointer">家長接送</div>
             <div @click="logout" class="text-[#dc3545] my-1 md:my-2 text-lg md:text-2xl cursor-pointer">登出</div>
         </div>
         <div class="w-[95%] flex flex-col md:flex-row items-center justify-center">
@@ -114,6 +115,10 @@ const logout = async() => {
             console.log(res.data.message)
         }
     })
+}
+
+const openAnnounce = () => {
+    store.commit('changeAnnounceStatus',true)
 }
 
 </script>

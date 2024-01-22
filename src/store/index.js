@@ -6,7 +6,8 @@ export default createStore({
     //1主任 2老師 3家長
     roleID:2,
     isLogin:false,
-    lineHtml:''
+    lineHtml:'',
+    announceStatus:false
   },
   getters: {
   },
@@ -30,6 +31,9 @@ export default createStore({
     },
     setLineDom(state,value){
       state.lineHtml = value
+    },
+    changeAnnounceStatus(state,value){
+      state.announceStatus = value
     }
   },
   actions: {

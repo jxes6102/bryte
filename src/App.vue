@@ -19,12 +19,19 @@
       </Transition>
     </router-view>
     <footerView></footerView>
+    <transition 
+      enter-active-class="animate__animated animate__fadeIn"
+      leave-active-class="animate__animated animate__fadeOut"
+      >
+      <announceView v-if="announceStatus"></announceView>
+    </transition>
   </div>
 </template>
 <script setup>
 /*eslint-disable*/
   import headerView from './components/headerView.vue';
   import footerView from './components/footerView.vue';
+  import announceView from './components/announceView.vue'
   import { getLineLoginCallback } from '@/api/api'
   import { ref,computed,onMounted,onBeforeUnmount } from 'vue';
   import { useRouter,useRoute } from "vue-router";
@@ -35,6 +42,10 @@
   const router = useRouter()
   const route = useRoute()
   const scrollStutus = ref(true)
+
+  const announceStatus = computed(() => {
+    return store.state.announceStatus
+  })
 
   const menuStatus = computed(() => {
       return store.state.menuStatus
