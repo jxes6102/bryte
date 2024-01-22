@@ -154,7 +154,7 @@
     <div class="absolute w-[100vw] h-[100vh] top-0 left-0 bg-white flex flex-col justify-center items-center z-[9999]" v-else>
         <div class="text-2xl">此畫面無法用手機開啟</div>
         <div
-            @click="tohome"
+            @click="closeAnnounce"
             class="absolute w-auto h-auto top-0 right-0 p-2 flex flex-wrap justify-center items-center">
             <el-icon size="50"><Close /></el-icon>
         </div>
@@ -585,10 +585,12 @@ const initCallData = async() => {
 }
 
 onMounted(() => {
-    initCallData()
-    getCallData()
-    createMusicTimer()
-    createCallTimer()
+    if(!isMobile.value){
+        initCallData()
+        getCallData()
+        createMusicTimer()
+        createCallTimer()
+    }
 })
 
 onBeforeUnmount(() => {
@@ -1169,6 +1171,10 @@ const isMobile = computed(() => {
     return store.state.isMobile
 })
 const init = () => {
+    if(isMobile.value){
+        return false
+    }
+
     maxCount.value = Math.floor((window.innerHeight - 80)/90) 
     // console.log(maxCount.value)
 
