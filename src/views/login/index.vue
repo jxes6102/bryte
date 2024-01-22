@@ -205,11 +205,13 @@ const lineLogin = () => {
 
     getLineInformation().then((res) => {
         console.log('getLineInformation',res.data.data)
+        // loginMessage.value = res.data.data
         if(res.data.status){
             // window.open(res.data.data, '_self')
             // window.location.replace(res.data.data)
             //未知 在手機板必新開分頁顯示
-            window.location.href = res.data.data;
+            // window.location.href = res.data.data;
+            openLink(res.data.data)
         }
 
     })
@@ -228,7 +230,16 @@ const testOpen = () => {
     link += '&redirect_uri=' + redirect_uri;
     link += '&state=logintest';
     link += '&scope=openid%20profile';
-    window.location.href = link;
+
+    // openLink(link)
+    openLink('https://tw.dictionary.search.yahoo.com/')
+}
+
+const openLink = (url) => {
+    // window.location.replace(res.data.data)
+    // window.open(res.data.data, '_self')
+    window.location.href = url
+
 }
 
 </script>
