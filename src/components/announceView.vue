@@ -569,10 +569,9 @@ const initCallData = async() => {
     let date = new Date()
     let oldDate = localStorage.getItem('date')
 
-    if(oldDate){
+    if(oldDate == null){
         localStorage.setItem('date',date.getDate())
     }
-    oldDate = localStorage.getItem('date')
     if(!(oldDate == date.getDate().toString())){
         await initTodayRollCall().then((res) => {
             // console.log('res',res)
@@ -584,9 +583,9 @@ const initCallData = async() => {
     }    
 }
 
-onMounted(() => {
+onMounted( async() => {
     if(!isMobile.value){
-        initCallData()
+        await initCallData()
         getCallData()
         createMusicTimer()
         createCallTimer()
