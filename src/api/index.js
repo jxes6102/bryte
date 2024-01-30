@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 export const TIMEOUT = 10000
 
 // const DEFAULT_CACHE_EXPIRY_TIME = 3000
@@ -42,7 +41,13 @@ instance.interceptors.response.use(
   },
   error => {
     // console.log('interceptors.response error',error)
-    return Promise.reject(error);
+    if(error.response.status == 401){
+      // console.log('未允許拿取')
+      let returnUrl = '#/login'
+      window.location.replace((window.location.origin + window.location.pathname+returnUrl))
+    
+    }
+    return error;
   }
 );
 

@@ -6,8 +6,8 @@ export default createStore({
     //1主任 2老師 3家長
     roleID:2,
     isLogin:false,
-    lineHtml:'',
-    announceStatus:false
+    announceStatus:false,
+    userData:''
   },
   getters: {
   },
@@ -29,12 +29,16 @@ export default createStore({
       state.isLogin = false
       localStorage.removeItem("token");
     },
-    setLineDom(state,value){
-      state.lineHtml = value
-    },
     changeAnnounceStatus(state,value){
       state.announceStatus = value
-    }
+    },
+    setUserData(state,value){
+      state.userData = value
+    },
+    clearUserData(state){
+      state.userData = {}
+    },
+    
   },
   actions: {
   },

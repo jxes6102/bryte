@@ -86,6 +86,8 @@ const setCaptcha = () => {
     })
 }
 const init = () => {
+    store.commit('clearToken')
+    store.commit('clearUserData')
     setCaptcha()
 }
 
@@ -182,6 +184,8 @@ const login = async() => {
 
   await testLogin(formData).then((res) => {
       if(res.data.status){
+        //   console.log('res.data',res.data)
+          store.commit('setUserData',res.data.data)
           store.commit('setToken',res.data.data)
           resetForm()
           router.push({ path: '/' })

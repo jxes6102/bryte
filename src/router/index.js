@@ -32,6 +32,7 @@ import checkView from '../views/login/checkView.vue'
 import testView from '../views/testView.vue'
 import errorView from '../views/errorView.vue'
 import { useStore } from "vuex";
+import { checkToken } from '@/api/api'
 
 const routes = [
   {
@@ -253,6 +254,19 @@ router.beforeEach((to, from) => {
   }
   if((authority.includes(to.name)) && (store.state.roleID == 3)){
     return '/'
+  }
+
+  if(store.state.isLogin && (!allow.includes(to.name))){
+    checkToken().then((res) => {
+      // console.log('checkToken api',res)
+      if(res.data?.status){
+        store.commit('setUserData',res.data.data)
+      }else{
+        store.commit('clearToken')
+        store.commit('clearUserData')
+        return '/loginView'
+      }
+    })
   }
 
   // explicitly return false to cancel the navigation

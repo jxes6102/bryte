@@ -183,6 +183,15 @@ export const initTodayPickup = () => {
   })
 }
 
+export const checkToken = () => {
+  const url = '/Auth/Authorize'
+  const method = 'post'
+  return request({
+    method,
+    url
+  })
+}
+
 const addToUrl = (payload) => {
   let str = '?'
   for(let key in payload){
