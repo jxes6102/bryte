@@ -6,7 +6,8 @@ export const TIMEOUT = 10000
 
 const CONFIG = {
   // baseURL: 'https://cet.bryte.com.tw/api/v2',
-  baseURL: 'https://5bc7-2001-b011-8007-3b17-3cae-bde3-9aea-e67b.ngrok-free.app/',
+  // baseURL: 'https://5bc7-2001-b011-8007-3b17-3cae-bde3-9aea-e67b.ngrok-free.app/',
+  baseURL: 'http://localhost:5222/',
   timeout: TIMEOUT,
   // headers: { Authorization: `Bearer ${token}` }
 }

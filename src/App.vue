@@ -32,7 +32,7 @@
   import headerView from './components/headerView.vue';
   import footerView from './components/footerView.vue';
   import announceView from './components/announceView.vue'
-  import { getLineLoginCallback } from '@/api/api'
+  import { getLineLoginCallback, authorize } from '@/api/api'
   import { ref,computed,onMounted,onBeforeUnmount } from 'vue';
   import { useRouter,useRoute } from "vue-router";
   import { useStore } from "vuex";
@@ -91,22 +91,32 @@
           "code": codeParam,
           "state": stateParam
       }
-
       getLineLoginCallback(payload).then((res) => {
         // console.log('getLineLoginCallback',res)
         if(res.data.status){
-          console.log('getLineLoginCallback',res.data.data)
-          store.commit('setToken',res.data.data)
-          // window.location.href = window.location.origin + window.location.pathname
-          // window.open((window.location.origin + window.location.pathname), '_self')
-          window.location.replace((window.location.origin + window.location.pathname))
-          
+          if (res.data.data.state == 0) {
+            console.log('getLineLoginCallback',res.data.data.data)
+            store.commit('setToken',res.data.data.data)
+            authorize().then((res1) => {
+                if(res1.data.status){
+                    store.commit('setUser',res1.data.data)
+                    window.location.replace((window.location.origin + window.location.pathname))
+                }else{
+                    console.log(res1.data.message)
+                }
+            })
+            // window.location.href = window.location.origin + window.location.pathname
+            // window.open((window.location.origin + window.location.pathname), '_self')
+          }else if (res.data.data.state == 1) {
+            store.commit('setLineId',res.data.data.data)
+            // router.push({ path: '/profile' })
+            window.location.replace((window.location.origin + window.location.pathname + '#/profile'))
+          }              
         }else{
           console.log(res.data.message)
         }
-      })
-    }
-    
+      }) 
+    }    
   }
 
   onMounted(() => {

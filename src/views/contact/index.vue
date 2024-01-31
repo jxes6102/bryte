@@ -19,17 +19,17 @@
         </div>
         <div 
             v-for="(item,index) in data" :key="index"
-            @click="toContactDetail"
+            @click="toContactDetail(item.classId, item.className)"
             class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
             <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
-                <div class="text-[16px] md:text-2xl font-semibold">{{ item.className }}</div>
+                <div class="text-[16px] md:text-2xl font-semibold">班級：{{ item.className }}</div>
                 <div 
                     class="text-[#6E6EFF] text-[14px] md:text-xl pl-1"
-                    v-for="(name,teacherKey) in item.teacher" :key="teacherKey" >{{ name }}</div>
+                    v-for="(name,teacherKey) in item.teachers" :key="teacherKey" >{{ name }}</div>
             </div>
             <div class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl flex flex-wrap items-center justify-start">
-                <div class="text-[#00D1D1]">{{ item.peopleCount + '人'}}</div>
-                <div class="">{{ '/' + item.peopleTotal + '人'}}</div>
+                <div class="text-[#00D1D1]">{{ item.studentCount + '人'}}</div>
+                <div class="">{{ '/' + item.studentTotal + '人'}}</div>
             </div>
             <div 
                 class="absolute right-[5px] top-[calc(50%_-_10px)] md:right-[15px] md:top-[calc(50%_-_20px)] cursor-pointer">
@@ -41,6 +41,7 @@
 
 <script setup>
 /*eslint-disable*/
+import { getContactBookClassList } from '@/api/api'
 import { useStore } from "vuex";
 import { ref,computed } from 'vue'
 import { useRouter } from "vue-router";
@@ -57,72 +58,57 @@ const roleID = computed(() => {
     return store.state.roleID
 })
 
+const user = computed(() => {
+    return JSON.parse(localStorage.getItem('user'))
+})
+
 const statement = computed(() => {
-    if(roleID.value == 1){
-        return '園長:施O漢'
-    } else if(roleID.value == 2) {
-        return '導師:羅O空'
-    }
+    return (user.value == null ? '' : user.value.roleName + '：' + user.value.name)
+    // if(roleID.value == 1){
+    //     return '園長:施O漢'
+    // } else if(roleID.value == 2) {
+    //     return '導師:羅O空'
+    // }
 })
 
 const data = ref([
     {
-        className:'松鼠班',
-        teacher:['白O馳','樂O可'],
-        peopleCount:21,
-        peopleTotal:28,
-    },
-    {
-        className:'猴子班',
-        teacher:['巴O雄'],
-        peopleCount:74,
-        peopleTotal:89,
-    },
-    {
-        className:'白兔班',
-        teacher:['楊O森'],
-        peopleCount:21,
-        peopleTotal:28,
-    },
-    {
-        className:'企鵝班',
-        teacher:['彭O海'],
-        peopleCount:12,
-        peopleTotal:24,
-    },
-    {
-        className:'黑熊班',
-        teacher:['萬O輝','趙O雪'],
-        peopleCount:11,
-        peopleTotal:23,
-    },
-    {
-        className:'綿羊班',
-        teacher:['塗O龍'],
-        peopleCount:18,
-        peopleTotal:25,
-    },
-    {
-        className:'蠑螈班',
-        teacher:['毛O東','鄧O庭'],
-        peopleCount:1,
-        peopleTotal:64,
-    },
+        classId:'',
+        className:'',
+        classCode:'',
+        teachers:[''],
+        studentCount:0,
+        studentTotal:0,
+    }
 ])
 
 const apiLoading = ref(false)
 
+const setContactBookClassList = () => {
+    getContactBookClassList().then((res) => {
+        // console.log('res',res)
+        if(res.data.status){
+            data.value = res.data.data
+        }else{
+            console.log(res.data.message)
+        }
+    })
+}
+
 const init = async() => {
     apiLoading.value = true
-    if(roleID.value == 2){
-        data.value = data.value.slice(0,2)
-    }
+    // if(roleID.value == 2){
+    //     data.value = data.value.slice(0,2)
+    // }
+    await setContactBookClassList()
     apiLoading.value = false
 }
 
 init()
 
-const toContactDetail = () => {
+const toContactDetail = (classId, className) => {
+    store.commit('setClassId',classId)
+    store.commit('setClassName',className)
     router.push({ path: '/contactDetail' })
 }
 

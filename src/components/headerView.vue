@@ -46,7 +46,7 @@
                     <li @click.stop="toCenter">
                         <div class="py-[10px] hover:text-orange-500 ">{{ statement }}</div>
                         <ul class="" v-if="isSchool">
-                            <li class="py-[5px] hover:text-orange-500" @click.stop="tocontactSet">設定</li>
+                            <li class="py-[5px] hover:text-orange-500" @click.stop="toProfile">用戶管理</li>
                             <li class="py-[5px] hover:text-orange-500" @click.stop="logout">登出</li>
                         </ul>
                     </li>
@@ -80,14 +80,20 @@ const roleID = computed(() => {
     return store.state.roleID
 })
 
+const user = computed(() => {
+    return JSON.parse(localStorage.getItem('user'))
+})
+
 const statement = computed(() => {
-    if(roleID.value == 1){
-        return '園長:施O漢'
-    } else if(roleID.value == 2) {
-        return '導師:羅O空'
-    } else if(roleID.value == 3) {
-        return '家長:孔O榮'
-    } 
+    console.log(user.value)
+    return (user.value == null ? '' : user.value.roleName + '：' + user.value.name)
+    // if(roleID.value == 1){
+    //     return '園長:施O漢'
+    // } else if(roleID.value == 2) {
+    //     return '導師:羅O空'
+    // } else if(roleID.value == 3) {
+    //     return '家長:孔O榮'
+    // } 
 })
 
 const isSchool = computed(() => {
@@ -191,6 +197,10 @@ const toLink = (url) => {
 
 const toback = () => {
     router.go(-1)
+}
+
+const toProfile = () =>{
+    router.push({ path: '/profile' })
 }
 
 const tocontactSet = () =>{
