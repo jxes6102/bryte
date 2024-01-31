@@ -173,7 +173,7 @@ const onDetect = async(detectedCodes) => {
     result.value = detectedCodes[0].rawValue
 
     let positionIndex =  result.value.indexOf("arrivedId=")
-    let value = result.value.substring(positionIndex+10,result.value.length)
+    let value = result.value
     let payload = {
         'arrivedId':value
     }

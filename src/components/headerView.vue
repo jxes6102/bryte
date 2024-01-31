@@ -81,6 +81,11 @@ const roleID = computed(() => {
 })
 
 const user = computed(() => {
+    console.log('h',store.state.user)
+    console.log('h',store.state.user.roleName)
+    if (store.state.user && store.state.user.roleName != ''){
+        return store.state.user
+    }
     return JSON.parse(localStorage.getItem('user'))
 })
 

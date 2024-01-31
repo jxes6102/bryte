@@ -30,6 +30,15 @@ export default createStore({
     setRole (state,value){
       state.roleID = value
     },
+    setStudentId (state,value){
+      localStorage.setItem("studentId", value)
+    },
+    setStudentName (state,value){
+      localStorage.setItem("studentName", value)
+    },
+    setStudentNumber (state,value){
+      localStorage.setItem("studentNumber", value)
+    },
     setClassId (state,value){
       localStorage.setItem("classId", value)
     },
@@ -38,6 +47,7 @@ export default createStore({
     },
     setUser (state,value){
       localStorage.setItem("user", JSON.stringify(value))
+      state.user = value
     },
     changeLoginStatus (state,value) {
       state.isLogin = value
@@ -52,6 +62,9 @@ export default createStore({
       localStorage.removeItem("user");
       localStorage.removeItem("className");
       localStorage.removeItem("classId");
+      localStorage.removeItem("studentId");
+      localStorage.removeItem("studentName");
+      localStorage.removeItem("studentNumber");
     },
     setLineId (state,value) {
       localStorage.setItem("lineId", JSON.stringify(value))

@@ -190,18 +190,19 @@ const login = async() => {
           store.commit('setToken',res.data.data)
         //   resetForm()
         //   router.push({ path: '/' })
-      }else{
-          setCaptcha()
-          loginMessage.value = res.data.message
-        //   console.log(res.data.message)
-      }
-      loadStatus = false
-  })
-  await authorize().then((res) => {
-      if(res.data.status){
-          store.commit('setUser',res.data.data)
-          resetForm()
-          router.push({ path: '/' })
+        
+        authorize().then((res) => {
+            if(res.data.status){
+                store.commit('setUser',res.data.data)
+                resetForm()
+                router.push({ path: '/' })
+            }else{
+                setCaptcha()
+                loginMessage.value = res.data.message
+                //   console.log(res.data.message)
+            }
+            loadStatus = false
+        })
       }else{
           setCaptcha()
           loginMessage.value = res.data.message
