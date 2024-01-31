@@ -240,6 +240,46 @@ export const getContactBookClassList = () => {
   })
 }
 
+export const getContactBookStudentList = () => {
+  const url = '/ContactBook/GetStudentList'
+  const method = 'post'
+  return request({
+    method,
+    url,
+  })
+}
+
+
+export const getMedicationRemindByClassIdAndStudentId = (data) => {
+  const url = '/MedicationRemind/GetDataByClassIdAndStudentIdAndDate'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const createMedicationRemind = (data) => {
+  const url = '/MedicationRemind/Create'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const editMedicationRemind = (data) => {
+  const url = '/MedicationRemind/Edit'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
 export const getMedicationRemindRecordListByClass = (data) => {
   const url = '/MedicationRemindRecord/GetDataListByClassIdAndDate'
   const method = 'post'
@@ -270,6 +310,26 @@ export const getBodyTemperatureRecordListByClass = (data) => {
   })
 }
 
+export const getBodyTemperatureRecordByClassIdAndStudentId = (data) => {
+  const url = '/BodyTemperatureRecord/GetDataByClassIdAndStudentIdAndDate'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const createBodyTemperatureRecordRecord = (data) => {
+  const url = '/BodyTemperatureRecord/CreateByDate'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
 export const editBodyTemperatureRecordRecord = (data) => {
   const url = '/BodyTemperatureRecord/Edit'
   const method = 'post'
@@ -287,5 +347,14 @@ export const uploadFile = (data) => {
     method,
     url,
     data,
+  })
+}
+
+export const getFile = (data) => {
+  const url = '' + data
+  const method = 'get'
+  return request({
+    method,
+    url,
   })
 }

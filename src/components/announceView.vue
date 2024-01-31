@@ -481,7 +481,8 @@ const setVolume = () => {
         volume.value = 1
     }
 }
-let musicList = ["測試一號","測試二號","測試三號","測試四號"]
+let oldMusicList = []
+let musicList = []
 const playMusic = (text) => {
     if(typeof speechSynthesis){
         const msg = new SpeechSynthesisUtterance(text);
@@ -489,14 +490,11 @@ const playMusic = (text) => {
         window.speechSynthesis.speak(msg);
     }
 }
-playMusic("可樂狗")
 let musicTimer = null
 const createMusicTimer = () =>  {
     musicTimer = setInterval(() => {
-        
         console.log('test',musicList[0]);
         if(musicList.length){
-            
             playMusic(musicList[0])
             musicList.shift()
         }
@@ -505,12 +503,16 @@ const createMusicTimer = () =>  {
 }
 
 setTimeout(() => {
-    musicList.push("測試五號","測試六號","測試七號","測試八號")
-}, 30000);
+    oldMusicList = JSON.parse(JSON.stringify(musicList))
+}, 10000);
 
-setTimeout(() => {
-    musicList.push("測試九號","測試十號")
-}, 60000);
+// setTimeout(() => {
+//     musicList.push("測試五號","測試六號","測試七號","測試八號")
+// }, 30000);
+
+// setTimeout(() => {
+//     musicList.push("測試九號","測試十號")
+// }, 60000);
 
 const callData = ref([])
 const callShow = computed(() => {
@@ -535,6 +537,7 @@ const callShow = computed(() => {
             }else if(obj.state == 4){
                 obj.message = '已抵達'
                 target.arrive.push(obj)
+                pushMusicList(obj)
             }
         }
     }
@@ -542,6 +545,20 @@ const callShow = computed(() => {
     target.arrive = target.arrive.slice(0,maxCount.value*2)
     return target
 })
+
+const pushMusicList = (obj) => {
+    let isSame = false 
+    for (let key in oldMusicList) {
+        if (oldMusicList[key].id == obj.id) {
+            isSame = true
+        }
+    }
+    if (!isSame) {
+        musicList.push(obj)
+        oldMusicList.push(obj)
+    }
+}
+
 const getCallData = async() => {
     // console.log('call api')
     await getCall().then((res) => {
@@ -559,7 +576,6 @@ const getCallData = async() => {
 let callTimer = null
 const createCallTimer = () =>  {
     callTimer = setInterval(() => {
-        
         getCallData()
     }, 5000);
 }

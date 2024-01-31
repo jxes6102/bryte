@@ -1,14 +1,17 @@
 <template>
     <div class="w-auto h-auto md:h-auto p-2 flex flex-col justify-start items-center ">
-        <dateSelect :apiLoading="apiLoading"></dateSelect>
+        <dateSelect :apiLoading="apiLoading"
+        :date="dayData" @changeDate="changeDate"></dateSelect>
         <div v-if="isSchool" class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-start">
             <div>{{statement}}</div>
         </div>
         <div 
-            v-if="isSchool" 
             class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-start">
             <div>To:</div>
             <div class="px-2">{{className}}班</div>
+        </div>
+        <div v-if="!isSchool" class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-start">
+            <div>{{studentName}} {{studentNumber}}號</div>
         </div>
         <div 
             v-if="isSchool" 
@@ -109,54 +112,72 @@
         </div>
 
         <Teleport to="body">
-            <dialogView type="small" v-if="dialogStatus">
-                <template v-slot:message>
-                    <div class="w-full h-auto rounded-lg m-1 p-1 flex flex-wrap items-center justify-center">
+            <conversationView type="large" v-if="dialogStatus">
+                <template v-slot:content>
+                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">測量體溫</div>
+                        <el-time-select
+                            class="w-[150px] md:w-[200px]"
+                            v-model="temperatureData.bodyTemperatureTime"
+                            :clearable="false"
+                            start="00:10"
+                            step="00:10"
+                            end="23:50"
+                            placeholder="Select time"
+                        />
+                    </div>
+                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">測量體溫類型</div>
                         <el-select 
-                            v-model="temperatureValue"
-                            placeholder="請選擇體溫"
+                            v-model="temperatureData.state"
+                            placeholder="請選擇類型"
                             size="large"
-                            style="width:90%;">
+                            class="w-[150px] md:w-[200px]">
                             <el-option
-                              v-for="item in temperatureOptions"
+                              v-for="item in temperatureStateOptions"
                               :key="item.value"
                               :label="item.label"
                               :value="item.value"
                             />
                         </el-select>
                     </div>
+                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">體溫</div>
+                        <input 
+                            v-model="temperatureData.temperature"
+                            required
+                            type="number" >
+                    </div>
                 </template>
                 <template v-slot:control>
                     <div class="absolute w-full bottom-2 md:bottom-4 flex flex-wrap justify-center items-center">
-                        <button
+                        <button @click="setTemperature"
                             class="min-w-[20%] w-[90%] bg-[#483D8B] text-sm md:text-xl text-white py-1 px-2 rounded">
                             送出
                         </button>
                     </div>
                 </template>
-            </dialogView>
+            </conversationView>
             <conversationView type="large" v-if="modalStatus">
                 <template v-slot:content>
                     <div class="w-full py-1 md:py-3 px-3 md:px-3 flex flex-col items-start justify-start">
                         <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">起訖日期</div>
                         <div class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">
                             <el-date-picker
-                                v-model="inputMedication.startDate"
+                                v-model="medicationData.startDate"
                                 popper-class="custom-date-picker"
                                 type="date"
                                 placeholder="選擇查詢日期"
-                                :disabled-date="inputMedication.disabledDate"
                                 :disabled="apiLoading"
                                 :editable="false"
                                 :style="isMobile ? 'width: 110px;font-size: 12px;' : 'width: 40%;'"
                             />
                             <div>至</div>
                             <el-date-picker
-                                v-model="inputMedication.endDate"
+                                v-model="medicationData.endDate"
                                 popper-class="custom-date-picker"
                                 type="date"
                                 placeholder="選擇查詢日期"
-                                :disabled-date="inputMedication.disabledDate"
                                 :disabled="apiLoading"
                                 :editable="false"
                                 :style="isMobile ? 'width: 110px;font-size: 12px;' : 'width: 40%;'"
@@ -166,8 +187,8 @@
                     <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
                         <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">餵藥時間</div>
                         <el-time-select
-                            class="w-[150px] md:w-[200px]"
-                            v-model="inputMedication.time"
+                            class="w-[150px]"
+                            v-model="medicationData.medicationTime"
                             :clearable="false"
                             start="00:10"
                             step="00:10"
@@ -178,17 +199,25 @@
                     <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
                         <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">飯前飯後</div>
                         <div class="px-[1px] flex flex-wrap items-center justify-center">
-                            <el-radio-group v-model="inputMedication.moment" class="">
-                                <el-radio label="1" size="large">飯前</el-radio>
-                                <el-radio label="2" size="large">飯後</el-radio>
-                            </el-radio-group>
+                            <el-select 
+                                v-model="medicationData.isAfterMeal"
+                                placeholder="請選擇類型"
+                                size="large"
+                                class="w-[150px] md:w-[200px]">
+                                <el-option
+                                v-for="item in isAfterMealeOptions"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                                />
+                            </el-select>
                         </div>
                     </div>
                     <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
                         <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">備註</div>
                         <div class="relative w-full h-[50px] md:h-[80px] text-base md:text-2xl">
                             <textarea 
-                                v-model="inputMedication.word"
+                                v-model="medicationData.remark"
                                 placeholder="請在此輸入留言"
                                 required
                                 class="w-full h-full p-1 bg-gray-100 border-gray-300 border-[1px]"
@@ -199,12 +228,22 @@
                             <!-- <div class="absolute right-3 bottom-1">{{'字數' + word.length + '/30'}}</div> -->
                         </div>
                     </div>
-                    <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
+                    <!-- <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
                         <div class="w-full text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">上傳相片</div>
+                        <input type="file" id="fileInput" @change="upload" accept="image/*" style="display: none">
                         <button
-                            @click="cancel"
+                            @click="triggerUpload"
                             class="min-w-[20%] bg-white py-[1px] px-[2px] md:py-1 md:px-2 rounded-sm border-[1px] text-[#808080] border-[#808080]">
-                            點擊選擇相片
+                            上傳相片
+                        </button>
+                    </div> -->
+                </template>
+                <template v-slot:control>
+                    <div class="absolute w-full bottom-2 md:bottom-4 flex flex-wrap justify-center items-center">
+                        <input type="file" id="fileInput" @change="upload" accept="image/*" style="display: none">
+                        <button @click="setMedication"
+                            class="min-w-[20%] w-[40%] bg-[#483D8B] text-sm md:text-xl text-white py-1 px-2 rounded">
+                            送出
                         </button>
                     </div>
                 </template>
@@ -321,7 +360,13 @@
 
 <script setup>
 /*eslint-disable*/
-import { getContactBookRecordByDate } from '@/api/api'
+import { createBodyTemperatureRecordRecord,
+    editBodyTemperatureRecordRecord,
+    getBodyTemperatureRecordByClassIdAndStudentId,
+    createMedicationRemind,
+    editMedicationRemind,
+    getMedicationRemindByClassIdAndStudentId,
+    getFile } from '@/api/api'
 import { useStore } from "vuex";
 import { ref,computed,provide } from 'vue'
 import { useRouter } from "vue-router";
@@ -341,11 +386,30 @@ const isSchool = computed(() => {
 })
 
 const user = computed(() => {
+    if (store.state.user && store.state.user.roleName != ''){
+        return store.state.user
+    }
     return JSON.parse(localStorage.getItem('user'))
+})
+
+const classId = computed(() => {
+    return localStorage.getItem('classId')
 })
 
 const className = computed(() => {
     return localStorage.getItem('className')
+})
+
+const studentId = computed(() => {
+    return localStorage.getItem('studentId')
+})
+
+const studentName = computed(() => {
+    return localStorage.getItem('studentName')
+})
+
+const studentNumber = computed(() => {
+    return localStorage.getItem('studentNumber')
 })
 
 const statement = computed(() => {
@@ -425,7 +489,12 @@ const init = async() => {
     apiLoading.value = false
 }
 
+const dayData = ref(new Date())
 init()
+const changeDate = (value) => {
+    dayData.value = value
+    init()
+}
 
 const isMobile = computed(() => {
     return store.state.isMobile
@@ -469,12 +538,12 @@ const toRoom = () => {
 
 const dialogStatus = ref(false)
 const takeTemperature = () => {
-    dialogStatus.value = true
+    getTemperature()
 }
 
 const modalStatus = ref(false)
 const openMedication = () => {
-    modalStatus.value = true
+    getMedication()
 }
 
 const cancel = () => {
@@ -486,17 +555,6 @@ const cancel = () => {
 }
 
 provide('cancel', cancel)
-
-const inputMedication = ref({
-    time:'17:20',
-    word:'',
-    moment:'1',
-    startDate:new Date(),
-    endDate:new Date(),
-    disabledDate: function(time) {
-        return (time.getTime() > Date.now()) || (time.getTime() < (Date.now() - 2592000000))
-    },
-})
 
 const linkMedication = () => {
     if(isSchool.value){
@@ -612,4 +670,165 @@ const toRecord = () => {
     router.push({ path: '/recordView' })
 }
 
+const temperatureStateOptions = ref([
+    {value: 0, label: '請選擇'},
+    {value: 1, label: '額溫'},
+    {value: 2, label: '腋溫'},
+    {value: 3, label: '口溫'},
+    {value: 4, label: '肛溫'},
+    {value: 5, label: '耳溫'}
+])
+
+const temperatureData = ref({})
+const getTemperature = async() => {
+    const formData = new FormData()
+    formData.append("classId", classId.value)
+    formData.append("studentId", studentId.value)
+    formData.append("date", dayData.value.toDateString())
+    await getBodyTemperatureRecordByClassIdAndStudentId(formData).then((res) => {
+        if(res.data.status){
+            temperatureData.value = res.data.data
+            dialogStatus.value = true
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((res) => {
+        if (res.response.status == 401) {
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }
+        console.log(res)
+    })
+}
+
+const setTemperature = async() => {
+    var formData = new FormData();
+    for (var key in temperatureData.value) {
+        if (temperatureData.value.hasOwnProperty(key)) {
+            formData.append(key, temperatureData.value[key])
+        }
+    } 
+    formData.append("date", dayData.value.toDateString())
+    if (temperatureData.value.contactBookRecordId) {
+        await editBodyTemperatureRecordRecord(formData).then((res) => {
+            if(res.data.status){
+                dialogStatus.value = false
+            }else{
+                console.log(res.data.message)
+            }
+        }).catch((res) => {
+            if (res.response.status == 401) {
+                store.commit('clearToken')
+                router.push({ path: '/' })
+            }
+            console.log(res)
+        })
+    } else {
+        await createBodyTemperatureRecordRecord(formData).then((res) => {
+            if(res.data.status){
+                dialogStatus.value = false
+            }else{
+                console.log(res.data.message)
+            }
+        }).catch((res) => {
+            if (res.response.status == 401) {
+                store.commit('clearToken')
+                router.push({ path: '/' })
+            }
+            console.log(res)
+        })
+    }
+}
+
+const isAfterMealeOptions = ref([
+    {value: true, label: '飯後'},
+    {value: false, label: '飯前'}
+])
+
+
+const medicationData = ref({})
+const getMedication = async() => {
+    const formData = new FormData()
+    formData.append("classId", classId.value)
+    formData.append("studentId", studentId.value)
+    formData.append("date", dayData.value.toDateString())
+    await getMedicationRemindByClassIdAndStudentId(formData).then((res) => {
+        if(res.data.status){
+            medicationData.value = res.data.data
+            modalStatus.value = true
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((res) => {
+        if (res.response.status == 401) {
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }
+        console.log(res)
+    })
+}
+
+const setMedication = async() => {
+    var formData = new FormData();
+    for (var key in medicationData.value) {
+        if (medicationData.value.hasOwnProperty(key)) {
+            formData.append(key, medicationData.value[key])
+        }
+    } 
+    if (medicationData.value.id) {
+        await editMedicationRemind(formData).then((res) => {
+            if(res.data.status){
+                modalStatus.value = false
+            }else{
+                console.log(res.data.message)
+            }
+        }).catch((res) => {
+            if (res.response.status == 401) {
+                store.commit('clearToken')
+                router.push({ path: '/' })
+            }
+            console.log(res)
+        })
+    } else {
+        formData.set('classId', classId)
+        formData.set('studentId', studentId)
+        await createMedicationRemind(formData).then((res) => {
+            if(res.data.status){
+                modalStatus.value = false
+            }else{
+                console.log(res.data.message)
+            }
+        }).catch((res) => {
+            if (res.response.status == 401) {
+                store.commit('clearToken')
+                router.push({ path: '/' })
+            }
+            console.log(res)
+        })
+    }
+}
+const triggerUpload = async() => {
+    fileInput.click();
+}
+
+const upload = async(event) => {
+    const file = event.target.files[0];
+    let formData = new FormData();
+    formData.append("file", file)
+    formData.append("type", "medicationRemind")
+    console.log(file)
+    await uploadFile(formData).then((res) => {
+        if(res.data.status){
+            medicationData.value.photo = res.data.data
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((res) => {
+        if (res.response.status == 401) {
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }
+        console.log(res)
+    })
+}
 </script>
