@@ -5,6 +5,18 @@ export default createStore({
     isMobile:false,
     //1主任 2老師 3家長
     roleID:2,
+    user:{
+      id:'',
+      roleId:'',
+      roleName:'',
+      roleType:0,
+      account:'',
+      name:'',
+      nickName:'',
+      pictureUrl:'',
+      email:''
+    },
+    lineId:'',
     isLogin:false,
     lineHtml:'',
     announceStatus:false
@@ -18,6 +30,15 @@ export default createStore({
     setRole (state,value){
       state.roleID = value
     },
+    setClassId (state,value){
+      localStorage.setItem("classId", value)
+    },
+    setClassName (state,value){
+      localStorage.setItem("className", value)
+    },
+    setUser (state,value){
+      localStorage.setItem("user", JSON.stringify(value))
+    },
     changeLoginStatus (state,value) {
       state.isLogin = value
     },
@@ -28,6 +49,16 @@ export default createStore({
     clearToken (state) {
       state.isLogin = false
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("className");
+      localStorage.removeItem("classId");
+    },
+    setLineId (state,value) {
+      localStorage.setItem("lineId", JSON.stringify(value))
+    },
+    clearLineId (state) {
+      state.lineId = ''
+      localStorage.removeItem("lineId")
     },
     setLineDom(state,value){
       state.lineHtml = value

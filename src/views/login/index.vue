@@ -11,7 +11,7 @@
             >
                 <el-form-item label="" prop="account">
                     <el-input
-                        placeholder="帳號" v-model="form.account"
+                        placeholder="帳號或電子信箱" v-model="form.account"
                         style="width: 100%;height: 40px;font-size: 18px;">
                         <template #prepend>
                             <el-button icon="UserFilled" />
@@ -55,6 +55,7 @@
             <div class="w-full mt-1 flex flex-col justify-center items-center">
                 <button @click="send" class="w-full md:w-[700px] max-w-[700px] bg-[#6E6EFF] py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">登入</button>
                 <button @click="lineLogin" class="w-full md:w-[700px] max-w-[700px] bg-[rgb(13,181,156,0.9)] mt-4 py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">LINE登入</button>
+                <button @click="register" class="w-full md:w-[700px] max-w-[700px] bg-red-500 mt-4 py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">註冊</button>
                 <!-- <button @click="testOpen" class="w-full md:w-[700px] max-w-[700px] bg-red-500 mt-4 py-[4px] px-[6px] text-white border-0 cursor-pointer rounded">測試開啟</button> -->
             </div>
         </div>
@@ -62,7 +63,7 @@
 </template>
 <script setup>
 /*eslint-disable*/
-import { testLogin,getLineInformation,getCaptcha } from '@/api/api'
+import { testLogin,getLineInformation,getCaptcha,authorize } from '@/api/api'
 import { ref,computed,onMounted } from 'vue';
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -102,11 +103,11 @@ const form = ref({
 const rules = ref({
     account: [
         { required: true, message: '請輸入帳號', trigger: 'blur' },
-        { min: 3, max: 15, message: 'Length should be 3 to 15', trigger: 'change' },
+        { min: 8, max: 130, message: 'Length should be 8 to 130', trigger: 'change' },
     ],
     password: [
         { required: true, message: '請輸入密碼', trigger: 'blur' },
-        { min: 3, max: 15, message: 'Length should be 3 to 15', trigger: 'change' },
+        { min: 8, max: 20, message: 'Length should be 8 to 20', trigger: 'change' },
     ],
     checkNum: [
         { required: true,message: '請輸入驗證碼',trigger: 'blur' },
@@ -183,6 +184,18 @@ const login = async() => {
   await testLogin(formData).then((res) => {
       if(res.data.status){
           store.commit('setToken',res.data.data)
+        //   resetForm()
+        //   router.push({ path: '/' })
+      }else{
+          setCaptcha()
+          loginMessage.value = res.data.message
+        //   console.log(res.data.message)
+      }
+      loadStatus = false
+  })
+  await authorize().then((res) => {
+      if(res.data.status){
+          store.commit('setUser',res.data.data)
           resetForm()
           router.push({ path: '/' })
       }else{
@@ -192,7 +205,6 @@ const login = async() => {
       }
       loadStatus = false
   })
-
 }
 
 const resetForm = () => {
@@ -233,6 +245,10 @@ const testOpen = () => {
 
     // openLink(link)
     openLink('https://tw.dictionary.search.yahoo.com/')
+}
+
+const register = () => {
+    router.push({ path: '/register' })
 }
 
 const openLink = (url) => {
