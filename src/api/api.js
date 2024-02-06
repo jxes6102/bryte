@@ -204,33 +204,6 @@ export const getCall = () => {
   })
 }
 
-export const initTodayRollCall = () => {
-  const url = '/Init/InitTodayRollCall'
-  const method = 'post'
-  return request({
-    method,
-    url,
-  })
-}
-
-export const initTodayPickup = () => {
-  const url = '/Init/InitTodayPickup'
-  const method = 'post'
-  return request({
-    method,
-    url,
-  })
-}
-
-export const checkToken = () => {
-  const url = '/Auth/Authorize'
-  const method = 'post'
-  return request({
-    method,
-    url
-  })
-}
-
 const addToUrl = (payload) => {
   let str = '?'
   for(let key in payload){
@@ -349,6 +322,116 @@ export const editBodyTemperatureRecordRecord = (data) => {
   })
 }
 
+export const getRollCallListByClassId = (data) => {
+  const url = '/RollCall/GetDataListByClassIdAndDate'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const editRollCall = (data) => {
+  const url = '/RollCall/EditByState'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const getLeaveByClassIdAndStudentId = (data) => {
+  const url = '/Leave/GetDataByClassIdAndStudentIdAndDate'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const editLeave = (data) => {
+  const url = '/Leave/EditForParent'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const createLeave = (data) => {
+  const url = '/Leave/CreateForParent'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const getContactBookRecordByClassId = (data) => {
+  const url = '/ContactBookRecord/GetDataListByClassIdAndDate'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const getContactBookRecordByClassIdAndStudentId = (data) => {
+  const url = '/ContactBookRecord/GetDataListByClassIdAndStudentIdAndDate'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const getStudentStateRecordByClassId = (data) => {
+  const url = '/StudentStateRecord/GetDataListByClassIdAndDate'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const getStudentStateRecordByContactBookRecordId = (data) => {
+  const url = '/StudentStateRecord/GetDataListByContactBookRecordId'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const editStudentStateRecord = (data) => {
+  const url = '/StudentStateRecord/EditDataList'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const editAllStudentStateRecord = (data) => {
+  const url = '/StudentStateRecord/EditAllDataList'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
 export const uploadFile = (data) => {
   const url = '/Upload/UploadFile'
   const method = 'post'
@@ -362,6 +445,33 @@ export const uploadFile = (data) => {
 export const getFile = (data) => {
   const url = '' + data
   const method = 'get'
+  return request({
+    method,
+    url,
+  })
+}
+
+export const getClassSelect = () => {
+  const url = '/Select/GetClassSelect'
+  const method = 'post'
+  return request({
+    method,
+    url,
+  })
+}
+
+export const getRollCallStateSelect = () => {
+  const url = '/Select/GetRollCallStateSelect'
+  const method = 'post'
+  return request({
+    method,
+    url,
+  })
+}
+
+export const getLeaveStateSelect = () => {
+  const url = '/Select/GetLeaveStateSelect'
+  const method = 'post'
   return request({
     method,
     url,

@@ -107,16 +107,9 @@ const changeRole = (value) => {
 
 const logout = async() => {
     await testLogout().then((res) => {
-        // console.log('res',res.data)
-        if(res.data?.status){
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }else{
-            console.log(res)
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
     })
+    store.commit('clearToken')
+    router.push({ path: '/' })
 }
 
 const openAnnounce = () => {

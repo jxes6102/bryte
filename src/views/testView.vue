@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-auto p-2 flex flex-col justify-start items-center bg-[rgb(245,245,220,0.1)]">
-        <canvas id="board" class="border-2" width="600" height="400"></canvas>
+        <canvas id="board" class="border-2 bg-slate-200" width="600" height="400"></canvas>
         <div class="w-full my-2 flex flex-row justify-center items-center gap-[10px]">
             <button class="w-[80px] h-[40px] bg-gray-500 rounded-lg" @click="reset">reset</button>
             <button class="w-[80px] h-[40px] bg-gray-500 rounded-lg" @click="exportFile">export</button>

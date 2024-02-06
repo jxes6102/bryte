@@ -115,7 +115,7 @@
             <conversationView type="large" v-if="dialogStatus">
                 <template v-slot:content>
                     <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
-                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">測量體溫</div>
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">測量體溫時間</div>
                         <el-time-select
                             class="w-[150px] md:w-[200px]"
                             v-model="temperatureData.bodyTemperatureTime"
@@ -268,24 +268,21 @@
             </dialogView>
             <dialogView v-if="learnStatus">
                 <template v-slot:message>
+                    <div class=" text-base md:text-2xl font-bold my-1 md:my-3 px-3">學習狀況</div>
                     <div 
                         class="w-full px-3 text-[#808080] text-sm md:text-2xl flex flex-col items-start md:items-center justify-start">
-                        <div>{{'身體狀況: ' + data.detail.body}}</div>
-                        <div>{{'飲食狀況: ' + data.detail.food}}</div>
-                        <div>{{'午睡狀況: ' + data.detail.sleep}}</div>
-                        <div>{{'是否排便: ' + data.detail.defecate}}</div>
-                        <div>{{'學習狀況: ' + data.detail.learn}}</div>
-                        <div>{{'人際互動: ' + data.detail.communication}}</div>
-                        <div>{{'情緒表現: ' + data.detail.mood}}</div>
+                        <div v-for="(item, index) in studentStateRecordData" :key="index">
+                            {{item.value + ': ' + item.itemValue}}
+                        </div>
                     </div>
                 </template>
             </dialogView>
             <conversationView type="large" v-if="leaveStatus">
                 <template v-slot:content>
                     <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
-                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">兒童姓名</div>
+                        <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">同學姓名</div>
                         <div class="w-full py-1 md:py-3 flex flex-col items-start justify-start">
-                            <el-input value="曾O樂" disabled placeholder="" />
+                            <el-input v-model="studentName" disabled placeholder="" />
                         </div>
                     </div>
                     
@@ -296,8 +293,7 @@
                                 v-model="inputLeave.startDate"
                                 popper-class="custom-date-picker"
                                 type="date"
-                                placeholder="選擇查詢日期"
-                                :disabled-date="inputLeave.disabledDate"
+                                placeholder="選擇日期"
                                 :disabled="apiLoading"
                                 :editable="false"
                                 :style="isMobile ? 'width: 110px;font-size: 12px;' : 'width: 40%;'"
@@ -307,8 +303,7 @@
                                 v-model="inputLeave.endDate"
                                 popper-class="custom-date-picker"
                                 type="date"
-                                placeholder="選擇查詢日期"
-                                :disabled-date="inputLeave.disabledDate"
+                                placeholder="選擇日期"
                                 :disabled="apiLoading"
                                 :editable="false"
                                 :style="isMobile ? 'width: 110px;font-size: 12px;' : 'width: 40%;'"
@@ -319,9 +314,9 @@
                     <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
                         <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">類別</div>
                         <div class="px-[1px] flex flex-wrap items-center justify-center">
-                            <el-select v-model="inputLeave.type" placeholder="Select">
+                            <el-select v-model="inputLeave.state" placeholder="Select">
                                 <el-option
-                                    v-for="item in inputLeave.options"
+                                    v-for="item in leaveOptions"
                                     :key="item.value"
                                     :label="item.label"
                                     :value="item.value"
@@ -333,8 +328,8 @@
                         <div class="text-[16px] md:text-2xl text-[#6E6EFF] font-semibold">備註</div>
                         <div class="relative w-full h-[50px] md:h-[80px] text-base md:text-2xl">
                             <textarea 
-                                v-model="inputLeave.word"
-                                placeholder="請在此輸入留言"
+                                v-model="inputLeave.remark"
+                                placeholder="請在此輸入備註"
                                 required
                                 class="w-full h-full p-1 bg-gray-100 border-gray-300 border-[1px]"
                                 style="resize:none;"
@@ -347,7 +342,7 @@
                 </template>
                 <template v-slot:control>
                     <div class="absolute w-full bottom-2 md:bottom-4 flex flex-wrap justify-center items-center">
-                        <button
+                        <button @click="setLeave"
                             class="min-w-[20%] w-[90%] bg-[#483D8B] text-sm md:text-xl text-white py-1 px-2 rounded">
                             送出
                         </button>
@@ -366,6 +361,12 @@ import { createBodyTemperatureRecordRecord,
     createMedicationRemind,
     editMedicationRemind,
     getMedicationRemindByClassIdAndStudentId,
+    getLeaveStateSelect,
+    getLeaveByClassIdAndStudentId,
+    editLeave,
+    createLeave,
+    getContactBookRecordByClassIdAndStudentId,
+    getStudentStateRecordByContactBookRecordId,
     getFile } from '@/api/api'
 import { useStore } from "vuex";
 import { ref,computed,provide } from 'vue'
@@ -590,80 +591,106 @@ const linkTransmit = () => {
 }
 
 const learnStatus = ref(false) 
-const linkLearn = () => {
+const linkLearn = async() => {
     if(isSchool.value){
         toLearn()
     }else{
+        await getStudentState()
         learnStatus.value = true
     }
 }
 
 const inputLeave = ref({
-    type:'Option3',
-    options:[
-        {
-            value: 'Option1',
-            label: '婚假',
-        },
-        {
-            value: 'Option2',
-            label: '喪假',
-        },
-        {
-            value: 'Option3',
-            label: '病假',
-        },
-        {
-            value: 'Option4',
-            label: '公傷病假',
-        },
-        {
-            value: 'Option5',
-            label: '事假',
-        },
-        {
-            value: 'Option6',
-            label: '公假',
-        },
-        {
-            value: 'Option7',
-            label: '生理假',
-        },
-        {
-            value: 'Option8',
-            label: '產假',
-        },
-        {
-            value: 'Option9',
-            label: '產檢假',
-        },
-        {
-            value: 'Option10',
-            label: '陪產檢及陪產假',
-        },
-        {
-            value: 'Option11',
-            label: '安胎假',
-        },
-        {
-            value: 'Option12',
-            label: '育嬰留職停薪',
-        },
-        {
-            value: 'Option13',
-            label: '家庭照顧假',
-        },
-    ],
-    word:'',
-    startDate:new Date(),
-    endDate:new Date(),
-    disabledDate: function(time) {
-        return (time.getTime() > Date.now()) || (time.getTime() < (Date.now() - 2592000000))
-    },
 })
+
+const leaveOptions = ref([
+        {
+            value: '',
+            label: '',
+        }
+    ])
+
+const getLeaveOptions= async() => {
+  await getLeaveStateSelect().then((res) => {
+    if(res.data.status){
+        leaveOptions.value = res.data.data.optionList
+      }else{
+        console.log(res.data.message)
+      }
+  }).catch((res) => {
+    if (res && res.response && res.response.status == 401) {
+        store.commit('clearToken')
+        router.push({ path: '/' })
+    }
+    console.log(res)
+  })
+}
+
+const getLeave = async() => {
+    await getLeaveOptions()
+    const formData = new FormData()
+    formData.append("classId", classId.value)
+    formData.append("studentId", studentId.value)
+    formData.append("date", dayData.value.toDateString())
+    await getLeaveByClassIdAndStudentId(formData).then((res) => {
+        if(res.data.status){
+            inputLeave.value = res.data.data
+            leaveStatus.value = true
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((res) => {
+        if (res && res.response && res.response.status == 401) {
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }
+        console.log(res)
+    })
+}
+
+const setLeave = async() => {
+    const formData = new FormData()
+    for (var key in inputLeave.value) {
+        if (inputLeave.value.hasOwnProperty(key)) {
+            formData.append(key, inputLeave.value[key])
+        }
+    }
+    if (inputLeave.value.id && inputLeave.value.id != '00000000-0000-0000-0000-000000000000') {
+        await editLeave(formData).then((res) => {
+            if(res.data.status){
+                leaveStatus.value = false
+            }else{
+                console.log(res.data.message)
+            }
+        }).catch((res) => {
+            if (res && res.response && res.response.status == 401) {
+                store.commit('clearToken')
+                router.push({ path: '/' })
+            }
+            console.log(res)
+        })
+    } else {
+        formData.set('classId', classId.value)
+        formData.set('studentId', studentId.value)
+        await createLeave(formData).then((res) => {
+            if(res.data.status){
+                leaveStatus.value = false
+            }else{
+                console.log(res.data.message)
+            }
+        }).catch((res) => {
+            if (res && res.response && res.response.status == 401) {
+                store.commit('clearToken')
+                router.push({ path: '/' })
+            }
+            console.log(res)
+        })
+    }
+}
+
 const leaveStatus = ref(false)
 const askLeave = async() => {
-    leaveStatus.value = true
+    await getLeave()
 }
 
 const toRecord = () => {
@@ -693,7 +720,7 @@ const getTemperature = async() => {
             console.log(res.data.message)
         }
     }).catch((res) => {
-        if (res.response.status == 401) {
+        if (res && res.response && res.response.status == 401) {
             store.commit('clearToken')
             router.push({ path: '/' })
         }
@@ -709,7 +736,7 @@ const setTemperature = async() => {
         }
     } 
     formData.append("date", dayData.value.toDateString())
-    if (temperatureData.value.contactBookRecordId) {
+    if (temperatureData.value.contactBookRecordId && temperatureData.value.contactBookRecordId != '00000000-0000-0000-0000-000000000000') {
         await editBodyTemperatureRecordRecord(formData).then((res) => {
             if(res.data.status){
                 dialogStatus.value = false
@@ -717,7 +744,7 @@ const setTemperature = async() => {
                 console.log(res.data.message)
             }
         }).catch((res) => {
-            if (res.response.status == 401) {
+            if (res && res.response && res.response.status == 401) {
                 store.commit('clearToken')
                 router.push({ path: '/' })
             }
@@ -731,7 +758,7 @@ const setTemperature = async() => {
                 console.log(res.data.message)
             }
         }).catch((res) => {
-            if (res.response.status == 401) {
+            if (res && res.response && res.response.status == 401) {
                 store.commit('clearToken')
                 router.push({ path: '/' })
             }
@@ -760,7 +787,7 @@ const getMedication = async() => {
             console.log(res.data.message)
         }
     }).catch((res) => {
-        if (res.response.status == 401) {
+        if (res && res.response && res.response.status == 401) {
             store.commit('clearToken')
             router.push({ path: '/' })
         }
@@ -775,7 +802,7 @@ const setMedication = async() => {
             formData.append(key, medicationData.value[key])
         }
     } 
-    if (medicationData.value.id) {
+    if (medicationData.value.id && medicationData.value.id != '00000000-0000-0000-0000-000000000000') {
         await editMedicationRemind(formData).then((res) => {
             if(res.data.status){
                 modalStatus.value = false
@@ -783,15 +810,15 @@ const setMedication = async() => {
                 console.log(res.data.message)
             }
         }).catch((res) => {
-            if (res.response.status == 401) {
+            if (res && res.response && res.response.status == 401) {
                 store.commit('clearToken')
                 router.push({ path: '/' })
             }
             console.log(res)
         })
     } else {
-        formData.set('classId', classId)
-        formData.set('studentId', studentId)
+        formData.set('classId', classId.value)
+        formData.set('studentId', studentId.value)
         await createMedicationRemind(formData).then((res) => {
             if(res.data.status){
                 modalStatus.value = false
@@ -799,7 +826,7 @@ const setMedication = async() => {
                 console.log(res.data.message)
             }
         }).catch((res) => {
-            if (res.response.status == 401) {
+            if (res && res.response && res.response.status == 401) {
                 store.commit('clearToken')
                 router.push({ path: '/' })
             }
@@ -807,6 +834,89 @@ const setMedication = async() => {
         })
     }
 }
+
+const contactBookRecordData = ref([{}])
+const studentStateRecordData = ref([{}])
+
+const getStudentState = async() => {
+    const formData = new FormData()
+    formData.append("classId", classId.value)
+    formData.append("studentId", studentId.value)
+    formData.append("date", dayData.value.toDateString())
+
+    await getContactBookRecordByClassIdAndStudentId(formData).then((res) => {
+    if(res.data.status){
+        contactBookRecordData.value = res.data.data
+        getStudentStateRecordList()
+    }else{
+        console.log(res.data.message)
+    }
+    }).catch((res) => {
+    if (res && res.response && res.response.status == 401) {
+        store.commit('clearToken')
+        router.push({ path: '/' })
+    }
+    console.log(res)
+    })
+}
+
+const getStudentStateRecordList = async() => {
+    let dataList = []
+    const formData = new FormData()
+    formData.append("contactBookRecordId", contactBookRecordData.value.id)
+    await getStudentStateRecordByContactBookRecordId(formData).then((res) => {
+        if(res.data.status){
+            let studentStateRecordList = res.data.data
+            let studentStateGroupList = []
+            for (let index in studentStateRecordList) {
+                let isHave = false
+                for (let groupIndex in studentStateGroupList) {
+                    if (studentStateGroupList[groupIndex].id == studentStateRecordList[index].studentStateGroupId) {
+                        isHave = true
+                    }
+                }
+                if (!isHave) {
+                    let studentStateGroup = {
+                        id: studentStateRecordList[index].studentStateGroupId,
+                        key: studentStateRecordList[index].studentStateGroupKey,
+                        value: studentStateRecordList[index].studentStateGroupValue
+                    }
+                    studentStateGroupList.push(studentStateGroup)
+                }
+            }
+            let studentStateGroupList1 = []
+            for (let groupIndex in studentStateGroupList) {
+                let itemValue = ''
+                for (let index in studentStateRecordList) {
+                    if ((studentStateGroupList[groupIndex].id == studentStateRecordList[index].studentStateGroupId) &&
+                        (studentStateRecordList[index].isCheck)) {
+                        itemValue = itemValue + studentStateRecordList[index].studentStateItemValue + '、'
+                    }
+                }
+                itemValue = itemValue.substring(0, itemValue.length - 1)
+                let studentStateGroup = {
+                    id: studentStateGroupList[groupIndex].id,
+                    key: studentStateGroupList[groupIndex].key,
+                    value: studentStateGroupList[groupIndex].value,
+                    itemValue: itemValue
+                }
+                studentStateGroupList1.push(studentStateGroup)
+            }
+            studentStateRecordData.value = studentStateGroupList1
+            console.log('getStudentStateRecordList', studentStateRecordData)
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((res) => {
+        if (res && res.response && res.response.status == 401) {
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }
+        console.log(res)
+    })
+}
+
+
 const triggerUpload = async() => {
     fileInput.click();
 }
@@ -824,7 +934,7 @@ const upload = async(event) => {
             console.log(res.data.message)
         }
     }).catch((res) => {
-        if (res.response.status == 401) {
+        if (res && res.response && res.response.status == 401) {
             store.commit('clearToken')
             router.push({ path: '/' })
         }

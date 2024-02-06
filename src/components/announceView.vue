@@ -8,8 +8,8 @@
         <div
             @click="setVolume"
             class="absolute w-auto h-auto top-0 right-[50px] p-2 flex flex-wrap justify-center items-center cursor-pointer z-[20]">
-            <el-icon v-if="volume" size="50"><Microphone /></el-icon>
-            <el-icon v-else size="50"><Mute /></el-icon>
+            <el-icon v-if="volume" size="50"><VideoPause /></el-icon>
+            <el-icon v-else size="50"><VideoPlay /></el-icon>
         </div>
         <div class="w-[100vw] h-[100vh] bg-[#F0F8FF] flex flex-wrap justify-center items-center overflow-hidden">
             <div 
@@ -33,19 +33,15 @@
                     >
                         <div
                             v-for="(item,index) in callShow.wait" :key="index"
-                            :class="(false) ? 'w-[95%]' : 'w-[48%] mx-[2px]'"
-                            class=" h-[auto] rounded-lg bg-slate-50 mt-1 text-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap justify-center items-center">
-                            <div class="w-full flex flex-wrap justify-center items-center">
-                                <div class="w-auto font-semibold px-1">{{item.studentNumber + '號'}}</div>
-                                <div class="w-auto font-semibold px-1">{{item.studentUserName}}</div>
+                            :class="((index % 4 == 0 || index % 4 == 1) ? 'bg-slate-50' : 'bg-slate-200') + ' ' + ((item.isEnd && (index % 4 == 0 || index % 4 == 2)) ? 'w-[95%]' : 'w-[48%] mx-[2px]')"
+                            class="h-[auto] rounded-lg mt-1 text-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap justify-center items-center">
+                            <div class="w-full flex flex-wrap justify-center items-center text-2xl">
+                                <div class="w-auto font-semibold px-1">{{item.className + '班'}}</div>
+                                <div class="w-auto font-semibold px-1">{{item.studentUserName + '同學'}}</div>
+                                <div class="w-auto font-semibold px-1">{{item.parentTitle}}</div>
                             </div>
-                            <div class="w-full flex flex-wrap justify-center items-center">
-                                <div class="w-auto text-center font-semibold px-1">{{'稱謂:'+item.parentTitle}}</div>
-                                <div class="w-auto text-center font-semibold px-1">{{'家長:'+item.parentUserName}}</div>
-                            </div>
-                            <div class="w-full flex flex-wrap justify-center items-center">
-                                <div class="w-auto text-center font-semibold">抵達情況:</div>
-                                <div class="w-auto text-center font-semibold">{{ item.message}}</div>
+                            <div class="w-full flex flex-wrap justify-center items-center text-xl">
+                                <div class="w-auto text-center font-semibold">{{item.message}}</div>
                             </div>
                         </div>
                     </transition-group>
@@ -72,19 +68,15 @@
                     >
                         <div
                             v-for="(item,index) in callShow.arrive" :key="index"
-                            :class="(false) ? 'w-[95%]' : 'w-[48%] mx-[2px]'"
+                            :class="((index % 4 == 0 || index % 4 == 1) ? 'bg-slate-50' : 'bg-slate-200') + ' ' + ((item.isEnd && (index % 4 == 0 || index % 4 == 2)) ? 'w-[95%]' : 'w-[48%] mx-[2px]')"
                             class=" h-[auto] rounded-lg bg-slate-50 mt-1 text-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap justify-center items-center">
-                            <div class="w-full flex flex-wrap justify-center items-center">
-                                <div class="w-auto font-semibold px-1">{{item.studentNumber + '號'}}</div>
-                                <div class="w-auto font-semibold px-1">{{item.studentUserName}}</div>
+                            <div class="w-full flex flex-wrap justify-center items-center text-2xl">
+                                <div class="w-auto font-semibold px-1">{{item.className + '班'}}</div>
+                                <div class="w-auto font-semibold px-1">{{item.studentUserName + '同學'}}</div>
+                                <div class="w-auto font-semibold px-1">{{item.parentTitle}}</div>
                             </div>
-                            <div class="w-full flex flex-wrap justify-center items-center">
-                                <div class="w-auto text-center font-semibold px-1">{{'稱謂:'+item.parentTitle}}</div>
-                                <div class="w-auto text-center font-semibold px-1">{{'家長:'+item.parentUserName}}</div>
-                            </div>
-                            <div class="w-full flex flex-wrap justify-center items-center">
-                                <div class="w-auto text-center font-semibold">抵達情況:</div>
-                                <div class="w-auto text-center font-semibold">{{ item.message}}</div>
+                            <div class="w-full flex flex-wrap justify-center items-center text-xl">
+                                <div class="w-auto text-center font-semibold">{{item.message}}</div>
                             </div>
                         </div>
                     </transition-group>
@@ -164,7 +156,7 @@
 
 <script setup>
 /*eslint-disable*/
-import { getCall,initTodayRollCall,initTodayPickup } from '@/api/api'
+import { getCall } from '@/api/api'
 import { ref,computed,onBeforeUnmount,onMounted } from 'vue'
 import { useRouter } from "vue-router";
 // import dialogView from "@/components/dialogView.vue"
@@ -178,45 +170,33 @@ const router = useRouter()
 //     "data": 
 //     [
 //         {
-//             // 班級名稱
+//             id
+//             "id": string,
+//             班級名稱
 //             "className": string,
-//             // 班級代碼
+//             班級代碼
 //             "classCode": string,
-//             // 老師姓名
-//             "teacherUserName": string,
-//             // 班級接送資訊
-//             "pickupList": 
-//             [
-//                 {
-//                     // id
-//                     "id": string,
-//                     // 班級名稱
-//                     "className": string,
-//                     // 班級代碼
-//                     "classCode": string,
-//                     // 老師姓名
-//                     "teacherUserName": string,
-//                     // 學生姓名
-//                     "studentUserName": string,
-//                     // 學生號碼
-//                     "studentNumber": number,
-//                     // 接送日期
-//                     "scheduleDate": Date,
-//                     // 家長姓名
-//                     "parentUserName": string,
-//                     // 家長稱謂
-//                     "parentTitle": string,
-//                     // 預計接送時間(分鐘)
-//                     "pickupTime": number,
-//                     // 接送狀態：
-//                     // 1. 在校
-//                     // 2. 等待接送但家長尚未選擇接送時間
-//                     // 3. 等待接送
-//                     // 4. 等待接送且家長已抵達
-//                     // 5. 已接送完成
-//                     "state": number
-//                 }
-//             ]
+//             學生姓名
+//             "studentUserName": string,
+//             學生號碼
+//             "studentNumber": number,
+//             接送日期
+//             "scheduleDate": Date,
+//             家長姓名
+//             "parentUserName": string,
+//             家長稱謂
+//             "parentTitle": string,
+//             預計接送時間(分鐘)
+//             "pickupTime": number,
+//             接送狀態：
+//             0. 在校
+//             1. 等待接送但家長尚未選擇接送時間
+//             2. 等待接送
+//             3. 等待接送且家長已抵達
+//             4. 已接送完成
+//             "state": number,
+//             離校時間
+//             "arrivedDateTime": Date,
 //         }
 //     ],
 //     // 狀態：true成功、false失敗
@@ -224,254 +204,6 @@ const router = useRouter()
 //     // 訊息
 //     "message": string
 // }
-
-// 接送狀態：
-// 1. 在校
-// 2. 等待接送但家長尚未選擇接送時間
-// 3. 等待接送
-// 4. 等待接送且家長已抵達
-// 5. 已接送完成
-const testData = [
-    {
-        "className": '猴子班',
-        "classCode": 123,
-        "teacherUserName": "侯O長",
-        "pickupList": 
-        [
-            {
-                "id": 1,
-                "className": '猴子班',
-                "classCode": 123,
-                "teacherUserName": '侯O長',
-                "studentUserName": '猴子一',
-                "studentNumber": 1,
-                "scheduleDate": '',
-                "parentUserName": "公猴一",
-                "parentTitle": "爸爸",
-                "pickupTime": '4',
-                "state": 2
-            },
-            {
-                "id": 2,
-                "className": '猴子班',
-                "classCode": 123,
-                "teacherUserName": '侯O長',
-                "studentUserName": '猴子二',
-                "studentNumber": 2,
-                "scheduleDate": '',
-                "parentUserName": "母猴二",
-                "parentTitle": "媽媽",
-                "pickupTime": '7',
-                "state": 4
-            },
-            {
-                "id": 3,
-                "className": '猴子班',
-                "classCode": 123,
-                "teacherUserName": '侯O長',
-                "studentUserName": '猴子三',
-                "studentNumber": 3,
-                "scheduleDate": '',
-                "parentUserName": "公猴三",
-                "parentTitle": "爸爸",
-                "pickupTime": '9',
-                "state": 3
-            },
-            {
-                "id": 4,
-                "className": '猴子班',
-                "classCode": 123,
-                "teacherUserName": '侯O長',
-                "studentUserName": '母猴四',
-                "studentNumber": 4,
-                "scheduleDate": '',
-                "parentUserName": "母猴四",
-                "parentTitle": "媽媽",
-                "pickupTime": '1',
-                "state": 2
-            },
-        ]
-    },
-    {
-        "className": '老鼠班',
-        "classCode": 123,
-        "teacherUserName": "王O殊",
-        "pickupList": [
-            {
-                "id": 1,
-                "className": '老鼠班',
-                "classCode": 123,
-                "teacherUserName": '侯O長',
-                "studentUserName": '老鼠一',
-                "studentNumber": 1,
-                "scheduleDate": '',
-                "parentUserName": "公鼠一",
-                "parentTitle": "爸爸",
-                "pickupTime": '3',
-                "state": 3
-            },
-            {
-                "id": 2,
-                "className": '老鼠班',
-                "classCode": 123,
-                "teacherUserName": '侯O長',
-                "studentUserName": '老鼠二',
-                "studentNumber": 2,
-                "scheduleDate": '',
-                "parentUserName": "母鼠二",
-                "parentTitle": "媽媽",
-                "pickupTime": '3',
-                "state": 4
-            },
-            {
-                "id": 3,
-                "className": '老鼠班',
-                "classCode": 123,
-                "teacherUserName": '侯O長',
-                "studentUserName": '老鼠三',
-                "studentNumber": 3,
-                "scheduleDate": '',
-                "parentUserName": "公鼠三",
-                "parentTitle": "爸爸",
-                "pickupTime": '7',
-                "state": 3
-            },
-            {
-                "id": 4,
-                "className": '老鼠班',
-                "classCode": 123,
-                "teacherUserName": '侯O長',
-                "studentUserName": '老鼠四',
-                "studentNumber": 4,
-                "scheduleDate": '',
-                "parentUserName": "母鼠四",
-                "parentTitle": "媽媽",
-                "pickupTime": '4',
-                "state": 4
-            },
-        ]
-    },
-    {
-        "className": '黃牛班',
-        "classCode": 123,
-        "teacherUserName": "牛O古",
-        "pickupList": [
-            {
-                "id": 1,
-                "className": '黃牛班',
-                "classCode": 123,
-                "teacherUserName": '牛O古',
-                "studentUserName": '黃牛一',
-                "studentNumber": 1,
-                "scheduleDate": '',
-                "parentUserName": "公牛一",
-                "parentTitle": "爸爸",
-                "pickupTime": '9',
-                "state": 2
-            },
-            {
-                "id": 2,
-                "className": '黃牛班',
-                "classCode": 123,
-                "teacherUserName": '牛O古',
-                "studentUserName": '黃牛二',
-                "studentNumber": 2,
-                "scheduleDate": '',
-                "parentUserName": "母牛二",
-                "parentTitle": "媽媽",
-                "pickupTime": '7',
-                "state": 3
-            },
-            {
-                "id": 3,
-                "className": '黃牛班',
-                "classCode": 123,
-                "teacherUserName": '牛O古',
-                "studentUserName": '黃牛三',
-                "studentNumber": 3,
-                "scheduleDate": '',
-                "parentUserName": "公牛三",
-                "parentTitle": "爸爸",
-                "pickupTime": '4',
-                "state": 4
-            },
-            {
-                "id": 4,
-                "className": '黃牛班',
-                "classCode": 123,
-                "teacherUserName": '牛O古',
-                "studentUserName": '黃牛四',
-                "studentNumber": 4,
-                "scheduleDate": '',
-                "parentUserName": "母牛四",
-                "parentTitle": "媽媽",
-                "pickupTime": '2',
-                "state": 4
-            },
-        ]
-        
-    },
-    {
-        "className": '老虎班',
-        "classCode": 123,
-        "teacherUserName": "牛O古",
-        "pickupList": [
-            {
-                "id": 1,
-                "className": '老虎班',
-                "classCode": 123,
-                "teacherUserName": '牛O古',
-                "studentUserName": '老虎一',
-                "studentNumber": 1,
-                "scheduleDate": '',
-                "parentUserName": "公虎一",
-                "parentTitle": "爸爸",
-                "pickupTime": '6',
-                "state": 2
-            },
-            {
-                "id": 2,
-                "className": '老虎班',
-                "classCode": 123,
-                "teacherUserName": '牛O古',
-                "studentUserName": '老虎二',
-                "studentNumber": 2,
-                "scheduleDate": '',
-                "parentUserName": "母虎二",
-                "parentTitle": "媽媽",
-                "pickupTime": '3',
-                "state": 2
-            },
-            {
-                "id": 3,
-                "className": '老虎班',
-                "classCode": 123,
-                "teacherUserName": '牛O古',
-                "studentUserName": '老虎三',
-                "studentNumber": 3,
-                "scheduleDate": '',
-                "parentUserName": "公虎三",
-                "parentTitle": "爸爸",
-                "pickupTime": '9',
-                "state": 3
-            },
-            {
-                "id": 4,
-                "className": '老虎班',
-                "classCode": 123,
-                "teacherUserName": '牛O古',
-                "studentUserName": '老虎四',
-                "studentNumber": 4,
-                "scheduleDate": '',
-                "parentUserName": "母虎四",
-                "parentTitle": "媽媽",
-                "pickupTime": '1',
-                "state": 4
-            },
-        ]
-        
-    }
-]
 
 const volume = ref(0)
 const setVolume = () => {
@@ -493,9 +225,15 @@ const playMusic = (text) => {
 let musicTimer = null
 const createMusicTimer = () =>  {
     musicTimer = setInterval(() => {
-        console.log('test',musicList[0]);
+        // console.log('test',musicList[0]);
         if(musicList.length){
-            playMusic(musicList[0])
+            let play = ''
+            if (musicList[0].state == 3) {
+                play = musicList[0].className + '班，' + musicList[0].studentUserName + '同學，你的' + musicList[0].parentTitle + '已經抵達。'
+            } else if (musicList[0].state == 4) {
+                play = musicList[0].className + '班，' + musicList[0].studentUserName + '同學，已離校。'
+            }
+            playMusic(play)
             musicList.shift()
         }
         
@@ -524,25 +262,41 @@ const callShow = computed(() => {
         return target
     }
     
-    for(let i = 0;i<callData.value.length;i++){
-        let classArr = callData.value[i].pickupList
-        for(let j = 0;j<classArr.length;j++){
-            let obj = Object.assign({}, classArr[j], {message:''})
-            if(obj.state == 2){
-                obj.message = '等待中'
-                target.wait.push(obj)
-            }else if(obj.state == 3){
-                obj.message = '剩餘'+obj.pickupTime+'分'
-                target.wait.push(obj)
-            }else if(obj.state == 4){
-                obj.message = '已抵達'
-                target.arrive.push(obj)
-                pushMusicList(obj)
-            }
+    for(let i = 0; i < callData.value.length; i++){
+        let obj = callData.value[i]
+        if(obj.state == 2){
+            let pickupTime = obj.pickupTime < 0 ? 0 : obj.pickupTime
+            obj.message = '預計'+pickupTime+'分後抵達'
+            target.wait.push(obj)
+        }else if(obj.state == 3){
+            obj.message = '已抵達'
+            target.wait.push(obj)
+            pushMusicList(obj)
+        }else if(obj.state == 4){
+            let arrivedDateTime = new Date(obj.arrivedDateTime)
+            let AM = arrivedDateTime.getHours() < 12 ? '上午' : (arrivedDateTime.getHours() < 18 ? '下午' : '晚上')
+            let hours = arrivedDateTime.getHours() < 12 ? arrivedDateTime.getHours() : arrivedDateTime.getHours() - 12
+            hours = hours < 10 ? '0' + hours : '' + hours
+            let mins = arrivedDateTime.getMinutes() < 10 ? '0' + arrivedDateTime.getMinutes() : '' + arrivedDateTime.getMinutes()
+            let seconds = arrivedDateTime.getSeconds() < 10 ? '0' + arrivedDateTime.getSeconds() : '' + arrivedDateTime.getSeconds()
+            obj.message = '於 ' + AM + ' ' + hours + ':' + mins + ':' + seconds + ' 離校'
+            target.arrive.push(obj)
+            pushMusicList(obj)
+        }else{
+            obj.message = '等待中'
+            target.wait.push(obj)
         }
+        console.log(obj)
     }
     target.wait = target.wait.slice(0,maxCount.value*2)
     target.arrive = target.arrive.slice(0,maxCount.value*2)
+
+    for (let key in target.wait) {
+        target.wait[key].isEnd = (key == (target.wait.length - 1));
+    }
+    for (let key in target.arrive) {
+        target.arrive[key].isEnd = (key == (target.arrive.length - 1));
+    }
     return target
 })
 
@@ -580,28 +334,8 @@ const createCallTimer = () =>  {
     }, 5000);
 }
 
-// initTodayRollCall initTodayPickup
-const initCallData = async() => {
-    let date = new Date()
-    let oldDate = localStorage.getItem('date')
-
-    if(oldDate == null){
-        localStorage.setItem('date',date.getDate())
-    }
-    if(!(oldDate == date.getDate().toString())){
-        await initTodayRollCall().then((res) => {
-            // console.log('res',res)
-        })
-        await initTodayPickup().then((res) => {
-            // console.log('res',res)
-        })
-        localStorage.setItem('date',date.getDate())
-    }    
-}
-
 onMounted( async() => {
     if(!isMobile.value){
-        await initCallData()
         getCallData()
         createMusicTimer()
         createCallTimer()

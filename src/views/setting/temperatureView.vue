@@ -10,13 +10,14 @@
         <div 
             v-for="(item,index) in list" :key="index"
             @click="detail(item)"
-            class="w-[95%] md:w-[40%] h-[auto] text-sm md:text-lg rounded-lg bg-slate-50 my-1 px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-end">
+            :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+            class="w-[95%] md:w-[40%] h-[auto] text-sm md:text-lg rounded-lg my-1 px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-end">
             <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full "></div>
             <div class="w-auto px-2 h-full grow flex flex-col items-start justify-center">
                 <div class="w-auto flex flex-wrap items-start justify-center">
                     <div class="px-1">{{item.bodyTemperatureTime.substr(0, 5)}}</div>
                     <div class="px-1">{{item.studentUserName}}</div>
-                    <div class="px-1">{{item.studentNunber + '號'}}</div>
+                    <div class="px-1">{{item.studentNumber + '號'}}</div>
                 </div>
                 <div 
                     v-if="item.state != 0"
@@ -64,7 +65,7 @@
                         <div class="w-[40px] h-[40px] md:w-[70px] md:h-[70px] bg-indigo-500 rounded-full "></div>
                         <div class="w-auto px-2 grow flex flex-col items-start justify-center">
                             <div class="text-black">{{modifyData.studentUserName}}</div>
-                            <div>{{modifyData.className + ' ' + modifyData.studentNunber + '號'}}</div>
+                            <div>{{modifyData.className + ' ' + modifyData.studentNumber + '號'}}</div>
                         </div>
                     </div>
                 </template>
@@ -194,7 +195,7 @@ const getList = async() => {
         console.log(res.data.message)
       }
   }).catch((res) => {
-    if (res.response.status == 401) {
+    if (res && res.response && res.response.status == 401) {
         store.commit('clearToken')
         router.push({ path: '/' })
     }
@@ -246,7 +247,7 @@ const edit = async() => {
             console.log(res.data.message)
         }
     }).catch((res) => {
-        if (res.response.status == 401) {
+        if (res && res.response && res.response.status == 401) {
             store.commit('clearToken')
             router.push({ path: '/' })
         }

@@ -15,11 +15,12 @@
             <div
                 @click="detail(item)"
                 v-for="(item, index) in notEatList" :key="index" 
-                class="w-[95%] md:w-[40%] h-[auto] rounded-lg bg-slate-50 px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-start">
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="w-[95%] md:w-[40%] h-[auto] rounded-lg px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-start">
                 <div class="w-full py-1 flex flex-wrap items-center justify-start">
                     <div class="px-1">{{item.medicationTime.substr(0, 5)}}</div>
                     <div class="px-1">{{item.studentUserName}}</div>
-                    <div class="px-1">{{item.studentNunber}}號</div>
+                    <div class="px-1">{{item.studentNumber}}號</div>
                     <div class="w-[auto] bg-[#4169E1] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
                         {{item.isAfterMeal ? '飯後' : '飯前'}}
                     </div>
@@ -33,7 +34,8 @@
             <div class="line-style w-[100%] flex text-[#D3D3D3]">已完成</div>
             <div
                 v-for="(item, index) in isEatList" :key="index" 
-                class="w-[95%] md:w-[40%] h-[auto] rounded-lg bg-slate-50 px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-start">
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="w-[95%] md:w-[40%] h-[auto] rounded-lg px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-start">
                 <div class="w-full py-1 flex flex-wrap items-center justify-start">
                     <div class="px-1">{{item.medicationTime.substr(0, 5)}}</div>
                     <div class="px-1">{{item.studentUserName}}</div>
@@ -57,7 +59,7 @@
                         <div class="w-[40px] h-[40px] md:w-[70px] md:h-[70px] bg-indigo-500 rounded-full "></div>
                         <div class="w-auto px-2 grow flex flex-col items-start justify-center">
                             <div class="text-black">{{modifyData.studentUserName}}</div>
-                            <div>{{modifyData.className + ' ' + modifyData.studentNunber + '號'}}</div>
+                            <div>{{modifyData.className + ' ' + modifyData.studentNumber + '號'}}</div>
                         </div>
                         <div class="w-auto flex flex-col items-center justify-center">
                             待處理
@@ -83,7 +85,7 @@
                             required
                             class="w-full h-[60px] md:h-[100px] px-[2px] border-[1px] border-black"
                             style="resize:none;"
-                            maxlength="30"
+                            maxlength="50"
                             >
                         </textarea>
                         <!-- <div class="absolute right-3 bottom-1">字數</div> -->
@@ -173,7 +175,7 @@ const list = ref([
         medicationRemindRemark:'',
         medicationRemindPhoto:'',
         className:'',
-        studentNunber:0
+        studentNumber:0
     },
 ])
 
@@ -205,7 +207,7 @@ const getList = async() => {
         console.log(res.data.message)
       }
   }).catch((res) => {
-    if (res.response.status == 401) {
+    if (res && res.response && res.response.status == 401) {
         store.commit('clearToken')
         router.push({ path: '/' })
     }
@@ -258,7 +260,7 @@ const upload = async(event) => {
             console.log(res.data.message)
         }
     }).catch((res) => {
-        if (res.response.status == 401) {
+        if (res && res.response && res.response.status == 401) {
             store.commit('clearToken')
             router.push({ path: '/' })
         }
@@ -280,7 +282,7 @@ const edit = async() => {
             console.log(res.data.message)
         }
     }).catch((res) => {
-        if (res.response.status == 401) {
+        if (res && res.response && res.response.status == 401) {
             store.commit('clearToken')
             router.push({ path: '/' })
         }
