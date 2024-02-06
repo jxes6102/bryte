@@ -21,7 +21,7 @@ instance.interceptors.request.use(
     config.headers['ngrok-skip-browser-warning'] = 69420
     // console.log('config',config.url)
     let noTokenArr = [
-      '/Pickup/Monitor','/Init/InitTodayRollCall','/Init/InitTodayPickup'
+      
     ]
     if (token && !noTokenArr.includes(config.url)) {
       config.headers.Authorization = `Bearer ${token}`

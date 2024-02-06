@@ -2,161 +2,125 @@
     <div 
         class="w-auto h-auto p-2 flex flex-col justify-start items-center"
     >
-        <dateSelect :apiLoading="apiLoading"></dateSelect>
+        <dateSelect :apiLoading="apiLoading" 
+        :date="dayData" @changeDate="changeDate"></dateSelect>
         <div class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-start">
             <div class="px-2">To:</div>
             <div class="px-2">{{className}}班</div>
         </div>
         <div class="w-[95%] md:w-[40%] h-[auto] text-base md:text-xl rounded-lg bg-slate-50 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-end">
             <button
-                @click="write"
-                class="w-[auto] text-sm md:text-xl text-[#1E90FF] mx-[2px] py-[1px] px-[2px] border-[#1E90FF] border-[1px] rounded">
-                全部填寫
-            </button>
-            <button
+                @click="removeAll"
                 class="w-[auto] text-sm md:text-xl text-[#FF4500] mx-[2px] py-[1px] px-[2px] border-[#FF4500] border-[1px] rounded">
                 全部清除
             </button>
+            <button
+                @click="writeAll"
+                class="w-[auto] text-sm md:text-xl text-[#1E90FF] mx-[2px] py-[1px] px-[2px] border-[#1E90FF] border-[1px] rounded">
+                全部填寫
+            </button>
         </div>
         <div 
-            v-for="(item,index) in classData" :key="index"
-            class="w-[95%] md:w-[40%] h-[auto] text-sm md:text-lg text-[#808080] rounded-lg bg-slate-50 px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-end">
+            v-for="(item, index) in list" :key="index"
+            :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+            class="w-[95%] md:w-[40%] h-[auto] text-sm md:text-lg text-[#808080] rounded-lg px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-end">
             <div class="w-full flex flex-wrap items-center justify-center">
                 <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full "></div>
                 <div class="w-auto px-2 grow flex flex-col items-start justify-center">
                     <div class="w-auto flex flex-wrap items-start justify-center">
-                        <div >{{item.name}}</div>
+                        <div class="px-1">{{item.studentUserName}}</div>
+                        <div class="px-1">{{item.studentNumber + '號'}}</div>
                     </div>
                 </div>
                 <div
                     class="w-auto flex flex-row items-start justify-center">
                     <button
-                        @click="write"
-                        class="w-[auto] text-sm md:text-xl text-[#1E90FF] mx-[2px] py-[1px] px-[2px] border-[#1E90FF] border-[1px] rounded">
-                        填寫
-                    </button>
-                    <button
                         v-if="item.isFill"
+                        @click="remove(item)"
                         class="w-[auto] text-sm md:text-xl text-[#FF4500] mx-[2px] py-[1px] px-[2px] border-[#FF4500] border-[1px] rounded">
                         清除
+                    </button>
+                    <button
+                        @click="write(item)"
+                        class="w-[auto] text-sm md:text-xl text-[#1E90FF] mx-[2px] py-[1px] px-[2px] border-[#1E90FF] border-[1px] rounded">
+                        填寫
                     </button>
                 </div>
                 <div v-if="item.isFill" class="line-style w-full py-2 flex flex-wrap items-center justify-center"></div>
                 <div v-if="item.isFill" class="w-full px-1 text-xs md:text-lg flex flex-col items-start justify-start">
-                    <div>{{'身體狀況: ' + item.detail.body}}</div>
-                    <div>{{'飲食狀況: ' + item.detail.food}}</div>
-                    <div>{{'午睡狀況: ' + item.detail.sleep}}</div>
-                    <div>{{'是否排便: ' + item.detail.defecate}}</div>
-                    <div>{{'學習狀況: ' + item.detail.learn}}</div>
-                    <div>{{'人際互動: ' + item.detail.communication}}</div>
-                    <div>{{'情緒表現: ' + item.detail.mood}}</div>
+                    <div v-for="(group, groupIndex) in item.studentStateGroupList" :key="groupIndex">
+                        {{group.value + ': ' + group.itemValue}}
+                    </div>
                 </div>
             </div>
         </div>
         <Teleport to="body">
-            <dialogView type="large" v-if="modalStatus">
+            <dialogView type="large" v-if="modalAllStatus">
                 <template v-slot:message>
                     <div class="w-full h-full py-1 px-2 md:py-2 md:px-4 text-xs md:text-xl  flex flex-col items-center justify-center">
                         <div class=" text-base md:text-2xl font-bold my-1 md:my-3 px-3">全班學習狀況</div>
-                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between">
+                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between"
+                            v-for="(group, groupIndex) in inputAllData.studentStateGroupList" :key="groupIndex">
                             <div class="flex flex-wrap items-center justify-center" >
-                                <label class="px-[2px]">身體狀況</label>
-                                <div 
-                                    class="px-[1px] flex flex-wrap items-center justify-center"
-                                    v-for="(item,index) in inputData.body.text" :key="index">
-                                    <input 
-                                        @click="checkInput(inputData.body,index)"
-                                        class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
-                                        v-model="inputData.body.status[index]"/>
-                                    <label>{{item}}</label>
-                                </div>
+                                <label class="px-[2px]">{{group.value}}</label>
+                                <template 
+                                    v-for="(item, index) in inputAllData.studentStateRecordList" :key="index">
+                                    <div class="px-[1px] flex flex-wrap items-center justify-center"
+                                        v-if="item.studentStateGroupId == group.id">
+                                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
+                                            v-model="item.isCheck"/>
+                                        <label>{{item.studentStateItemValue}}</label>
+                                    </div>
+                                </template>
                             </div>
                         </div>
-                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between">
-                            <div class="flex flex-wrap items-center justify-center" >
-                                <label class="px-[2px]">飲食狀況</label>
-                                <div 
-                                    class="px-[1px] flex flex-wrap items-center justify-center"
-                                    v-for="(item,index) in inputData.food.text" :key="index">
-                                    <input 
-                                        @click="checkInput(inputData.food,index)"
-                                        class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
-                                        v-model="inputData.food.status[index]"/>
-                                    <label>{{item}}</label>
-                                </div>
-                            </div>
+                    </div>
+                </template>
+                <template v-slot:control>
+                    <div class="absolute w-full bottom-0 md:bottom-1 text-sm md:text-xl flex flex-wrap justify-end items-center">
+                        <button
+                            @click="sendAll"
+                            class="min-w-[10%] text-[#0000CD] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            確定
+                        </button>
+                        <button
+                            @click="cancel"
+                            class="min-w-[10%] text-[#0000CD] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            取消
+                        </button>
+                    </div>
+                </template>
+            </dialogView>
+        </Teleport>
+        <Teleport to="body">
+            <dialogView type="large" v-if="modalStatus">
+                <template v-slot:header>
+                    <div class="w-full py-1 px-2 md:py-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
+                        <div class="w-[40px] h-[40px] md:w-[70px] md:h-[70px] bg-indigo-500 rounded-full "></div>
+                        <div class="w-auto px-2 grow flex flex-col items-start justify-center">
+                            <div class="text-black">{{inputData.studentUserName}}</div>
+                            <div>{{inputData.className + ' ' + inputData.studentNumber + '號'}}</div>
                         </div>
-                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between">
+                    </div>
+                </template>
+                <template v-slot:message>
+                    <div class="w-full h-full py-1 px-2 md:py-2 md:px-4 text-xs md:text-xl  flex flex-col items-center justify-center">
+                        <div class=" text-base md:text-2xl font-bold my-1 md:my-3 px-3">{{inputData.studentUserName}}的學習狀況</div>
+                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between"
+                            v-for="(group, groupIndex) in inputData.studentStateGroupList" :key="groupIndex">
                             <div class="flex flex-wrap items-center justify-center" >
-                                <label class="px-[2px]">午睡狀況</label>
-                                <div 
-                                    class="px-[1px] flex flex-wrap items-center justify-center"
-                                    v-for="(item,index) in inputData.sleep.text" :key="index">
-                                    <input 
-                                        @click="checkInput(inputData.sleep,index)"
-                                        class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
-                                        v-model="inputData.sleep.status[index]"/>
-                                    <label>{{item}}</label>
-                                </div>
+                                <label class="px-[2px]">{{group.value}}</label>
+                                <template 
+                                    v-for="(item, index) in inputData.studentStateRecordList" :key="index">
+                                    <div class="px-[1px] flex flex-wrap items-center justify-center"
+                                        v-if="item.studentStateGroupId == group.id">
+                                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
+                                            v-model="item.isCheck"/>
+                                        <label>{{item.studentStateItemValue}}</label>
+                                    </div>
+                                </template>
                             </div>
-                        </div>
-                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between">
-                            <div class="flex flex-wrap items-center justify-center" >
-                                <label class="px-[2px]">是否排便</label>
-                                <div 
-                                    class="px-[1px] flex flex-wrap items-center justify-center"
-                                    v-for="(item,index) in inputData.defecate.text" :key="index">
-                                    <input 
-                                        @click="checkInput(inputData.defecate,index)"
-                                        class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
-                                        v-model="inputData.defecate.status[index]"/>
-                                    <label>{{item}}</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between">
-                            <div class="flex flex-wrap items-center justify-center" >
-                                <label class="px-[2px]">學習狀況</label>
-                                <div 
-                                    class="px-[1px] flex flex-wrap items-center justify-center"
-                                    v-for="(item,index) in inputData.learn.text" :key="index">
-                                    <input 
-                                        @click="checkInput(inputData.learn,index)"
-                                        class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
-                                        v-model="inputData.learn.status[index]"/>
-                                    <label>{{item}}</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between">
-                            <div class="flex flex-wrap items-center justify-center" >
-                                <label class="px-[2px]">人際互動</label>
-                                <div 
-                                    class="px-[1px] flex flex-wrap items-center justify-center"
-                                    v-for="(item,index) in inputData.communication.text" :key="index">
-                                    <input 
-                                        @click="checkInput(inputData.communication,index)"
-                                        class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
-                                        v-model="inputData.communication.status[index]"/>
-                                    <label>{{item}}</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between">
-                            <div class="flex flex-wrap items-center justify-center" >
-                                <label class="px-[2px]">情緒表現</label>
-                                <div 
-                                    class="px-[1px] flex flex-wrap items-center justify-center"
-                                    v-for="(item,index) in inputData.mood.text" :key="index">
-                                    <input 
-                                        @click="checkInput(inputData.mood,index)"
-                                        class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
-                                        v-model="inputData.mood.status[index]"/>
-                                    <label>{{item}}</label>
-                                </div>
-                            </div>
-                        </div>
-                        
+                        </div>                        
                     </div>
                 </template>
                 <template v-slot:control>
@@ -181,6 +145,10 @@
 
 <script setup>
 /*eslint-disable*/
+import { getContactBookRecordByClassId, 
+    getStudentStateRecordByClassId,
+    editStudentStateRecord,
+    editAllStudentStateRecord } from '@/api/api'
 import { ref,computed,watch,provide } from "vue";
 import { useStore } from "vuex";
 import { useRouter,useRoute } from "vue-router";
@@ -195,11 +163,16 @@ const isMobile = computed(() => {
     return store.state.isMobile
 })
 
+const classId = computed(() => {
+    return localStorage.getItem('classId')
+})
+
 const className = computed(() => {
     return localStorage.getItem('className')
 })
 
 const apiLoading = ref(false)
+
 
 const classData = ref([
     {
@@ -344,36 +317,138 @@ const classData = ref([
     },
 ])
 
-const inputData = ref({
-    body:{
-        status:[false,false,false,false],
-        text:['正常','咳嗽','流鼻水','體溫偏高'],
-    },
-    food:{
-        status:[false,false,false],
-        text:['良好','胃口不佳','時間較長'],
-    },
-    sleep:{
-        status:[false,false,false],
-        text:['熟睡','淺睡','無法入睡'],
-    },
-    defecate:{
-        status:[false,false],
-        text:['有','無'],
-    },
-    learn:{
-        status:[false,false],
-        text:['主動','須鼓勵'],
-    },
-    communication:{
-        status:[false,false,false],
-        text:['良好','分享','需關懷'],
-    },
-    mood:{
-        status:[false,false,false],
-        text:['愉快','穩定','不安'],
-    },
+const contactBookRecordData = ref([{}])
+
+const list = ref([{
+        className: '',
+        classCode: '',
+        studentUserName: '',
+        studentNumber: 0,
+        studentStateRecordList: [],
+        studentStateGroupList: [],
+        isFill: false
+}])
+
+const inputAllData = ref({
+    studentStateRecordList: [],
+    studentStateGroupList: []
 })
+
+const inputData = ref({
+    className: '',
+    classCode: '',
+    studentUserName: '',
+    studentNumber: 0,
+    studentStateRecordList: [],
+    studentStateGroupList: [],
+    isFill: false
+})
+
+const getList = async() => {
+  const formData = new FormData()
+  formData.append("classId", classId.value)
+  formData.append("date", dayData.value.toDateString())
+
+  await getContactBookRecordByClassId(formData).then((res) => {
+    if(res.data.status){
+        contactBookRecordData.value = res.data.data
+        getStudentStateRecordList()
+      }else{
+        console.log(res.data.message)
+      }
+  }).catch((res) => {
+    if (res && res.response && res.response.status == 401) {
+        store.commit('clearToken')
+        router.push({ path: '/' })
+    }
+    console.log(res)
+  })
+}
+
+const getStudentStateRecordList = async() => {
+    let dataList = []
+    const formData = new FormData()
+    formData.append("classId", classId.value)
+    formData.append("date", dayData.value.toDateString())
+    await getStudentStateRecordByClassId(formData).then((res) => {
+        if(res.data.status){
+            let studentStateRecordList = res.data.data
+            for (let key in contactBookRecordData.value) {
+                let contactBookRecord = contactBookRecordData.value[key]
+                let subStudentStateRecordList = []
+                let studentStateGroupList = []
+                for (let index in studentStateRecordList) {
+                    let studentStateRecord = studentStateRecordList[index]
+                    if (studentStateRecord.contactBookRecordId == contactBookRecord.id) {
+                        subStudentStateRecordList.push(studentStateRecord)
+                    }
+                }
+                let isFill = false
+                for (let index in subStudentStateRecordList) {
+                    if (subStudentStateRecordList[index].isCheck) {
+                        isFill = true
+                    }                    
+                    let isHave = false
+                    for (let groupIndex in studentStateGroupList) {
+                        if (studentStateGroupList[groupIndex].id == subStudentStateRecordList[index].studentStateGroupId) {
+                            isHave = true
+                        }
+                    }
+                    if (!isHave) {
+                        let studentStateGroup = {
+                            id: subStudentStateRecordList[index].studentStateGroupId,
+                            key: subStudentStateRecordList[index].studentStateGroupKey,
+                            value: subStudentStateRecordList[index].studentStateGroupValue
+                        }
+                        studentStateGroupList.push(studentStateGroup)
+                    }
+                }
+                
+                let studentStateGroupList1 = []
+                for (let groupIndex in studentStateGroupList) {
+                    let itemValue = ''
+                    for (let index in subStudentStateRecordList) {
+                        if ((studentStateGroupList[groupIndex].id == subStudentStateRecordList[index].studentStateGroupId) &&
+                            (subStudentStateRecordList[index].isCheck)) {
+                            itemValue = itemValue + subStudentStateRecordList[index].studentStateItemValue + '、'
+                        }
+                    }
+                    itemValue = itemValue.substring(0, itemValue.length - 1)
+                    let studentStateGroup = {
+                        id: studentStateGroupList[groupIndex].id,
+                        key: studentStateGroupList[groupIndex].key,
+                        value: studentStateGroupList[groupIndex].value,
+                        itemValue: itemValue
+                    }
+                    studentStateGroupList1.push(studentStateGroup)
+                }
+                let data = {
+                    className: contactBookRecord.className,
+                    classCode: contactBookRecord.classCode,
+                    studentUserName: contactBookRecord.studentUserName,
+                    studentNumber: contactBookRecord.studentNumber,
+                    studentStateRecordList: subStudentStateRecordList,
+                    studentStateGroupList: studentStateGroupList1,
+                    isFill: isFill
+                }
+                dataList.push(data)
+                if (inputAllData.value.studentStateRecordList.length < subStudentStateRecordList.length) {
+                    inputAllData.value.studentStateRecordList = subStudentStateRecordList
+                    inputAllData.value.studentStateGroupList = studentStateGroupList1
+                }
+            }
+            list.value = dataList
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((res) => {
+        if (res && res.response && res.response.status == 401) {
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }
+        console.log(res)
+    })
+}
 
 // watch(inputData.body, (newVal,oldval) => {
 //     console.log()
@@ -383,37 +458,133 @@ const init = async() => {
     if(apiLoading.value) return false
 
     apiLoading.value = true
-
+    getList()
     apiLoading.value = false
 }
 
+const dayData = ref(new Date())
 init()
+const changeDate = (value) => {
+    dayData.value = value
+    init()
+}
 
+const modalAllStatus = ref(false)
 const modalStatus = ref(false)
 const cancel = () => {
     modalStatus.value = false
+    modalAllStatus.value = false
 }
 provide('cancel', cancel)
 
-const write = () => {
+const write = (item) => {
+    inputData.value = JSON.parse(JSON.stringify(item))
     modalStatus.value = true
 }
 
-const send = () => {
-    console.log('send')
-    // console.log('inputData',inputData.value)
-    let target = []
-    for(let key in inputData.value){
-        // console.log('key',key,inputData.value[key])
-        let index = inputData.value[key].status.findIndex((item) => item)
-        // console.log('index',index)
-        if(index>=0){
-            target.push(inputData.value[key].text[index])
-        }else{
-            target.push('')
-        }
+const writeAll = () => {
+    for (let index in inputAllData.value.studentStateRecordList) {
+        inputAllData.value.studentStateRecordList[index].contactBookRecordId = '00000000-0000-0000-0000-000000000000'
+        inputAllData.value.studentStateRecordList[index].isCheck = false
     }
-    console.log('target',target)
+    modalAllStatus.value = true
+}
+
+const send = async() => {
+    const formData = new FormData()
+    formData.append("studentStateRecordList", JSON.stringify(inputData.value.studentStateRecordList))
+
+    await editStudentStateRecord(formData).then((res) => {
+        if(res.data.status){
+            cancel()
+            apiLoading.value = true
+            getList()
+            apiLoading.value = false
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((res) => {
+        if (res && res.response && res.response.status == 401) {
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }
+        console.log(res)
+    })
+}
+
+const sendAll = async() => {
+    const formData = new FormData()
+    formData.append("classId", classId.value)
+    formData.append("date", dayData.value.toDateString())
+    formData.append("studentStateRecordList", JSON.stringify(inputAllData.value.studentStateRecordList))
+
+    await editAllStudentStateRecord(formData).then((res) => {
+        if(res.data.status){
+            cancel()
+            apiLoading.value = true
+            getList()
+            apiLoading.value = false
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((res) => {
+        if (res && res.response && res.response.status == 401) {
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }
+        console.log(res)
+    })
+}
+
+const remove = async(item) => {
+    inputData.value = JSON.parse(JSON.stringify(item))
+    for (let index in inputData.value.studentStateRecordList) {
+        inputData.value.studentStateRecordList[index].isCheck = false
+    }
+    const formData = new FormData()
+    formData.append("studentStateRecordList", JSON.stringify(inputData.value.studentStateRecordList))
+
+    await editStudentStateRecord(formData).then((res) => {
+        if(res.data.status){
+            apiLoading.value = true
+            getList()
+            apiLoading.value = false
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((res) => {
+        if (res && res.response && res.response.status == 401) {
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }
+        console.log(res)
+    })
+}
+
+const removeAll = async() => {
+    for (let index in inputAllData.value.studentStateRecordList) {
+        inputAllData.value.studentStateRecordList[index].isCheck = false
+    }
+    const formData = new FormData()
+    formData.append("classId", classId.value)
+    formData.append("date", dayData.value.toDateString())
+    formData.append("studentStateRecordList", JSON.stringify(inputAllData.value.studentStateRecordList))
+
+    await editAllStudentStateRecord(formData).then((res) => {
+        if(res.data.status){
+            apiLoading.value = true
+            getList()
+            apiLoading.value = false
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((res) => {
+        if (res && res.response && res.response.status == 401) {
+            store.commit('clearToken')
+            router.push({ path: '/' })
+        }
+        console.log(res)
+    })
 }
 
 const checkInput = (obj,index) => {

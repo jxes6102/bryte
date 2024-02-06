@@ -21,14 +21,19 @@
             <div 
                 v-for="(item,index) in data" :key="index"
                 @click="toContactDetail(item.classId, item.className,'','')"
-                class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
-                <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
+                <div 
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
                     <div class="text-[16px] md:text-2xl font-semibold">班級：{{ item.className }}</div>
                     <div 
                         class="text-[#6E6EFF] text-[14px] md:text-xl pl-1"
-                        v-for="(name,teacherKey) in item.teachers" :key="teacherKey" >{{ name }}</div>
+                        v-for="(name,teacherKey) in item.tutorNames" :key="teacherKey" >{{ name }}</div>
                 </div>
-                <div class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl flex flex-wrap items-center justify-start">
+                <div
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl flex flex-wrap items-center justify-start">
                     <div class="text-[#00D1D1]">{{ item.studentCount + '人'}}</div>
                     <div class="">{{ '/' + item.studentTotal + '人'}}</div>
                 </div>
@@ -42,14 +47,19 @@
             <div 
                 v-for="(item,index) in studentData" :key="index"
                 @click="toContactDetail(item.classId, item.className, item.studentId, item.studentUserName, item.studentNumber)"
-                class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
-                <div class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="relative w-[90%] md:w-[40%] h-[auto] min-h-[80px] md:min-h-[120px] rounded-lg m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
+                <div 
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="w-full py-1 md:py-3 px-3 flex flex-wrap items-center justify-start">
                     <div class="text-[16px] md:text-2xl font-semibold">班級：{{ item.className }}</div>
                     <div 
                         class="text-[#6E6EFF] text-[14px] md:text-xl pl-1"
-                        v-for="(name,teacherKey) in item.teachers" :key="teacherKey" >{{ name }}</div>
+                        v-for="(name,teacherKey) in item.tutorNames" :key="teacherKey" >{{ name }}</div>
                 </div>
-                <div class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl flex flex-wrap items-center justify-start">
+                <div 
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="w-full py-1 md:py-3 px-3 text-[14px] md:text-xl flex flex-wrap items-center justify-start">
                     <div>{{ item.studentUserName + ' ' + item.studentNumber + '號'}}</div>
                 </div>
                 <div 
@@ -101,7 +111,7 @@ const data = ref([
         classId:'',
         className:'',
         classCode:'',
-        teachers:[''],
+        tutorNames:[''],
         studentCount:0,
         studentTotal:0,
     }
@@ -112,7 +122,7 @@ const studentData = ref([
         classId:'',
         className:'',
         classCode:'',
-        teachers:[''],
+        tutorNames:[''],
         studentId:'',
         studentUserName:'',
         studentNumber:0,
