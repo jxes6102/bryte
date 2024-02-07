@@ -1,6 +1,7 @@
 const path = require( 'path' );
 const { CKEditorTranslationsPlugin } = require( '@ckeditor/ckeditor5-dev-translations' );
 const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
+const ver = new Date().getTime() + '-1.0.0.0';
 
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
@@ -27,7 +28,17 @@ module.exports = defineConfig({
               // Append translations to the file matching the `app` name.
               translationsOutputFile: /app/
           } )
-      ]
+      ],
+      output: {
+        filename: `js/[name].[chunkhash].${ver}.js`,
+        chunkFilename: `js/[id].[chunkhash].${ver}.js`,
+      }
+  },
+  css: {
+    extract: {
+		filename: `css/[name].[chunkhash].${ver}.css`,
+		chunkFilename: `css/[id].[chunkhash].${ver}.css`,
+	}
   },
 
   // Vue CLI would normally use its own loader to load .svg and .css files, however:

@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 export const TIMEOUT = 10000
 
 // const DEFAULT_CACHE_EXPIRY_TIME = 3000
@@ -8,7 +7,8 @@ export const TIMEOUT = 10000
 const CONFIG = {
   // baseURL: 'https://cet.bryte.com.tw/api/v2',
   // baseURL: 'https://5bc7-2001-b011-8007-3b17-3cae-bde3-9aea-e67b.ngrok-free.app/',
-  baseURL: 'http://localhost:5222/',
+  // baseURL: 'http://localhost:5222/',
+  baseURL: '/api/',
   timeout: TIMEOUT,
   // headers: { Authorization: `Bearer ${token}` }
 }
@@ -43,7 +43,13 @@ instance.interceptors.response.use(
   },
   error => {
     // console.log('interceptors.response error',error)
-    return Promise.reject(error);
+    if(error.response.status == 401){
+      // console.log('未允許拿取')
+      let returnUrl = '#/login'
+      window.location.replace((window.location.origin + window.location.pathname+returnUrl))
+    
+    }
+    return error;
   }
 );
 
