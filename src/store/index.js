@@ -6,15 +6,6 @@ export default createStore({
     //1主任 2老師 3家長
     roleID:2,
     user:{
-      id:'',
-      roleId:'',
-      roleName:'',
-      roleType:0,
-      account:'',
-      name:'',
-      nickName:'',
-      pictureUrl:'',
-      email:''
     },
     lineId:'',
     isLogin:false,
@@ -46,7 +37,7 @@ export default createStore({
       localStorage.setItem("className", value)
     },
     setUser (state,value){
-      localStorage.setItem("user", JSON.stringify(value))
+      // localStorage.setItem("user", JSON.stringify(value))
       state.user = value
     },
     changeLoginStatus (state,value) {

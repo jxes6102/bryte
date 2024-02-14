@@ -265,7 +265,7 @@ router.beforeEach((to, from) => {
   if(store.state.isLogin && (!allow.includes(to.name))){
     authorize().then((res) => {
       if(res.data?.status){
-        store.commit('setUserData',res.data.data)
+        store.commit('setUser',res.data.data)
       }else{
         store.commit('clearToken')
         store.commit('clearUserData')

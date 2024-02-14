@@ -12,17 +12,17 @@
                 <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full "></div>
                 <div class="w-auto px-2 h-full grow flex flex-col items-start justify-center">
                     <div class="w-auto flex flex-wrap items-start justify-center">
-                        <div class="text-[#808080]">{{item.classNum + '號'}}</div>
-                        <div class="px-1">{{item.name}}</div>
+                        <div class="text-[#808080]">{{item.studentNumber + '號'}}</div>
+                        <div class="px-1">{{item.studentUserName}}</div>
                     </div>
                     <div class="w-full text-[#808080] flex flex-wrap items-center justify-start">
-                        <div>共8則留言，2則留言未讀</div>
+                        <div>{{item.unreadCount}}則留言未讀</div>
                     </div>
                 </div>
             </div>
             <div class="w-full flex flex-wrap items-center justify-center">
                 <button
-                    @click="toRoom"
+                    @click="toRoom(item.studentId)"
                     class="min-w-[10%] text-[#4169E1] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
                     查看訊息
                 </button>
@@ -34,6 +34,7 @@
 
 <script setup>
 /*eslint-disable*/
+import { getChatRoomListByClassId } from '@/api/api'
 import { useStore } from "vuex";
 import { ref,computed } from 'vue'
 import { useRouter } from "vue-router";
@@ -50,32 +51,29 @@ const className = computed(() => {
     return localStorage.getItem('className')
 })
 
+const classId = computed(() => {
+    return localStorage.getItem('classId')
+})
+
 const list = ref([
-    {
-        name:'猴子一號',
-        class:'猴子班',
-        classNum:'83',
-    },
-    {
-        name:'猴子二號',
-        class:'猴子班',
-        classNum:'56',
-    },
-    {
-        name:'猴子三號',
-        class:'猴子班',
-        classNum:'36',
-    },
-    {
-        name:'猴子四號',
-        class:'猴子班',
-        classNum:'21',
-    },
 ])
 const apiLoading = ref(false)
 
+const setChatRoomListByClassId = () => {
+    const formData = new FormData()
+    formData.append("classId", classId.value)
+    getChatRoomListByClassId(formData).then((res) => {
+        if(res.data.status){
+            list.value = res.data.data
+        }else{
+            console.log(res.data.message)
+        }
+    })
+}
+
 const init = async() => {
     apiLoading.value = true
+    setChatRoomListByClassId()
     apiLoading.value = false
 }
 
@@ -85,10 +83,10 @@ const isMobile = computed(() => {
     return store.state.isMobile
 })
 
-const toRoom = () => {
+const toRoom = (studentId) => {
+    store.commit('setStudentId',studentId)
     router.push({ path: '/chatroom' })
 }
-
 </script>
 
 <style>

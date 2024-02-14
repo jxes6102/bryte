@@ -49,10 +49,6 @@ const isMobile = computed(() => {
     return store.state.isMobile
 })
 
-const roleID = computed(() => {
-    return store.state.roleID
-})
-
 const dayData = ref(new Date())
 dayData.value = props.date
 //監聽日期改變

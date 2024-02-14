@@ -9,10 +9,11 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import zhTW from 'element-plus/dist/locale/zh-tw.mjs'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import CKEditor from '@ckeditor/ckeditor5-vue';
+import CKEditor from '@ckeditor/ckeditor5-vue'
 import '@/assets/css/index.css'
 
 const app = createApp(App)
+
 app.use(ElementPlus, {
     locale: zhTW,
 })

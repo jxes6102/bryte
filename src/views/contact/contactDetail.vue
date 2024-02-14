@@ -387,10 +387,7 @@ const isSchool = computed(() => {
 })
 
 const user = computed(() => {
-    if (store.state.user && store.state.user.roleName != ''){
-        return store.state.user
-    }
-    return JSON.parse(localStorage.getItem('user'))
+    return store.state.user
 })
 
 const classId = computed(() => {

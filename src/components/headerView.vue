@@ -81,24 +81,12 @@ const roleID = computed(() => {
 })
 
 const user = computed(() => {
-    console.log('h',store.state.user)
-    console.log('h',store.state.user.roleName)
-    if (store.state.user && store.state.user.roleName != ''){
-        return store.state.user
-    }
-    return JSON.parse(localStorage.getItem('user'))
+    return store.state.user
 })
 
 const statement = computed(() => {
     console.log(user.value)
     return (user.value == null ? '' : user.value.roleName + '：' + user.value.name)
-    // if(roleID.value == 1){
-    //     return '園長:施O漢'
-    // } else if(roleID.value == 2) {
-    //     return '導師:羅O空'
-    // } else if(roleID.value == 3) {
-    //     return '家長:孔O榮'
-    // } 
 })
 
 const isSchool = computed(() => {

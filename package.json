@@ -20,6 +20,7 @@
     "@ckeditor/ckeditor5-paragraph": "^40.0.0",
     "@ckeditor/ckeditor5-theme-lark": "^40.0.0",
     "@ckeditor/ckeditor5-vue": "^5.1.0",
+    "@microsoft/signalr": "^8.0.0",
     "@vueuse/core": "^10.5.0",
     "animate.css": "^4.1.1",
     "axios": "^1.6.0",

@@ -3,25 +3,29 @@
         <div
             ref="chatBoard"
             v-tobottom
-            class="w-[90%] md:w-[40%] h-[60vh] md:h-[80vh] overflow-auto rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-start justify-center">
+            class="w-[90%] md:w-[40%] h-[60vh] md:h-[80vh] overflow-auto rounded-lg bg-slate-50 m-1 p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-start justify-top"
+            @scroll="handleScroll">
             <div
-                v-for="(item,index) in messagelist" :key="index" 
-                :class="countPosition(item.roleType) ? 'items-end' : 'items-start'"
+                v-for="(item, index) in messagelist" :key="index" 
+                :id="'messageItem'+index"
+                :class="item.isSelf ? 'items-end' : 'items-start'"
                 class="w-full p-1 md:p-2 flex flex-col justify-center">
                 <div
-                    :class="countPosition(item.roleType) ? 'items-end text-right' : 'items-start text-left'"
+                    :class="item.isSelf ? 'items-end text-right' : 'items-start text-left'"
                     class="w-auto max-w-[70%] h-auto rounded flex flex-col justify-center">
-                    <div class="text-sm md:text-lg text-[#A9A9A9]">{{item.name}}</div>
+                    <div class="text-sm md:text-lg text-[#A9A9A9]">
+                        {{(item.isSelf) ? '我' : ((item.isParent) ? (item.studentUserName + item.studentNumber + '號的' + item.parentTitle + ' ' + item.userName) : (item.userRoleName + ' ' + item.userName))}}
+                    </div>
                 </div>
                 <div
-                    :class="countPosition(item.roleType) ? 'items-end text-right' : 'items-start text-left'"
+                    :class="item.isSelf ? 'items-end text-right' : 'items-start text-left'"
                     class="w-auto max-w-[70%] h-auto px-2 py-1 md:px-4 md:py-2 bg-[#F0F0F0] rounded flex flex-col justify-center">
-                    <div class="text-base md:text-xl">{{item.text}}</div>
+                    <div class="text-base md:text-xl">{{item.message}}</div>
                 </div>
                 <div
-                    :class="countPosition(item.roleType) ? 'items-end text-right' : 'items-start text-left'"
+                    :class="item.isSelf ? 'items-end text-right' : 'items-start text-left'"
                     class="w-auto max-w-[70%] h-auto  rounded flex flex-col justify-center">
-                    <div class="text-sm md:text-lg text-[#A9A9A9]">{{item.time}}</div>
+                    <div class="text-sm md:text-lg text-[#A9A9A9]">{{item.createDateTime}}</div>
                 </div>
             </div>
         </div>
@@ -62,7 +66,8 @@
 /*eslint-disable*/
 import { useStore } from "vuex";
 import { ref,computed,provide,nextTick,onMounted } from 'vue'
-import { useRouter } from "vue-router";
+import { useRouter } from "vue-router"
+import signal from '@/utils/signalR'
 
 const router = useRouter()
 const store = useStore()
@@ -70,84 +75,14 @@ const store = useStore()
 const roleID = computed(() => {
     return store.state.roleID
 })
-
-const isSchool = computed(() => {
-    return (roleID.value == 2) || (roleID.value == 1)
+const classId = computed(() => {
+    return localStorage.getItem('classId')
+})
+const studentId = computed(() => {
+    return localStorage.getItem('studentId')
 })
 
 const messagelist = ref([
-    {
-        roleType:3,
-        name:'XXX的家長',
-        text:'請提醒妹妹要帶水壺回家，謝謝!',
-        time:'兩小時前'
-    },
-    {
-        roleType:2,
-        name:'XXX老師',
-        text:'已提醒',
-        time:'一小時前'
-    },
-    {
-        roleType:3,
-        name:'XXX的家長',
-        text:'請提醒妹妹要帶水壺回家，謝謝!',
-        time:'兩小時前'
-    },
-    {
-        roleType:2,
-        name:'XXX老師',
-        text:'已提醒',
-        time:'一小時前'
-    },
-    {
-        roleType:3,
-        name:'XXX的家長',
-        text:'請提醒妹妹要帶水壺回家，謝謝!',
-        time:'兩小時前'
-    },
-    {
-        roleType:2,
-        name:'XXX老師',
-        text:'已提醒',
-        time:'一小時前'
-    },
-    {
-        roleType:3,
-        name:'XXX的家長',
-        text:'請提醒妹妹要帶水壺回家，謝謝!',
-        time:'兩小時前'
-    },
-    {
-        roleType:2,
-        name:'XXX老師',
-        text:'已提醒',
-        time:'一小時前'
-    },
-    {
-        roleType:3,
-        name:'XXX的家長',
-        text:'請提醒妹妹要帶水壺回家，謝謝!',
-        time:'兩小時前'
-    },
-    {
-        roleType:2,
-        name:'XXX老師',
-        text:'已提醒',
-        time:'一小時前'
-    },
-    {
-        roleType:3,
-        name:'XXX的家長',
-        text:'請提醒妹妹要帶水壺回家，謝謝!',
-        time:'兩小時前'
-    },
-    {
-        roleType:2,
-        name:'XXX老師',
-        text:'已提醒',
-        time:'一小時前'
-    },
 ])
 const apiLoading = ref(false)
 const dayData = ref(new Date())
@@ -166,40 +101,114 @@ const countPosition = (roleType) => {
     return ((roleType == 2 && roleID.value == 2) || (roleType == 3 && roleID.value == 3) )
 }
 
-const dialogStatus = ref(false)
-const openChat = () => {
-    dialogStatus.value = true
-}
-
-const cancel = () => {
-    dialogStatus.value = false
-}
-
-provide('cancel', cancel)
-
 const word = ref('')
 const chatBoard = ref(null)
-const sendMessage = (el) => {
-    messagelist.value.push(
-        {
-            roleType:roleID.value,
-            name:'XXX老師',
-            text: word.value,
-            time:'一小時前'
-        }
-    )
+const messageStart = ref(0)
+const messageLength = ref(10)
+const isInit = ref(true)
+const canScroll = ref(false)
 
+const formatDate = (dateTime) => {
+    let date = new Date(dateTime)
+    let AM = date.getHours() < 12 ? '上午' : (date.getHours() < 18 ? '下午' : '晚上')
+    let hours = date.getHours() < 12 ? date.getHours() : date.getHours() - 12
+    hours = hours < 10 ? '0' + hours : '' + hours
+    let mins = date.getMinutes() < 10 ? '0' + date.getMinutes() : '' + date.getMinutes()
+    let seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : '' + date.getSeconds()
+    return (AM + ' ' + hours + ':' + mins)
+    // return (AM + ' ' + hours + ':' + mins + ':' + seconds)
+}
+
+signal.stop().then(() => {
+    signal.start().then(() => {
+        signal.invoke('AddToGroup', classId.value, studentId.value).then((res) => {
+            console.log('連接成功')
+            getMessageHistory()
+        }).catch((err) => {
+            console.error(err) 
+        })
+    })
+})
+
+signal.on('ReceiveMessage', (res) => {
+    console.log('ReceiveMessage', res)
+    let date = JSON.parse(JSON.stringify(res.createDateTime))
+    let data = JSON.parse(JSON.stringify(res[key]))
+    data.createDateTime = formatDate(date)
+    messagelist.value.push(data)
+    messageStart.value = messageStart.value + 1
     const target = {
         top: chatBoard.value.scrollHeight + 999,
         left: 0,
         behavior: 'smooth',
     }
-
     nextTick(()=>{
         chatBoard.value.scrollTo(target)
     })
-  
+})
+
+signal.on('MessageHistory', (res) => {
+    console.log('MessageHistory', res)
+    for(let key in res){
+        let date = JSON.parse(JSON.stringify(res[key].createDateTime))
+        let data = JSON.parse(JSON.stringify(res[key]))
+        console.log('date', date)
+        data.createDateTime = formatDate(date)
+        messagelist.value.unshift(data)
+    }
+    messageStart.value = messageStart.value + messageLength.value
+    if(isInit.value){
+        const target = {
+            top: chatBoard.value.scrollHeight + 999,
+            left: 0,
+            behavior: 'smooth',
+        }
+        nextTick(()=>{
+            chatBoard.value.scrollTo(target)
+        })
+        isInit.value = false
+    }
+    else{
+        if(chatBoard){
+            let messageItem = chatBoard.value.querySelector('[id="messageItem0"]')    
+            if(messageItem){
+                chatBoard.value.scrollTop += messageItem.clientHeight * res.length
+            }
+        }
+    }
+})
+
+const getMessageHistory = () => {
+    signal.invoke('GetMessageHistory', messageStart.value, messageLength.value, classId.value, studentId.value).then((res) => {
+        console.log('取得留言歷史紀錄成功')
+    }).catch((err) => {
+        console.error(err) 
+    })
 }
+
+const sendMessage = () => {
+    signal.invoke('SendMessageToGroup', classId.value, studentId.value, word.value).then((res) => {
+        console.log('傳送成功')
+        word.value = ''
+    }).catch((err) => {
+        console.error(err) 
+    })
+}
+
+const handleScroll = () => {
+    const container = chatBoard.value;
+    if(canScroll.value){
+        if (container.scrollTop === 0) {
+            console.log('scrollTop === 0')
+            canScroll.value = false
+            getMessageHistory()
+        }
+    }else{
+        if (container.scrollTop != 0) {
+            canScroll.value = true
+        }
+    }
+};
 
 const textEle = ref(null)
 const sendEle = ref(null)
@@ -228,7 +237,6 @@ const changeHeight = () => {
 onMounted(() => {
     changeHeight()
 })
-
 </script>
 
 <style>

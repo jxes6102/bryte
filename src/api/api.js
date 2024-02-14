@@ -432,6 +432,16 @@ export const editAllStudentStateRecord = (data) => {
   })
 }
 
+export const getChatRoomListByClassId = (data) => {
+  const url = '/ChatMessage/GetChatRoomListByClassId'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
 export const uploadFile = (data) => {
   const url = '/Upload/UploadFile'
   const method = 'post'
