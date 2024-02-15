@@ -442,6 +442,26 @@ export const getChatRoomListByClassId = (data) => {
   })
 }
 
+export const getAnnouncement = (data) => {
+  const url = '/Announcement/Detail'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const editAnnouncement = (data) => {
+  const url = '/Announcement/Edit'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
 export const uploadFile = (data) => {
   const url = '/Upload/UploadFile'
   const method = 'post'

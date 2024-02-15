@@ -38,7 +38,9 @@
                     v-for="(item, index) in linkData" :key="index"
                     @click="toLink(item.url)">
                     {{item.text}}
-                    <div v-if="item?.isAlert" class="absolute top-[15%] xl:top-[20%] right-[2px] w-[22px] h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">9+</div>
+                    <div v-if="item?.isAlert" class="absolute top-[15%] xl:top-[20%] right-[2px] w-[22px] h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">
+                        9+
+                    </div>
                 </div>
             </template>
             <div v-if="isLogin" id="primary_nav_wrap" class="mx-4 text-xl font-bold cursor-pointer hover:scale-[1.1] transition-all">

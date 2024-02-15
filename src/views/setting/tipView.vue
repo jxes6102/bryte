@@ -68,6 +68,7 @@
 
 <script setup>
 /*eslint-disable*/
+import { uploadFile, getFile } from '@/api/api'
 import { useStore } from "vuex";
 import { ref,computed } from 'vue'
 import { useRouter } from "vue-router";
@@ -97,31 +98,37 @@ const upLoad = () => {
     fileEle.value.click()
 }
 const fileList = ref([])
-const handleFiles = (event) => {
+const handleFiles = async(event) => {
     // console.log('event',event)
     // console.log('files',event.target.files)
     fileList.value = []
     let target = event.target.files
     for(let key in target){
-
         if(!isNaN(parseInt(key))){
-            var reader = new FileReader()
-            reader.onload = function (e) {
-                //console.log('e',e.target.result)
-                fileList.value.push({
-                    name:target[key].name,
-                    type:target[key].type,
-                    isImg:target[key].type.includes("image"),
-                    src:e.target.result
-                })
-                //console.log('fileList',fileList.value)
-            }
-            reader.readAsDataURL(target[key])
-            
+            let formData = new FormData();
+            formData.append("file", target[key])
+            formData.append("type", "announcement")
+            await uploadFile(formData).then((res) => {
+                let src = getFile()
+                if(res.data.status){
+                    fileList.value.push({
+                        name: target[key].name,
+                        type: target[key].type,
+                        isImg: target[key].type.includes("image"),
+                        src: 'http://localhost:5222' + res.data.data
+                    })
+                }else{
+                    console.log(res.data.message)
+                }
+            }).catch((res) => {
+                if (res && res.response && res.response.status == 401) {
+                    store.commit('clearToken')
+                    router.push({ path: '/' })
+                }
+                console.log(res)
+            })
         }
-        
     }
-    console.log('fileList',fileList.value)
 }
 
 const filePhoneEle = ref(null)

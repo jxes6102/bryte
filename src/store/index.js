@@ -10,7 +10,8 @@ export default createStore({
     lineId:'',
     isLogin:false,
     lineHtml:'',
-    announceStatus:false
+    announceStatus:false,
+    studentIdByLine:''
   },
   getters: {
   },
@@ -63,6 +64,13 @@ export default createStore({
     clearLineId (state) {
       state.lineId = ''
       localStorage.removeItem("lineId")
+    },
+    setStudentIdByLine (state,value) {
+      localStorage.setItem("studentIdByLine", JSON.stringify(value))
+    },
+    clearStudentIdByLine (state) {
+      state.studentIdByLine = ''
+      localStorage.removeItem("studentIdByLine")
     },
     setLineDom(state,value){
       state.lineHtml = value

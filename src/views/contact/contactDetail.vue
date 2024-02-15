@@ -367,6 +367,7 @@ import { createBodyTemperatureRecordRecord,
     createLeave,
     getContactBookRecordByClassIdAndStudentId,
     getStudentStateRecordByContactBookRecordId,
+    uploadFile,
     getFile } from '@/api/api'
 import { useStore } from "vuex";
 import { ref,computed,provide } from 'vue'
@@ -923,7 +924,6 @@ const upload = async(event) => {
     let formData = new FormData();
     formData.append("file", file)
     formData.append("type", "medicationRemind")
-    console.log(file)
     await uploadFile(formData).then((res) => {
         if(res.data.status){
             medicationData.value.photo = res.data.data

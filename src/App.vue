@@ -95,23 +95,39 @@
         // console.log('getLineLoginCallback',res)
         if(res.data.status){
           if (res.data.data.state == 0) {
-            console.log('getLineLoginCallback',res.data.data.data)
             store.commit('setToken',res.data.data.data)
             authorize().then((res1) => {
                 if(res1.data.status){
                     store.commit('setUser',res1.data.data)
-                    window.location.replace((window.location.origin + window.location.pathname))
+                    // window.location.replace((window.location.origin + window.location.pathname))
+                    router.push('/contact');
                 }else{
                     console.log(res1.data.message)
                 }
+            }).catch((err) => {
+              store.commit('clearToken')
+              store.commit('clearUserData')
+              this.$router.push('/loginView') 
             })
-            // window.location.href = window.location.origin + window.location.pathname
-            // window.open((window.location.origin + window.location.pathname), '_self')
           }else if (res.data.data.state == 1) {
             store.commit('setLineId',res.data.data.data)
-            // router.push({ path: '/profile' })
-            window.location.replace((window.location.origin + window.location.pathname + '#/profile'))
-          }              
+            this.$router.push('/profile') 
+          }else if (res.data.data.state == 2) {
+            store.commit('setToken',res.data.data.data)
+            authorize().then((res1) => {
+                if(res1.data.status){
+                    store.commit('setStudentIdByLine',res.data.data.data)
+                    store.commit('setUser',res1.data.data)
+                    this.$router.push('/profile')
+                }else{
+                    console.log(res1.data.message)
+                }
+            }).catch((err) => {
+              store.commit('clearToken')
+              store.commit('clearUserData')
+              this.$router.push('/loginView')
+            })
+          }
         }else{
           console.log(res.data.message)
         }

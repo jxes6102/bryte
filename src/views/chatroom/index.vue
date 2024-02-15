@@ -20,7 +20,7 @@
                 <div
                     :class="item.isSelf ? 'items-end text-right' : 'items-start text-left'"
                     class="w-auto max-w-[70%] h-auto px-2 py-1 md:px-4 md:py-2 bg-[#F0F0F0] rounded flex flex-col justify-center">
-                    <div class="text-base md:text-xl">{{item.message}}</div>
+                    <div class="text-base md:text-xl break-words whitespace-pre-wrap">{{item.message}}</div>
                 </div>
                 <div
                     :class="item.isSelf ? 'items-end text-right' : 'items-start text-left'"
@@ -133,18 +133,13 @@ signal.stop().then(() => {
 signal.on('ReceiveMessage', (res) => {
     console.log('ReceiveMessage', res)
     let date = JSON.parse(JSON.stringify(res.createDateTime))
-    let data = JSON.parse(JSON.stringify(res[key]))
+    let data = JSON.parse(JSON.stringify(res))
     data.createDateTime = formatDate(date)
     messagelist.value.push(data)
     messageStart.value = messageStart.value + 1
-    const target = {
-        top: chatBoard.value.scrollHeight + 999,
-        left: 0,
-        behavior: 'smooth',
-    }
-    nextTick(()=>{
-        chatBoard.value.scrollTo(target)
-    })
+    
+    changeHeight()
+    readMessage(data.id)
 })
 
 signal.on('MessageHistory', (res) => {
@@ -152,20 +147,13 @@ signal.on('MessageHistory', (res) => {
     for(let key in res){
         let date = JSON.parse(JSON.stringify(res[key].createDateTime))
         let data = JSON.parse(JSON.stringify(res[key]))
-        console.log('date', date)
         data.createDateTime = formatDate(date)
         messagelist.value.unshift(data)
+        readMessage(data.id)
     }
     messageStart.value = messageStart.value + messageLength.value
     if(isInit.value){
-        const target = {
-            top: chatBoard.value.scrollHeight + 999,
-            left: 0,
-            behavior: 'smooth',
-        }
-        nextTick(()=>{
-            chatBoard.value.scrollTo(target)
-        })
+        changeHeight()
         isInit.value = false
     }
     else{
@@ -174,6 +162,16 @@ signal.on('MessageHistory', (res) => {
             if(messageItem){
                 chatBoard.value.scrollTop += messageItem.clientHeight * res.length
             }
+        }
+    }
+})
+
+signal.on('MessageIsRead', (res) => {
+    console.log('MessageIsRead', res)
+    for(let key in messagelist.value){
+        if(messagelist.value[key].id == res){
+            messagelist.value[key].readerCount += 1 
+            break;
         }
     }
 })
@@ -190,6 +188,15 @@ const sendMessage = () => {
     signal.invoke('SendMessageToGroup', classId.value, studentId.value, word.value).then((res) => {
         console.log('傳送成功')
         word.value = ''
+        setChangeHeight(defaultTextEleScrollHeight.value)
+    }).catch((err) => {
+        console.error(err) 
+    })
+}
+
+const readMessage = (chatMessageId) => {
+    signal.invoke('ReadMessage', chatMessageId).then((res) => {
+        console.log('已讀留言成功')
     }).catch((err) => {
         console.error(err) 
     })
@@ -199,7 +206,6 @@ const handleScroll = () => {
     const container = chatBoard.value;
     if(canScroll.value){
         if (container.scrollTop === 0) {
-            console.log('scrollTop === 0')
             canScroll.value = false
             getMessageHistory()
         }
@@ -212,15 +218,25 @@ const handleScroll = () => {
 
 const textEle = ref(null)
 const sendEle = ref(null)
+const defaultTextEleScrollHeight = ref(0)
+
 const changeHeight = () => {
+    setChangeHeight(textEle.value.scrollHeight)
+}
+
+const setChangeHeight = (textEleScrollHeight) => {
     sendEle.value.style.height = '35px'
-    sendEle.value.style.height = textEle.value.scrollHeight + 'px'
+    sendEle.value.style.height = textEleScrollHeight + 'px'
 
     let allHeight = isMobile.value ? '60vh' : '80vh'
-    if(textEle.value.scrollHeight >= 100){
+    if(textEleScrollHeight >= 100){
         chatBoard.value.style.height = 'calc('+allHeight+' - 100px)'
+        textEle.value.style = 'resize:none;'
+        console.log('100')
     }else{
-        chatBoard.value.style.height = 'calc('+allHeight+' - ' + textEle.value.scrollHeight + 'px)'
+        chatBoard.value.style.height = 'calc('+allHeight+' - ' + textEleScrollHeight + 'px)'
+        textEle.value.style = 'resize: none; overflow: hidden;'
+        console.log('0')
     }
     
     const target = {
@@ -235,6 +251,7 @@ const changeHeight = () => {
 }
 
 onMounted(() => {
+    defaultTextEleScrollHeight.value = textEle.value.scrollHeight
     changeHeight()
 })
 </script>
