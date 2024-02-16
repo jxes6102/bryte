@@ -75,7 +75,10 @@ const isMobile = computed(() => {
 })
 
 const isLogin = computed(() => {
-    return store.state.isLogin
+    if(store.state.isLogin && user){
+        return store.state.isLogin
+    }
+    return false
 })
 
 const roleID = computed(() => {
@@ -87,7 +90,7 @@ const user = computed(() => {
 })
 
 const statement = computed(() => {
-    console.log(user.value)
+    console.log('statement', user.value)
     return (user.value == null ? '' : user.value.roleName + '：' + user.value.name)
 })
 

@@ -37,8 +37,13 @@ import { authorize } from '@/api/api'
 
 const routes = [
   {
-    path: '/',
+    path: '',
     name: 'home',
+    component: HomeView
+  },
+  {
+    path: '/',
+    name: 'home1',
     component: HomeView
   },
   {

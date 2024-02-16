@@ -472,12 +472,13 @@ export const uploadFile = (data) => {
   })
 }
 
-export const getFile = (data) => {
-  const url = '' + data
-  const method = 'get'
+export const uploadSignature = (data) => {
+  const url = '/Upload/UploadSignature'
+  const method = 'post'
   return request({
     method,
     url,
+    data,
   })
 }
 

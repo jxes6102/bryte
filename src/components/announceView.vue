@@ -20,9 +20,9 @@
                     >
                     <div class="relative w-full h-[80px] rounded-lg bg-slate-50 my-1 flex flex-wrap justify-center items-center">
                         <div class="absolute top-0 left-[5px] w-[5vw] h-[5vw] max-w-[80px] max-h-[80px] rounded-full ">
-                            <img src="@/assets/img/monkey.png" alt="">
+                            <img src="@/assets/img/van.png" alt="">
                         </div>
-                        <div class="w-full text-4xl font-bold flex flex-wrap justify-center items-center">等待區</div>
+                        <div class="text-red-700 w-full text-4xl font-bold flex flex-wrap justify-center items-center">🔴等待區🔴</div>
                     </div>
                 </transition>
                 <div class="w-full flex flex-wrap justify-center items-center">
@@ -33,11 +33,14 @@
                     >
                         <div
                             v-for="(item,index) in callShow.wait" :key="index"
-                            :class="((index % 4 == 0 || index % 4 == 1) ? 'bg-slate-50' : 'bg-slate-200') + ' ' + ((item.isEnd && (index % 4 == 0 || index % 4 == 2)) ? 'w-[95%]' : 'w-[48%] mx-[2px]')"
+                            :class="((index % 4 == 0 || index % 4 == 1) ? 'bg-slate-50' : 'bg-slate-200') + ' ' + 
+                                ((item.isEnd && (index % 4 == 0 || index % 4 == 2)) ? 'w-[95%]' : 'w-[48%] mx-[2px]') + ' ' + 
+                                ((item.state == 2) ? 'text-red-700' : 'text-yellow-600') "
                             class="h-[auto] rounded-lg mt-1 text-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap justify-center items-center">
                             <div class="w-full flex flex-wrap justify-center items-center text-2xl">
                                 <div class="w-auto font-semibold px-1">{{item.className + '班'}}</div>
-                                <div class="w-auto font-semibold px-1">{{item.studentUserName + '同學'}}</div>
+                                <div class="w-auto font-semibold px-1">{{item.studentUserName}}</div>
+                                <div class="w-auto font-semibold px-1">→</div>
                                 <div class="w-auto font-semibold px-1">{{item.parentTitle}}</div>
                             </div>
                             <div class="w-full flex flex-wrap justify-center items-center text-xl">
@@ -55,9 +58,9 @@
                     >
                     <div class="relative w-full h-[80px] rounded-lg bg-slate-50 my-1 flex flex-wrap justify-center items-center">
                         <div class="absolute top-0 left-[5px] w-[5vw] h-[5vw] max-w-[80px] max-h-[80px] rounded-full ">
-                            <img src="@/assets/img/ox.png" alt="">
+                            <img src="@/assets/img/walking.png" alt="">
                         </div>
-                        <div class="w-full text-4xl font-bold flex flex-wrap justify-center items-center">抵達區</div>
+                        <div class="text-lime-600 w-full text-4xl font-bold flex flex-wrap justify-center items-center">🟢已離校🟢</div>
                     </div>
                 </transition>
                 <div class="w-full flex flex-wrap justify-center items-center">
@@ -69,10 +72,11 @@
                         <div
                             v-for="(item,index) in callShow.arrive" :key="index"
                             :class="((index % 4 == 0 || index % 4 == 1) ? 'bg-slate-50' : 'bg-slate-200') + ' ' + ((item.isEnd && (index % 4 == 0 || index % 4 == 2)) ? 'w-[95%]' : 'w-[48%] mx-[2px]')"
-                            class=" h-[auto] rounded-lg bg-slate-50 mt-1 text-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap justify-center items-center">
+                            class=" text-lime-600 h-[auto] rounded-lg mt-1 text-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap justify-center items-center">
                             <div class="w-full flex flex-wrap justify-center items-center text-2xl">
                                 <div class="w-auto font-semibold px-1">{{item.className + '班'}}</div>
-                                <div class="w-auto font-semibold px-1">{{item.studentUserName + '同學'}}</div>
+                                <div class="w-auto font-semibold px-1">{{item.studentUserName}}</div>
+                                <div class="w-auto font-semibold px-1">→</div>
                                 <div class="w-auto font-semibold px-1">{{item.parentTitle}}</div>
                             </div>
                             <div class="w-full flex flex-wrap justify-center items-center text-xl">

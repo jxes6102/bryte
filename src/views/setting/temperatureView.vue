@@ -148,11 +148,11 @@ const roleID = computed(() => {
     return store.state.roleID
 })
 const classId = computed(() => {
-    return localStorage.getItem('classId')
+    return store.state.classId
 })
 
 const className = computed(() => {
-    return localStorage.getItem('className')
+    return store.state.className
 })
 
 const stateOptions = ref([

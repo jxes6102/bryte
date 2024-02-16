@@ -7,11 +7,16 @@ export default createStore({
     roleID:2,
     user:{
     },
-    lineId:'',
     isLogin:false,
     lineHtml:'',
     announceStatus:false,
-    studentIdByLine:''
+    studentId:'',
+    studentName:'',
+    studentNumber:0,
+    classId:'',
+    className:'',
+    lineId:'',
+    studentIdByLine:'',
   },
   getters: {
   },
@@ -23,22 +28,21 @@ export default createStore({
       state.roleID = value
     },
     setStudentId (state,value){
-      localStorage.setItem("studentId", value)
+      state.studentId = value
     },
     setStudentName (state,value){
-      localStorage.setItem("studentName", value)
+      state.studentName = value
     },
     setStudentNumber (state,value){
-      localStorage.setItem("studentNumber", value)
+      state.studentNumber = value
     },
     setClassId (state,value){
-      localStorage.setItem("classId", value)
+      state.classId = value
     },
     setClassName (state,value){
-      localStorage.setItem("className", value)
+      state.className = value
     },
     setUser (state,value){
-      // localStorage.setItem("user", JSON.stringify(value))
       state.user = value
     },
     changeLoginStatus (state,value) {
@@ -46,31 +50,23 @@ export default createStore({
     },
     setToken (state,value) {
       state.isLogin = true
-      localStorage.setItem("token", value);
+      localStorage.setItem("token", value)
     },
     clearToken (state) {
       state.isLogin = false
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      localStorage.removeItem("className");
-      localStorage.removeItem("classId");
-      localStorage.removeItem("studentId");
-      localStorage.removeItem("studentName");
-      localStorage.removeItem("studentNumber");
+      localStorage.removeItem("token")
     },
     setLineId (state,value) {
-      localStorage.setItem("lineId", JSON.stringify(value))
+      state.lineId = value
     },
     clearLineId (state) {
       state.lineId = ''
-      localStorage.removeItem("lineId")
     },
     setStudentIdByLine (state,value) {
-      localStorage.setItem("studentIdByLine", JSON.stringify(value))
+      state.studentIdByLine = value
     },
     clearStudentIdByLine (state) {
       state.studentIdByLine = ''
-      localStorage.removeItem("studentIdByLine")
     },
     setLineDom(state,value){
       state.lineHtml = value

@@ -392,23 +392,23 @@ const user = computed(() => {
 })
 
 const classId = computed(() => {
-    return localStorage.getItem('classId')
+    return store.state.classId
 })
 
 const className = computed(() => {
-    return localStorage.getItem('className')
+    return store.state.className
 })
 
 const studentId = computed(() => {
-    return localStorage.getItem('studentId')
+    return store.state.studentId
 })
 
 const studentName = computed(() => {
-    return localStorage.getItem('studentName')
+    return store.state.studentName
 })
 
 const studentNumber = computed(() => {
-    return localStorage.getItem('studentNumber')
+    return store.state.studentNumber
 })
 
 const statement = computed(() => {

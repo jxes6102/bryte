@@ -86,7 +86,7 @@ const isSchool = computed(() => {
 })
 
 const className = computed(() => {
-    return localStorage.getItem('className')
+    return store.state.className
 })
 
 const modifyData = ref({

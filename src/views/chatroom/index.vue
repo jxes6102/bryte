@@ -76,10 +76,10 @@ const roleID = computed(() => {
     return store.state.roleID
 })
 const classId = computed(() => {
-    return localStorage.getItem('classId')
+    return store.state.classId
 })
 const studentId = computed(() => {
-    return localStorage.getItem('studentId')
+    return store.state.studentId
 })
 
 const messagelist = ref([

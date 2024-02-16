@@ -118,7 +118,7 @@ const route = useRoute()
 const store = useStore()
 
 const lineId = computed(() => {
-    return JSON.parse(localStorage.getItem('lineId'))
+    return store.state.lineId
 })
 
 const userProfile = ref(null)

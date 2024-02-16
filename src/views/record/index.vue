@@ -130,9 +130,13 @@ const list = ref([
     }
 ])
 
-const className = ref('')
+const classId = computed(() => {
+    return store.state.classId
+})
 
-const classId =  ref('')
+const className = computed(() => {
+    return store.state.className
+})
 
 const classOptions = ref([
         {
@@ -213,8 +217,6 @@ const getList = async() => {
     console.log(res)
   })
 }
-classId.value = localStorage.getItem('classId')
-className.value = localStorage.getItem('className')
 
 const apiLoading = ref(false)
 const init = async() => {

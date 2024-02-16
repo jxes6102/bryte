@@ -8,7 +8,7 @@ module.exports = defineConfig({
     devServer: {
         https: true,
     },
-  publicPath: './',
+  publicPath: '/',
   filenameHashing: true,
   transpileDependencies: true,
   // The source of CKEditor&nbsp;5 is encapsulated in ES6 modules. By default, the code

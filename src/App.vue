@@ -100,7 +100,7 @@
                 if(res1.data.status){
                     store.commit('setUser',res1.data.data)
                     // window.location.replace((window.location.origin + window.location.pathname))
-                    router.push('/contact');
+                    router.push('/');
                 }else{
                     console.log(res1.data.message)
                 }
