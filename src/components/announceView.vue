@@ -34,17 +34,18 @@
                         <div
                             v-for="(item,index) in callShow.wait" :key="index"
                             :class="((index % 4 == 0 || index % 4 == 1) ? 'bg-slate-50' : 'bg-slate-200') + ' ' + 
-                                ((item.isEnd && (index % 4 == 0 || index % 4 == 2)) ? 'w-[95%]' : 'w-[48%] mx-[2px]') + ' ' + 
-                                ((item.state == 2) ? 'text-red-700' : 'text-yellow-600') "
+                                ((item.isEnd && (index % 4 == 0 || index % 4 == 2)) ? 'w-[95%]' : 'w-[48%] mx-[2px]')"
                             class="h-[auto] rounded-lg mt-1 text-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap justify-center items-center">
-                            <div class="w-full flex flex-wrap justify-center items-center text-2xl">
+                            <div class="w-full flex flex-wrap justify-center items-center text-2xl text-state-900">
+                                <div class="w-auto font-semibold px-1">男生</div>
                                 <div class="w-auto font-semibold px-1">{{item.className + '班'}}</div>
                                 <div class="w-auto font-semibold px-1">{{item.studentUserName}}</div>
                                 <div class="w-auto font-semibold px-1">→</div>
                                 <div class="w-auto font-semibold px-1">{{item.parentTitle}}</div>
                             </div>
                             <div class="w-full flex flex-wrap justify-center items-center text-xl">
-                                <div class="w-auto text-center font-semibold">{{item.message}}</div>
+                                <div class="w-auto text-center font-semibold"
+                                :class="((item.state == 2) ? 'text-red-700' : 'text-blue-600')">{{item.message}}</div>
                             </div>
                         </div>
                     </transition-group>
@@ -72,14 +73,14 @@
                         <div
                             v-for="(item,index) in callShow.arrive" :key="index"
                             :class="((index % 4 == 0 || index % 4 == 1) ? 'bg-slate-50' : 'bg-slate-200') + ' ' + ((item.isEnd && (index % 4 == 0 || index % 4 == 2)) ? 'w-[95%]' : 'w-[48%] mx-[2px]')"
-                            class=" text-lime-600 h-[auto] rounded-lg mt-1 text-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap justify-center items-center">
-                            <div class="w-full flex flex-wrap justify-center items-center text-2xl">
+                            class="h-[auto] rounded-lg mt-1 text-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap justify-center items-center">
+                            <div class="w-full flex flex-wrap justify-center items-center text-2xl text-state-900">
                                 <div class="w-auto font-semibold px-1">{{item.className + '班'}}</div>
                                 <div class="w-auto font-semibold px-1">{{item.studentUserName}}</div>
                                 <div class="w-auto font-semibold px-1">→</div>
                                 <div class="w-auto font-semibold px-1">{{item.parentTitle}}</div>
                             </div>
-                            <div class="w-full flex flex-wrap justify-center items-center text-xl">
+                            <div class="text-green-600 w-full flex flex-wrap justify-center items-center text-xl">
                                 <div class="w-auto text-center font-semibold">{{item.message}}</div>
                             </div>
                         </div>

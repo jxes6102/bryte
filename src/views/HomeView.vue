@@ -272,7 +272,8 @@ import { useStore } from "vuex";
 
 import {ref,computed } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+import { getLineLoginCallback, authorize } from '@/api/api'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import tailView from "@/components/tailView.vue"
@@ -280,6 +281,7 @@ import bookView from "@/components/bookView.vue"
 
 const store = useStore()
 const router = useRouter()
+const route = useRoute()
 const bannerData = ref([])
 const newsData = ref([])
 
@@ -287,31 +289,94 @@ const isMobile = computed(() => {
     return store.state.isMobile
 })
 
+const getParameterByName = (name, url) => {
+    if (!url) url = window.location.href;
+    name = name.replace(/[[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+const code = getParameterByName('code');
+const state = getParameterByName('state');
+
+const checkLineLogin = () =>  {
+    let payload = {
+        code: '',
+        state: ''
+    }
+    if(route.query.code && route.query.state){
+      payload = {
+        code: route.query.code,
+        state: route.query.state
+      }
+    } else if(window.location.href != ''){
+      payload = {
+        code: getParameterByName('code',window.location.href),
+        state: getParameterByName('state',window.location.href)
+      }
+    }
+    if(payload.code && payload.state){
+      getLineLoginCallback(payload).then((res) => {
+        // console.log('getLineLoginCallback',res)
+        if(res.data.status){
+          if (res.data.data.state == 0) {
+            store.commit('setToken',res.data.data.data)
+            authorize().then((res1) => {
+                if(res1.data.status){
+                    store.commit('setUser',res1.data.data)
+                    // window.location.replace((window.location.origin + window.location.pathname))
+                    router.push('/home');
+                }else{
+                    console.log(res1.data.message)
+                }
+            }).catch((err) => {
+              store.commit('clearToken')
+              store.commit('clearUserData')
+              router.push('/loginView') 
+            })
+          }else if (res.data.data.state == 1) {
+            store.commit('setLineId',res.data.data.data)
+            router.push('/profile') 
+          }else if (res.data.data.state == 2) {
+            store.commit('setToken',res.data.data.data)
+            authorize().then((res1) => {
+                if(res1.data.status){
+                    store.commit('setStudentIdByLine',res.data.data.data)
+                    store.commit('setUser',res1.data.data)
+                    router.push('/profile')
+                }else{
+                    console.log(res1.data.message)
+                }
+            }).catch((err) => {
+              store.commit('clearToken')
+              store.commit('clearUserData')
+              router.push('/loginView')
+            })
+          }
+        }else{
+          console.log(res.data.message)
+        }
+      }) .catch((err) => {
+        store.commit('clearToken')
+        store.commit('clearUserData')
+        router.push('/loginView') 
+      })
+    }
+  }
+
 const init = async() => {
-  //輪播資訊
-  // await getBannerSearch({
-  //   DepartmentID:"2bd3434f-1e95-4fdb-ab29-315921e06868"
-  // }).then((res) => {
-  //   bannerData.value = res.data.Result
-    
-  //   for(let item of bannerData.value){
-      
-  //     const img = new Image();
-  //     img.src = item.ImageUrl;
-      
-  //     img.onload = function() {
-  //       item.width = img.width
-  //       item.height = img.height
-  //       //console.log(img.width + 'x' + img.height)
-  //     }
-  //   }
-  //   //console.log('bannerData.value',bannerData.value)
-    
-  // })
-  // .catch((error) => {
-  //   // handle error
-  //   console.log(error);
-  // })
+    authorize().then((res) => {
+        if(res.data.status){
+            store.commit('setUser',res.data.data)
+        }else{
+            checkLineLogin()
+        }
+    }).catch((err) => {
+        checkLineLogin()
+    })
     bannerData.value = [
       {ImageUrl:require('@/assets/img/carousel-1.jpg')},
       {ImageUrl:require('@/assets/img/carousel-1.jpg')}

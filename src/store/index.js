@@ -7,6 +7,8 @@ export default createStore({
     roleID:2,
     user:{
     },
+    contactBookRecord:{
+    },
     isLogin:false,
     lineHtml:'',
     announceStatus:false,
@@ -28,19 +30,22 @@ export default createStore({
       state.roleID = value
     },
     setStudentId (state,value){
-      state.studentId = value
+      localStorage.setItem("studentId", value)
     },
     setStudentName (state,value){
-      state.studentName = value
+      localStorage.setItem("studentName", value)
     },
     setStudentNumber (state,value){
-      state.studentNumber = value
+      localStorage.setItem("studentNumber", value)
     },
     setClassId (state,value){
-      state.classId = value
+      localStorage.setItem("classId", value)
     },
     setClassName (state,value){
-      state.className = value
+      localStorage.setItem("className", value)
+    },
+    setContactBookRecordId (state,value){
+      localStorage.setItem("contactBookRecordId", value)
     },
     setUser (state,value){
       state.user = value
@@ -54,6 +59,16 @@ export default createStore({
     },
     clearToken (state) {
       state.isLogin = false
+      state.roleID = 2
+      state.user = {}
+      state.lineId = ''
+      state.studentIdByLine = ''
+      localStorage.removeItem("studentId");
+      localStorage.removeItem("studentName");
+      localStorage.removeItem("studentNumber");
+      localStorage.removeItem("classId");
+      localStorage.removeItem("className");
+      localStorage.removeItem("contactBookRecord");
       localStorage.removeItem("token")
     },
     setLineId (state,value) {

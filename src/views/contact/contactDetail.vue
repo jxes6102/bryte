@@ -105,7 +105,7 @@
         <div v-if="!isSchool"
             class="w-[90%] md:w-[40%] my-2 flex flex-col items-start justify-start"
             >
-            <button
+            <button @click="toSignByParent"
                 class="w-full bg-[#20B2AA] text-sm md:text-xl text-white py-1 px-2 rounded">
                 簽名
             </button>
@@ -392,23 +392,23 @@ const user = computed(() => {
 })
 
 const classId = computed(() => {
-    return store.state.classId
+    return localStorage.getItem('classId')
 })
 
 const className = computed(() => {
-    return store.state.className
+    return localStorage.getItem('className')
 })
 
 const studentId = computed(() => {
-    return store.state.studentId
+    return localStorage.getItem('studentId')
 })
 
 const studentName = computed(() => {
-    return store.state.studentName
+    return localStorage.getItem('studentName')
 })
 
 const studentNumber = computed(() => {
-    return store.state.studentNumber
+    return localStorage.getItem('studentNumber')
 })
 
 const statement = computed(() => {
@@ -831,6 +831,10 @@ const setMedication = async() => {
             console.log(res)
         })
     }
+}
+
+const toSignByParent = async() => {
+    router.push({ path: '/testView' })
 }
 
 const contactBookRecordData = ref([{}])

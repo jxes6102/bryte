@@ -382,8 +382,28 @@ export const getContactBookRecordByClassId = (data) => {
   })
 }
 
+export const getContactBookRecord = (data) => {
+  const url = '/ContactBookRecord/Detail'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
 export const getContactBookRecordByClassIdAndStudentId = (data) => {
   const url = '/ContactBookRecord/GetDataListByClassIdAndStudentIdAndDate'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const editContactBookRecordBySignature = (data) => {
+  const url = '/ContactBookRecord/EditSignature'
   const method = 'post'
   return request({
     method,

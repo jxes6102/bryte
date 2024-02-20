@@ -130,13 +130,11 @@ const list = ref([
     }
 ])
 
-const classId = computed(() => {
-    return store.state.classId
-})
 
-const className = computed(() => {
-    return store.state.className
-})
+const className = ref('')
+const classId =  ref('')
+classId.value = localStorage.getItem('classId')
+className.value = localStorage.getItem('className')
 
 const classOptions = ref([
         {

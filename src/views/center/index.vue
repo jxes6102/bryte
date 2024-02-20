@@ -61,8 +61,7 @@ const user = computed(() => {
 })
 
 const pictureUrl = computed(() => {
-    console.log('baseURL',baseURL)
-    if (user.value.pictureUrl.startsWith('https://')) {
+    if (user.value.pictureUrl && user.value.pictureUrl.startsWith('https://')) {
         // 如果是外部網站的圖片URL，直接返回
         return user.value.pictureUrl;
     } else {

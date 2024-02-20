@@ -1,6 +1,9 @@
 const signalR = require("@microsoft/signalr")
 
-const url = "http://localhost:5222/ChatHub"
+//import { baseURL } from '@/api'
+//const url = baseURL + "ChatHub"
+const url = '/hub'
+
 const signal = new signalR.HubConnectionBuilder()
   .withUrl(url, {
     skipNegotiation: true,

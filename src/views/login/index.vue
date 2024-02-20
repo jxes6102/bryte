@@ -93,6 +93,7 @@ const setCaptcha = () => {
     })
 }
 const init = () => {
+    store.commit('clearToken')
     setCaptcha()
 }
 

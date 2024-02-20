@@ -76,10 +76,10 @@ const roleID = computed(() => {
     return store.state.roleID
 })
 const classId = computed(() => {
-    return store.state.classId
+    return localStorage.getItem('classId')
 })
 const studentId = computed(() => {
-    return store.state.studentId
+    return localStorage.getItem('studentId')
 })
 
 const messagelist = ref([
@@ -119,19 +119,24 @@ const formatDate = (dateTime) => {
     // return (AM + ' ' + hours + ':' + mins + ':' + seconds)
 }
 
+console.log('signal')
 signal.stop().then(() => {
+    console.log('signal stop')
     signal.start().then(() => {
-        signal.invoke('AddToGroup', classId.value, studentId.value).then((res) => {
+        console.log('signal start')
+        signal.invoke('AddToChatGroup', classId.value, studentId.value).then((res) => {
             console.log('連接成功')
             getMessageHistory()
         }).catch((err) => {
             console.error(err) 
         })
     })
+}).catch((err) => {
+    console.error('stop', err) 
 })
 
-signal.on('ReceiveMessage', (res) => {
-    console.log('ReceiveMessage', res)
+signal.on('ReceiveChatMessage', (res) => {
+    console.log('ReceiveChatMessage', res)
     let date = JSON.parse(JSON.stringify(res.createDateTime))
     let data = JSON.parse(JSON.stringify(res))
     data.createDateTime = formatDate(date)
@@ -142,8 +147,8 @@ signal.on('ReceiveMessage', (res) => {
     readMessage(data.id)
 })
 
-signal.on('MessageHistory', (res) => {
-    console.log('MessageHistory', res)
+signal.on('ChatMessageHistory', (res) => {
+    console.log('ChatMessageHistory', res)
     for(let key in res){
         let date = JSON.parse(JSON.stringify(res[key].createDateTime))
         let data = JSON.parse(JSON.stringify(res[key]))
@@ -166,8 +171,8 @@ signal.on('MessageHistory', (res) => {
     }
 })
 
-signal.on('MessageIsRead', (res) => {
-    console.log('MessageIsRead', res)
+signal.on('ChatMessageIsRead', (res) => {
+    console.log('ChatMessageIsRead', res)
     for(let key in messagelist.value){
         if(messagelist.value[key].id == res){
             messagelist.value[key].readerCount += 1 
@@ -177,7 +182,7 @@ signal.on('MessageIsRead', (res) => {
 })
 
 const getMessageHistory = () => {
-    signal.invoke('GetMessageHistory', messageStart.value, messageLength.value, classId.value, studentId.value).then((res) => {
+    signal.invoke('GetChatMessageHistory', messageStart.value, messageLength.value, classId.value, studentId.value).then((res) => {
         console.log('取得留言歷史紀錄成功')
     }).catch((err) => {
         console.error(err) 
@@ -185,7 +190,7 @@ const getMessageHistory = () => {
 }
 
 const sendMessage = () => {
-    signal.invoke('SendMessageToGroup', classId.value, studentId.value, word.value).then((res) => {
+    signal.invoke('SendChatMessageToGroup', classId.value, studentId.value, word.value).then((res) => {
         console.log('傳送成功')
         word.value = ''
         setChangeHeight(defaultTextEleScrollHeight.value)
@@ -195,7 +200,7 @@ const sendMessage = () => {
 }
 
 const readMessage = (chatMessageId) => {
-    signal.invoke('ReadMessage', chatMessageId).then((res) => {
+    signal.invoke('ReadChatMessage', chatMessageId).then((res) => {
         console.log('已讀留言成功')
     }).catch((err) => {
         console.error(err) 
@@ -232,11 +237,9 @@ const setChangeHeight = (textEleScrollHeight) => {
     if(textEleScrollHeight >= 100){
         chatBoard.value.style.height = 'calc('+allHeight+' - 100px)'
         textEle.value.style = 'resize:none;'
-        console.log('100')
     }else{
         chatBoard.value.style.height = 'calc('+allHeight+' - ' + textEleScrollHeight + 'px)'
         textEle.value.style = 'resize: none; overflow: hidden;'
-        console.log('0')
     }
     
     const target = {

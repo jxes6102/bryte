@@ -32,7 +32,6 @@
   import headerView from './components/headerView.vue';
   import footerView from './components/footerView.vue';
   import announceView from './components/announceView.vue'
-  import { getLineLoginCallback, authorize } from '@/api/api'
   import { ref,computed,onMounted,onBeforeUnmount } from 'vue';
   import { useRouter,useRoute } from "vue-router";
   import { useStore } from "vuex";
@@ -77,72 +76,12 @@
   }
   init()
 
-  const checkLineLogin = () =>  {
-    //https://192.168.1.102:8080/?code=FHvFFCRr91OeZEfdqH5W&state=zxcasdqew#/
-    // console.log('line login')
-    const urlParams = new URLSearchParams(window.location.search);
-    // console.log('urlParams',urlParams)
-    const codeParam = urlParams.get('code');
-    // console.log('codeParam',codeParam)
-    const stateParam = urlParams.get('state');
-    // console.log('stateParam',stateParam)
-    if(stateParam && codeParam){
-      let payload = {
-          "code": codeParam,
-          "state": stateParam
-      }
-      getLineLoginCallback(payload).then((res) => {
-        // console.log('getLineLoginCallback',res)
-        if(res.data.status){
-          if (res.data.data.state == 0) {
-            store.commit('setToken',res.data.data.data)
-            authorize().then((res1) => {
-                if(res1.data.status){
-                    store.commit('setUser',res1.data.data)
-                    // window.location.replace((window.location.origin + window.location.pathname))
-                    router.push('/');
-                }else{
-                    console.log(res1.data.message)
-                }
-            }).catch((err) => {
-              store.commit('clearToken')
-              store.commit('clearUserData')
-              this.$router.push('/loginView') 
-            })
-          }else if (res.data.data.state == 1) {
-            store.commit('setLineId',res.data.data.data)
-            this.$router.push('/profile') 
-          }else if (res.data.data.state == 2) {
-            store.commit('setToken',res.data.data.data)
-            authorize().then((res1) => {
-                if(res1.data.status){
-                    store.commit('setStudentIdByLine',res.data.data.data)
-                    store.commit('setUser',res1.data.data)
-                    this.$router.push('/profile')
-                }else{
-                    console.log(res1.data.message)
-                }
-            }).catch((err) => {
-              store.commit('clearToken')
-              store.commit('clearUserData')
-              this.$router.push('/loginView')
-            })
-          }
-        }else{
-          console.log(res.data.message)
-        }
-      }) 
-    }    
-  }
-
   onMounted(() => {
     // console.log('headerItem.value',headerItem.value.$el.clientHeight)
     setWidth()
     window.addEventListener('resize', () => {
       setWidth()
     }, false);
-    
-    checkLineLogin()
   })
 
   onBeforeUnmount(() => {

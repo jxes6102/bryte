@@ -95,7 +95,7 @@ const isMobile = computed(() => {
 })
 
 const className = computed(() => {
-    return store.state.className
+    return localStorage.getItem('className')
 })
 
 const apiLoading = ref(false)

@@ -164,11 +164,11 @@ const isMobile = computed(() => {
 })
 
 const classId = computed(() => {
-    return store.state.classId
+    return localStorage.getItem('classId')
 })
 
 const className = computed(() => {
-    return store.state.className
+    return localStorage.getItem('className')
 })
 
 const apiLoading = ref(false)

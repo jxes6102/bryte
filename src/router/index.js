@@ -41,9 +41,19 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+  // {
+  //   path: '/?code=:code&state=:state',
+  //   name: 'lineLogin',
+  //   component: HomeView
+  // },
   {
     path: '/',
     name: 'home1',
+    component: HomeView
+  },
+  {
+    path: '/home',
+    name: 'home2',
     component: HomeView
   },
   {

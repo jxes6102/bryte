@@ -2,8 +2,8 @@ import axios from 'axios'
 export const TIMEOUT = 10000
 // export const baseURL = 'https://cet.bryte.com.tw/api/v2'
 // export const baseURL = 'https://5bc7-2001-b011-8007-3b17-3cae-bde3-9aea-e67b.ngrok-free.app/'
-export const baseURL = 'http://localhost:5222/'
-// export const baseURL = '/api/'
+// export const baseURL = 'http://localhost:5222/'
+export const baseURL = '/api/'
 
 // const DEFAULT_CACHE_EXPIRY_TIME = 3000
 // https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-391D3550-2FAB-43F0-AA4D-06929689EB22

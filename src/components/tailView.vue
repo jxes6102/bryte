@@ -13,9 +13,9 @@
         </div>
         <div class="w-full h-auto flex flex-col justify-start items-center">
             <div class="w-full my-1 text-base text-white font-semibold text-left">公司資訊</div>
-            <div class="w-full text-lg text-left text-white ">名稱: OOXX公司</div>
-            <div class="w-full text-lg text-left text-white ">電話: 04-2XXX-XXXX</div>
-            <div class="w-full text-lg text-left text-white ">e-mail: OOXX@gamil.com</div>
+            <div class="w-full text-lg text-left text-white ">名稱: 智光電腦股份有限公司</div>
+            <div class="w-full text-lg text-left text-white ">電話: 04-23149911</div>
+            <div class="w-full text-lg text-left text-white ">E-mail: bryte.edu@gamil.com</div>
         </div>
         <div class="w-full h-auto flex flex-col justify-start items-center">
             <div class="w-full my-1 text-base text-white font-semibold text-left">關注我們</div>
