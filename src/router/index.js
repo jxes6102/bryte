@@ -249,7 +249,7 @@ const router = createRouter({
 })
 
 //可在未登入時進入
-const allow = ['register','login','home','latestNewsView','checkView','testView']
+const allow = ['register','login','home','home1','home2','latestNewsView','checkView','testView']
 //需特定權限
 const authority = [
   'editNews',

@@ -91,7 +91,7 @@ const user = computed(() => {
 
 const statement = computed(() => {
     console.log('statement', user.value)
-    return (user.value == null ? '' : user.value.roleName + '：' + user.value.name)
+    return (user.value ? user.value.roleName + '：' + user.value.name : '')
 })
 
 const isSchool = computed(() => {

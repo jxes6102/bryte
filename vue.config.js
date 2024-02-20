@@ -7,6 +7,22 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
     devServer: {
         https: true,
+        proxy: {
+          '/api': {
+            target: 'http://localhost:5222/',
+            // changeOrigin: true,
+            pathRewrite: {
+              '^/api': '/api'
+            }
+          },
+          '/hub': {
+            target: 'http://localhost:5222/',
+            // changeOrigin: true,
+            pathRewrite: {
+              '^/hub': '/hub'
+            }
+          }
+        }
     },
   publicPath: '/',
   filenameHashing: true,

@@ -267,7 +267,6 @@
 
 <script setup>
 /*eslint-disable*/
-import {getBannerSearch,getNewsSearch} from '@/api/api'
 import { useStore } from "vuex";
 
 import {ref,computed } from 'vue'
