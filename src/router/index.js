@@ -278,19 +278,17 @@ router.beforeEach((to, from) => {
   }
 
   if(store.state.isLogin && (!allow.includes(to.name))){
+    
+    console.log('store', store)
     authorize().then((res) => {
+      console.log('authorize',res)
       if(res.data?.status){
         store.commit('setUser',res.data.data)
       }else{
         store.commit('clearToken')
-        store.commit('clearUserData')
         return '/loginView'
       }
-    }).catch((err) => {
-      store.commit('clearToken')
-      store.commit('clearUserData')
-      return '/loginView'
-    })
+    }).catch((err) => { })
   }
 
   // explicitly return false to cancel the navigation

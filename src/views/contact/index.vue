@@ -127,13 +127,13 @@ const isSchool = ref(false)
 
 const setContactBookClassList = () => {
     getContactBookClassList().then((res) => {
-        // console.log('res',res)
+        console.log('res',res)
         if(res.data.status){
             data.value = res.data.data
         }else{
             console.log(res.data.message)
         }
-    })
+    }).catch((err) => { })
 }
 
 const setContactBookStudentList = () => {
@@ -144,7 +144,7 @@ const setContactBookStudentList = () => {
         }else{
             console.log(res.data.message)
         }
-    })
+    }).catch((err) => { })
 }
 
 const init = async() => {

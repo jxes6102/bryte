@@ -179,7 +179,7 @@ const register = async() => {
           registerMessage.value = res.data.message
       }
       loadStatus = false
-  })
+  }).catch((err) => { })
 }
 
 const resetForm = () => {

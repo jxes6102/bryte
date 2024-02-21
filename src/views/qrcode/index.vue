@@ -186,7 +186,7 @@ const onDetect = async(detectedCodes) => {
         }else{
             console.log(res.data.message)
         }
-    })
+    }).catch((err) => { })
 
     dialogStatus.value = true
     paused.value = true

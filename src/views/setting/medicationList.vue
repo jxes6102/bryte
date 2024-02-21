@@ -206,13 +206,7 @@ const getList = async() => {
       }else{
         console.log(res.data.message)
       }
-  }).catch((res) => {
-    if (res && res.response && res.response.status == 401) {
-        store.commit('clearToken')
-        router.push({ path: '/' })
-    }
-    console.log(res)
-  })
+  }).catch((err) => { })
 }
 
 const init = async() => {
@@ -259,13 +253,7 @@ const upload = async(event) => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 const edit = async() => {
     var formData = new FormData();
@@ -281,13 +269,7 @@ const edit = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 </script>

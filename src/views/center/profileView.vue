@@ -134,7 +134,7 @@ const init = async(payload) => {
         .catch((error) => {
             // handle error
             console.log(error);
-        })
+        }).catch((err) => {})
     }
     const formDataProfile = new FormData();
     formDataProfile.append("userId", payload.UserID);
@@ -197,7 +197,7 @@ const bindLineInfo = () => {
         if(res.data.status){
             openLink(res.data.data)
         }
-    })
+    }).catch((err) => {})
 }
 
 

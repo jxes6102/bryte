@@ -102,7 +102,7 @@ const changeRole = (value) => {
 
 const logout = async() => {
     await testLogout().then((res) => {
-    })
+    }).catch((err) => { })
     store.commit('clearToken')
     router.push({ path: '/' })
 }

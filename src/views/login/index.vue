@@ -84,14 +84,9 @@ const setCaptcha = () => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => {})
 }
+
 const init = () => {
     store.commit('clearToken')
     setCaptcha()
@@ -205,14 +200,14 @@ const login = async() => {
                 //   console.log(res.data.message)
             }
             loadStatus = false
-        })
+        }).catch((err) => { })
       }else{
           setCaptcha()
           loginMessage.value = res.data.message
         //   console.log(res.data.message)
       }
       loadStatus = false
-  })
+  }).catch((err) => { })
 }
 
 const resetForm = () => {
@@ -234,7 +229,7 @@ const lineLogin = () => {
             openLink(res.data.data)
         }
 
-    })
+    }).catch((err) => { })
     // https://access.line.me/oauth2/v2.1/login?returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fresponse_type%3Dcode%26client_id%3D2001937495%26redirect_uri%3Dhttps%253A%252F%252Fjxes6102.github.io%252Fbryte%252F%26state%3Da1561e4078dc03b657ac93195a9f68934fd9fae1622d8e5239ad87a8d7aabb8f%26scope%3Dprofile%26openId%3D&loginChannelId=2001937495&loginState=70feooN8nomIsavCwLnhJM
 }
 

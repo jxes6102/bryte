@@ -216,13 +216,7 @@ const getList = async() => {
       }else{
         console.log(res.data.message)
       }
-  }).catch((res) => {
-    if (res && res.response && res.response.status == 401) {
-        store.commit('clearToken')
-        router.push({ path: '/' })
-    }
-    console.log(res)
-  })
+  }).catch((err) => { })
 }
 
 const getStudentStateRecordList = async() => {
@@ -301,13 +295,7 @@ const getStudentStateRecordList = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 // watch(inputData.body, (newVal,oldval) => {
@@ -363,13 +351,7 @@ const send = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 const sendAll = async() => {
@@ -387,13 +369,7 @@ const sendAll = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 const remove = async(item) => {
@@ -412,13 +388,7 @@ const remove = async(item) => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 const removeAll = async() => {
@@ -438,13 +408,7 @@ const removeAll = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 const checkInput = (obj,index) => {

@@ -107,13 +107,7 @@ const getDetail = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 const reset = () => {
@@ -146,23 +140,11 @@ const exportFile = () => {
                 }else{
                     console.log(res1.data.message)
                 }
-            }).catch((res1) => {
-                if (res1 && res1.response && res1.response.status == 401) {
-                    store.commit('clearToken')
-                    router.push({ path: '/' })
-                }
-                console.log(res1)
-            })
+            }).catch((err) => { })
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 </script>

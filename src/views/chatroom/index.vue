@@ -14,7 +14,7 @@
                     :class="item.isSelf ? 'items-end text-right' : 'items-start text-left'"
                     class="w-auto max-w-[70%] h-auto rounded flex flex-col justify-center">
                     <div class="text-sm md:text-lg text-[#A9A9A9]">
-                        {{(item.isSelf) ? '我' : ((item.isParent) ? (item.studentUserName + item.studentNumber + '號的' + item.parentTitle + ' ' + item.userName) : (item.userRoleName + ' ' + item.userName))}}
+                        {{(item.isSelf) ? '我' : ((item.isParent) ? (item.studentNumber + '號' + item.studentUserName + '的' + item.parentTitle + ' ' + item.userName) : (item.userRoleName + ' ' + item.userName))}}
                     </div>
                 </div>
                 <div

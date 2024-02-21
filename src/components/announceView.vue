@@ -330,7 +330,7 @@ const getCallData = async() => {
         }else{
             console.log(res.data.message)
         }
-    })
+    }).catch((err) => { })
 }
 let callTimer = null
 const createCallTimer = () =>  {

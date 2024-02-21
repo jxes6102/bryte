@@ -68,7 +68,7 @@ const setChatRoomListByClassId = () => {
         }else{
             console.log(res.data.message)
         }
-    })
+    }).catch((err) => { })
 }
 
 const init = async() => {

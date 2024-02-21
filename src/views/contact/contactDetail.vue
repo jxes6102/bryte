@@ -615,13 +615,7 @@ const getLeaveOptions= async() => {
       }else{
         console.log(res.data.message)
       }
-  }).catch((res) => {
-    if (res && res.response && res.response.status == 401) {
-        store.commit('clearToken')
-        router.push({ path: '/' })
-    }
-    console.log(res)
-  })
+  }).catch((err) => { })
 }
 
 const getLeave = async() => {
@@ -637,13 +631,7 @@ const getLeave = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 const setLeave = async() => {
@@ -660,13 +648,7 @@ const setLeave = async() => {
             }else{
                 console.log(res.data.message)
             }
-        }).catch((res) => {
-            if (res && res.response && res.response.status == 401) {
-                store.commit('clearToken')
-                router.push({ path: '/' })
-            }
-            console.log(res)
-        })
+        }).catch((err) => { })
     } else {
         formData.set('classId', classId.value)
         formData.set('studentId', studentId.value)
@@ -676,13 +658,7 @@ const setLeave = async() => {
             }else{
                 console.log(res.data.message)
             }
-        }).catch((res) => {
-            if (res && res.response && res.response.status == 401) {
-                store.commit('clearToken')
-                router.push({ path: '/' })
-            }
-            console.log(res)
-        })
+        }).catch((err) => { })
     }
 }
 
@@ -717,13 +693,7 @@ const getTemperature = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 const setTemperature = async() => {
@@ -741,13 +711,7 @@ const setTemperature = async() => {
             }else{
                 console.log(res.data.message)
             }
-        }).catch((res) => {
-            if (res && res.response && res.response.status == 401) {
-                store.commit('clearToken')
-                router.push({ path: '/' })
-            }
-            console.log(res)
-        })
+        }).catch((err) => { })
     } else {
         await createBodyTemperatureRecordRecord(formData).then((res) => {
             if(res.data.status){
@@ -755,13 +719,7 @@ const setTemperature = async() => {
             }else{
                 console.log(res.data.message)
             }
-        }).catch((res) => {
-            if (res && res.response && res.response.status == 401) {
-                store.commit('clearToken')
-                router.push({ path: '/' })
-            }
-            console.log(res)
-        })
+        }).catch((err) => { })
     }
 }
 
@@ -784,13 +742,7 @@ const getMedication = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 const setMedication = async() => {
@@ -807,13 +759,7 @@ const setMedication = async() => {
             }else{
                 console.log(res.data.message)
             }
-        }).catch((res) => {
-            if (res && res.response && res.response.status == 401) {
-                store.commit('clearToken')
-                router.push({ path: '/' })
-            }
-            console.log(res)
-        })
+        }).catch((err) => { })
     } else {
         formData.set('classId', classId.value)
         formData.set('studentId', studentId.value)
@@ -823,13 +769,7 @@ const setMedication = async() => {
             }else{
                 console.log(res.data.message)
             }
-        }).catch((res) => {
-            if (res && res.response && res.response.status == 401) {
-                store.commit('clearToken')
-                router.push({ path: '/' })
-            }
-            console.log(res)
-        })
+        }).catch((err) => { })
     }
 }
 
@@ -847,19 +787,13 @@ const getStudentState = async() => {
     formData.append("date", dayData.value.toDateString())
 
     await getContactBookRecordByClassIdAndStudentId(formData).then((res) => {
-    if(res.data.status){
-        contactBookRecordData.value = res.data.data
-        getStudentStateRecordList()
-    }else{
-        console.log(res.data.message)
-    }
-    }).catch((res) => {
-    if (res && res.response && res.response.status == 401) {
-        store.commit('clearToken')
-        router.push({ path: '/' })
-    }
-    console.log(res)
-    })
+        if(res.data.status){
+            contactBookRecordData.value = res.data.data
+            getStudentStateRecordList()
+        }else{
+            console.log(res.data.message)
+        }
+    }).catch((err) => { })
 }
 
 const getStudentStateRecordList = async() => {
@@ -909,13 +843,7 @@ const getStudentStateRecordList = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 
@@ -934,12 +862,6 @@ const upload = async(event) => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 </script>

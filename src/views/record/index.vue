@@ -150,13 +150,7 @@ const getClassOptions= async() => {
       }else{
         console.log(res.data.message)
       }
-  }).catch((res) => {
-    if (res && res.response && res.response.status == 401) {
-        store.commit('clearToken')
-        router.push({ path: '/' })
-    }
-    console.log(res)
-  })
+  }).catch((err) => { })
 }
 
 const stateOptions = ref([
@@ -173,13 +167,7 @@ const getRollCallOptions= async() => {
       }else{
         console.log(res.data.message)
       }
-  }).catch((res) => {
-    if (res && res.response && res.response.status == 401) {
-        store.commit('clearToken')
-        router.push({ path: '/' })
-    }
-    console.log(res)
-  })
+  }).catch((err) => { })
 }
 
 const changeClass= async() => {
@@ -207,13 +195,7 @@ const getList = async() => {
       }else{
         console.log(res.data.message)
       }
-  }).catch((res) => {
-    if (res && res.response && res.response.status == 401) {
-        store.commit('clearToken')
-        router.push({ path: '/' })
-    }
-    console.log(res)
-  })
+  }).catch((err) => { })
 }
 
 const apiLoading = ref(false)
@@ -257,13 +239,7 @@ const edit = async() => {
         }else{
             console.log(res.data.message)
         }
-    }).catch((res) => {
-        if (res && res.response && res.response.status == 401) {
-            store.commit('clearToken')
-            router.push({ path: '/' })
-        }
-        console.log(res)
-    })
+    }).catch((err) => { })
 }
 
 provide('cancel', cancel)

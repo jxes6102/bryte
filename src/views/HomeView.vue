@@ -331,11 +331,7 @@ const checkLineLogin = () =>  {
                 }else{
                     console.log(res1.data.message)
                 }
-            }).catch((err) => {
-              store.commit('clearToken')
-              store.commit('clearUserData')
-              router.push('/loginView') 
-            })
+            }).catch((err) => { })
           }else if (res.data.data.state == 1) {
             store.commit('setLineId',res.data.data.data)
             router.push('/profile') 
@@ -349,20 +345,12 @@ const checkLineLogin = () =>  {
                 }else{
                     console.log(res1.data.message)
                 }
-            }).catch((err) => {
-              store.commit('clearToken')
-              store.commit('clearUserData')
-              router.push('/loginView')
-            })
+            }).catch((err) => { })
           }
         }else{
           console.log(res.data.message)
         }
-      }) .catch((err) => {
-        store.commit('clearToken')
-        store.commit('clearUserData')
-        router.push('/loginView') 
-      })
+      }).catch((err) => { })
     }
   }
 

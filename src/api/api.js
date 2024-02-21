@@ -1,15 +1,5 @@
 import request from '@/api/index'
 
-export const getBannerSearch = (data) => {
-  const url = '/Department/BannerSearch?DepartmentID='+data.DepartmentID
-  const method = 'get'
-  return request({
-    method,
-    url,
-    data,
-  })
-}
-
 export const getNewsSearch = (data) => {
   const url = '/news/search'
   const method = 'post'
@@ -528,3 +518,6 @@ export const getLeaveStateSelect = () => {
     url,
   })
 }
+
+
+// .catch((err) => { })

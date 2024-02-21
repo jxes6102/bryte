@@ -3,7 +3,7 @@
         class="shadow-style-1 transition-all text-white sticky w-full h-[8vh] top-0 left-0 z-10 flex flex-wrap justify-around items-center bg-[rgb(13,181,156,0.9)]"
     >
         <div 
-            v-show="route.path !== '/' || route.path !== '/home'"
+            v-show="route.path !== '/' && route.path !== '/home'"
             @click="toback"
             class="absolute w-[auto] h-[8vh] top-[0px] left-[5px] md:left-[20px] mine-flex-center cursor-pointer">
             <el-icon :size="isMobile ? '25' : '40'" color="#fff"><Back /></el-icon>
@@ -223,7 +223,7 @@ const toLogin = () => {
 
 const logout = async() => {
     await testLogout().then((res) => {
-    })
+    }).catch((err) => { })
     store.commit('clearToken')
     router.push({ path: '/' })
 }
