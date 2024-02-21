@@ -1,17 +1,34 @@
 const signalR = require("@microsoft/signalr")
+const url = '/hub'
 
-//import { baseURL } from '@/api'
-//const url = "http://localhost:5222/hub/ChatHub"
-const url = '/hub/ChatHub'
-
-const signal = new signalR.HubConnectionBuilder()
-  .withUrl(url, {
+const chatHub = new signalR.HubConnectionBuilder()
+  .withUrl(url + '/ChatHub', {
     skipNegotiation: true,
     transport: signalR.HttpTransportType.WebSockets,
     accessTokenFactory: () => localStorage.getItem('token')
   })
   .configureLogging(signalR.LogLevel.Information)
   .build()
+
+chatHub.onclose((err)=>{
+  console.log("ChatHub連接已經斷開", err)
+})
+
+const notifyHub = new signalR.HubConnectionBuilder()
+  .withUrl(url + '/NotifyHub', {
+    skipNegotiation: true,
+    transport: signalR.HttpTransportType.WebSockets,
+    accessTokenFactory: () => localStorage.getItem('token')
+  })
+  .configureLogging(signalR.LogLevel.Information)
+  .build()
+  
+notifyHub.onclose((err)=>{
+  console.log("NotifyHub連接已經斷開", err)
+})
+
+export default {chatHub, notifyHub}
+
 // signal.start().then(() => {
 //   if (window.Notification) {
 //     if (Notification.permission === 'granted') {
@@ -27,8 +44,3 @@ const signal = new signalR.HubConnectionBuilder()
 //   }
 //   console.log('連接成功')
 // })
-signal.onclose((err)=>{
-    console.log("連接已經斷開 執行onclose", err)
-})
-export default signal
-

@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full flex flex-col justify-start items-center bg-[rgb(245,245,220,0.1)]">
+    <div v-if="isLoading" class="w-full h-full flex flex-col justify-start items-center bg-[rgb(245,245,220,0.1)]">
         <div class="w-full mt-1 md:mt-4 text-4xl font-semibold">登入</div>
         <div class="w-[80%] my-4 flex flex-wrap justify-center items-center">
             <el-form
@@ -36,7 +36,7 @@
                 </el-form-item> -->
                 <el-form-item label="" prop="checkNum">
                     <el-input placeholder="驗證碼" maxlength="4" v-model="form.checkNum"
-                        style="width: 50%;min-width:220px;max-width:300px;height: 40px;font-size: 18px;">
+                        style="width: 100%;height: 40px;font-size: 18px;">
                         <template #prepend>
                             <el-button icon="Umbrella" />
                         </template>
@@ -87,9 +87,13 @@ const setCaptcha = () => {
     }).catch((err) => {})
 }
 
+const isLoading = ref(false);
+
 const init = () => {
+    isLoading.value = false
     store.commit('clearToken')
     setCaptcha()
+    isLoading.value = true
 }
 
 init()

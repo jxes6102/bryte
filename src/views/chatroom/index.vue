@@ -67,7 +67,7 @@
 import { useStore } from "vuex";
 import { ref,computed,provide,nextTick,onMounted } from 'vue'
 import { useRouter } from "vue-router"
-import signal from '@/utils/signalR'
+import signalR from '@/utils/signalR'
 
 const router = useRouter()
 const store = useStore()
@@ -119,12 +119,9 @@ const formatDate = (dateTime) => {
     // return (AM + ' ' + hours + ':' + mins + ':' + seconds)
 }
 
-console.log('signal')
-signal.stop().then(() => {
-    console.log('signal stop')
-    signal.start().then(() => {
-        console.log('signal start')
-        signal.invoke('AddToChatGroup', classId.value, studentId.value).then((res) => {
+signalR.chatHub.stop().then(() => {
+    signalR.chatHub.start().then(() => {
+        signalR.chatHub.invoke('AddToGroup', classId.value, studentId.value).then((res) => {
             console.log('連接成功')
             getMessageHistory()
         }).catch((err) => {
@@ -135,7 +132,7 @@ signal.stop().then(() => {
     console.error('stop', err) 
 })
 
-signal.on('ReceiveChatMessage', (res) => {
+signalR.chatHub.on('ReceiveChatMessage', (res) => {
     console.log('ReceiveChatMessage', res)
     let date = JSON.parse(JSON.stringify(res.createDateTime))
     let data = JSON.parse(JSON.stringify(res))
@@ -147,7 +144,7 @@ signal.on('ReceiveChatMessage', (res) => {
     readMessage(data.id)
 })
 
-signal.on('ChatMessageHistory', (res) => {
+signalR.chatHub.on('ChatMessageHistory', (res) => {
     console.log('ChatMessageHistory', res)
     for(let key in res){
         let date = JSON.parse(JSON.stringify(res[key].createDateTime))
@@ -171,7 +168,7 @@ signal.on('ChatMessageHistory', (res) => {
     }
 })
 
-signal.on('ChatMessageIsRead', (res) => {
+signalR.chatHub.on('ChatMessageIsRead', (res) => {
     console.log('ChatMessageIsRead', res)
     for(let key in messagelist.value){
         if(messagelist.value[key].id == res){
@@ -182,7 +179,7 @@ signal.on('ChatMessageIsRead', (res) => {
 })
 
 const getMessageHistory = () => {
-    signal.invoke('GetChatMessageHistory', messageStart.value, messageLength.value, classId.value, studentId.value).then((res) => {
+    signalR.chatHub.invoke('GetChatMessageHistory', messageStart.value, messageLength.value, classId.value, studentId.value).then((res) => {
         console.log('取得留言歷史紀錄成功')
     }).catch((err) => {
         console.error(err) 
@@ -190,7 +187,7 @@ const getMessageHistory = () => {
 }
 
 const sendMessage = () => {
-    signal.invoke('SendChatMessageToGroup', classId.value, studentId.value, word.value).then((res) => {
+    signalR.chatHub.invoke('SendChatMessageToGroup', classId.value, studentId.value, word.value).then((res) => {
         console.log('傳送成功')
         word.value = ''
         setChangeHeight(defaultTextEleScrollHeight.value)
@@ -200,7 +197,7 @@ const sendMessage = () => {
 }
 
 const readMessage = (chatMessageId) => {
-    signal.invoke('ReadChatMessage', chatMessageId).then((res) => {
+    signalR.chatHub.invoke('ReadChatMessage', chatMessageId).then((res) => {
         console.log('已讀留言成功')
     }).catch((err) => {
         console.error(err) 
