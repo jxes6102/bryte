@@ -25,9 +25,10 @@
           <Message />
         </el-icon>
         訊息通知
-        <div
+        <div v-if="notifyUnReadCount > 0" 
           class="absolute w-[20px] h-[20px] top-[5%] left-[calc(50%_+_10px)] text-white text-xs font-normal bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">
-          {{ '9+' }}</div>
+          {{notifyUnReadCount}}
+        </div>
       </div>
       <div
         class="relative w-[25%] h-[8vh] md:w-[25%] md:h-[8vh] text-xs flex flex-col justify-center items-center font-extrabold cursor-pointer"
@@ -92,6 +93,10 @@ const toMessage = () => {
 const toLogin = () => {
   router.push({ path: '/login' })
 }
+
+const notifyUnReadCount = computed(() => {
+    return store.state.notifyUnReadCount
+})
 
 </script>
 

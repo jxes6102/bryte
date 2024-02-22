@@ -19,6 +19,8 @@ export default createStore({
     className:'',
     lineId:'',
     studentIdByLine:'',
+    notifyUnReadCount:0,
+    notifyList:[]
   },
   getters: {
   },
@@ -49,6 +51,20 @@ export default createStore({
     },
     setUser (state,value){
       state.user = value
+    },
+    setNotifyUnReadCount (state,value){
+      state.notifyUnReadCount = value
+    },
+    setNotifyList(state,value){
+      state.notifyList = value
+      
+      let count = 0
+      for(let key in value){
+        if (!value[key].isRead) {
+          count += 1
+        }
+      }
+      state.notifyUnReadCount = count
     },
     changeLoginStatus (state,value) {
       state.isLogin = value

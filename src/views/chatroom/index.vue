@@ -109,13 +109,23 @@ const isInit = ref(true)
 const canScroll = ref(false)
 
 const formatDate = (dateTime) => {
+    let toDay = new Date(Date.now())
     let date = new Date(dateTime)
+    let year = date.getFullYear()
+    let month = date.getMonth() < 10 ? '0' + date.getMonth() : '' + date.getMonth()
+    let day = date.getDate() < 10 ? '0' + date.getDate() : '' + date.getDate()
+    let dateStr = year + '/' + month + '/'+ day
+    if ((toDay.getFullYear() == year) && 
+        (toDay.getMonth() == month) && 
+        (toDay.getDate() == day)) {
+        dateStr = '今天'
+    }
     let AM = date.getHours() < 12 ? '上午' : (date.getHours() < 18 ? '下午' : '晚上')
     let hours = date.getHours() < 12 ? date.getHours() : date.getHours() - 12
     hours = hours < 10 ? '0' + hours : '' + hours
     let mins = date.getMinutes() < 10 ? '0' + date.getMinutes() : '' + date.getMinutes()
     let seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : '' + date.getSeconds()
-    return (AM + ' ' + hours + ':' + mins)
+    return (dateStr + ' ' + AM + ' ' + hours + ':' + mins)
     // return (AM + ' ' + hours + ':' + mins + ':' + seconds)
 }
 
@@ -189,6 +199,8 @@ const getMessageHistory = () => {
 const sendMessage = () => {
     signalR.chatHub.invoke('SendChatMessageToGroup', classId.value, studentId.value, word.value).then((res) => {
         console.log('傳送成功')
+        let data = 'classId=' + classId.value + '&studentId=' + studentId.value
+        signalR.sendNotify(0, data)
         word.value = ''
         setChangeHeight(defaultTextEleScrollHeight.value)
     }).catch((err) => {

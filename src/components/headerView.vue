@@ -38,8 +38,8 @@
                     v-for="(item, index) in linkData" :key="index"
                     @click="toLink(item.url)">
                     {{item.text}}
-                    <div v-if="item?.isAlert" class="absolute top-[15%] xl:top-[20%] right-[2px] w-[22px] h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">
-                        9+
+                    <div v-if="item.isAlert && notifyUnReadCount > 0" class="absolute top-[15%] xl:top-[20%] right-[2px] w-[22px] h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">
+                        {{notifyUnReadCount}}
                     </div>
                 </div>
             </template>
@@ -65,6 +65,7 @@ import { testLogout } from '@/api/api'
 import { ref,computed,watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter,useRoute } from "vue-router";
+import signalR from '@/utils/signalR'
 
 const store = useStore()
 const router = useRouter()
@@ -100,6 +101,14 @@ const isSchool = computed(() => {
 
 const setStatus = computed(() => {
     return ((route.path == '/contact') || (route.path == '/contactDetail'))  && isMobile.value
+})
+
+const notifyUnReadCount = computed(() => {
+    return store.state.notifyUnReadCount
+})
+
+const notifyList = computed(() => {
+    return store.state.notifyList
 })
 
 const headerTitle = ref('智光智慧園管理平台')
@@ -228,6 +237,72 @@ const logout = async() => {
     router.push({ path: '/' })
 }
 
+const formatDate = (dateTime) => {
+    let toDay = new Date(Date.now())
+    let date = new Date(dateTime)
+    let year = date.getFullYear()
+    let month = date.getMonth() < 10 ? '0' + date.getMonth() : '' + date.getMonth()
+    let day = date.getDate() < 10 ? '0' + date.getDate() : '' + date.getDate()
+    let dateStr = year + '/' + month + '/'+ day
+    if ((toDay.getFullYear() == year) && 
+        (toDay.getMonth() == month) && 
+        (toDay.getDate() == day)) {
+        dateStr = '今天'
+    }
+    let AM = date.getHours() < 12 ? '上午' : (date.getHours() < 18 ? '下午' : '晚上')
+    let hours = date.getHours() < 12 ? date.getHours() : date.getHours() - 12
+    hours = hours < 10 ? '0' + hours : '' + hours
+    let mins = date.getMinutes() < 10 ? '0' + date.getMinutes() : '' + date.getMinutes()
+    let seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : '' + date.getSeconds()
+    return (dateStr + ' ' + AM + ' ' + hours + ':' + mins)
+    // return (AM + ' ' + hours + ':' + mins + ':' + seconds)
+}
+
+if (isLogin.value)
+{
+    signalR.notifyHub.start().then(() => {
+        console.log('notifyHub start') 
+        signalR.notifyHub.invoke('GetNotifyHistory').then((res) => {
+            console.log('GetNotifyHistory')
+        }).catch((err) => {
+            console.error(err) 
+        })
+    })
+
+    signalR.notifyHub.on('NotifyHistory', (res) => {
+        console.log('NotifyHistory', res)
+        let list = JSON.parse(JSON.stringify(notifyList.value))
+        for(let key in res){
+            let date = JSON.parse(JSON.stringify(res[key].createDateTime))
+            let data = JSON.parse(JSON.stringify(res[key]))
+            data.createDateTime = formatDate(date)
+            list.push(data)
+        }
+        store.commit('setNotifyList', list)
+    })
+
+    signalR.notifyHub.on('ReceiveNotify', (res) => {
+        console.log('ReceiveNotify', res)
+        let list = JSON.parse(JSON.stringify(notifyList.value))
+        let date = JSON.parse(JSON.stringify(res.createDateTime))
+        let data = JSON.parse(JSON.stringify(res))
+        data.createDateTime = formatDate(date)
+        list.unshift(data)        
+        store.commit('setNotifyList', list)
+    })
+
+    signalR.notifyHub.on('NotifyIsRead', (res) => {
+        console.log('NotifyIsRead', res)
+        let list = JSON.parse(JSON.stringify(notifyList.value))
+        for(let key in list){
+            if(list[key].id == res){
+                list[key].isRead = true
+                break
+            }
+        }
+        store.commit('setNotifyList', list)
+    })
+}
 </script>
 
 <style lang="scss" scoped>
