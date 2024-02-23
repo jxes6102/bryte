@@ -15,9 +15,9 @@
             <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full "></div>
             <div class="w-auto px-2 h-full grow flex flex-col items-start justify-center">
                 <div class="w-auto flex flex-wrap items-start justify-center">
-                    <div class="px-1">{{item.bodyTemperatureTime.substr(0, 5)}}</div>
                     <div class="px-1">{{item.studentUserName}}</div>
                     <div class="px-1">{{item.studentNumber + '號'}}</div>
+                    <div class="px-1" v-if="item.state != 0">{{item.bodyTemperatureTime.substr(0, 5)}}</div>
                 </div>
                 <div 
                     v-if="item.state != 0"

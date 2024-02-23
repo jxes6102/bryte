@@ -269,7 +269,10 @@ const callShow = computed(() => {
     
     for(let i = 0; i < callData.value.length; i++){
         let obj = callData.value[i]
-        if(obj.state == 2){
+        if(obj.state == 1){
+            // obj.message = '等待中'
+            // target.wait.push(obj)
+        }else if(obj.state == 2){
             let pickupTime = obj.pickupTime < 0 ? 0 : obj.pickupTime
             obj.message = '預計'+pickupTime+'分後抵達'
             target.wait.push(obj)
@@ -288,8 +291,8 @@ const callShow = computed(() => {
             target.arrive.push(obj)
             pushMusicList(obj)
         }else{
-            obj.message = '等待中'
-            target.wait.push(obj)
+            // obj.message = '等待中'
+            // target.wait.push(obj)
         }
         console.log(obj)
     }

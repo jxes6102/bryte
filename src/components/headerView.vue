@@ -91,12 +91,11 @@ const user = computed(() => {
 })
 
 const statement = computed(() => {
-    console.log('statement', user.value)
     return (user.value ? user.value.roleName + '：' + user.value.name : '')
 })
 
 const isSchool = computed(() => {
-    return (roleID.value == 2) || (roleID.value == 1)
+    return (user.value.roleType == 3) || (user.value.roleType == 2)
 })
 
 const setStatus = computed(() => {
@@ -271,7 +270,7 @@ if (isLogin.value)
 
     signalR.notifyHub.on('NotifyHistory', (res) => {
         console.log('NotifyHistory', res)
-        let list = JSON.parse(JSON.stringify(notifyList.value))
+        let list = []
         for(let key in res){
             let date = JSON.parse(JSON.stringify(res[key].createDateTime))
             let data = JSON.parse(JSON.stringify(res[key]))
@@ -301,6 +300,22 @@ if (isLogin.value)
             }
         }
         store.commit('setNotifyList', list)
+    })
+
+    signalR.notifyHub.on('NotifyIsClear', (res) => {
+        console.log('NotifyIsClear', res)
+        let list = JSON.parse(JSON.stringify(notifyList.value))
+        let index = -1;
+        for(let key in list){
+            if(list[key].id == res){
+                index = list.indexOf(list[key]);
+                break
+            }
+        }
+        if(index != -1){
+            const x = list.splice(index, 1);
+            store.commit('setNotifyList', list)
+        }
     })
 }
 </script>

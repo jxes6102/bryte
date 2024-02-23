@@ -25,15 +25,11 @@ const notifyHub = new signalR.HubConnectionBuilder()
   
 notifyHub.onclose((err)=>{
   console.log("NotifyHub連接已經斷開", err)
-  notifyHub.start().then(() => {
-      console.log('notifyHub start') 
-      notifyHub.invoke('GetNotifyHistory').then(() => {
-          console.log('GetNotifyHistory')
-      }).catch((err) => {
-          console.error(err) 
-      })
-  })
 })
+
+notifyHub.onreconnected(connectionId => {
+  console.log('SignalR reconnected with connectionId: ', connectionId);
+});
 
 const sendNotify = (type, data) => {
   notifyHub.invoke('SendNotify', type, data).then(() => {
@@ -51,7 +47,23 @@ const readNotify = (id) => {
   })
 }
 
-export default {chatHub, notifyHub, sendNotify, readNotify}
+const clearNotify = (id) => {
+  notifyHub.invoke('ClearNotify', id).then(() => {
+    console.log('ClearNotify')
+  }).catch((err) => {
+    console.error(err) 
+  })
+}
+
+const clearAllNotify = () => {
+  notifyHub.invoke('ClearAllNotify').then(() => {
+    console.log('ClearAllNotify')
+  }).catch((err) => {
+    console.error(err) 
+  })
+}
+
+export default {chatHub, notifyHub, sendNotify, readNotify, clearNotify, clearAllNotify}
 
 // signal.start().then(() => {
 //   if (window.Notification) {

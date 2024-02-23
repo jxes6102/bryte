@@ -126,8 +126,12 @@ const roleID = computed(() => {
     return store.state.roleID
 })
 
+const user = computed(() => {
+    return store.state.user
+})
+
 const isSchool = computed(() => {
-    return (roleID.value == 2) || (roleID.value == 1)
+    return (user.value.roleType == 3) || (user.value.roleType == 2)
 })
 
 const toNewsEdit = () => {

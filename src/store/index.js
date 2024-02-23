@@ -70,7 +70,6 @@ export default createStore({
       state.isLogin = value
     },
     setToken (state,value) {
-      console.log('setToken', value)
       state.isLogin = true
       localStorage.setItem("token", value)
     },

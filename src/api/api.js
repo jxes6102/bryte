@@ -452,8 +452,18 @@ export const getChatRoomListByClassId = (data) => {
   })
 }
 
-export const getAnnouncement = (data) => {
-  const url = '/Announcement/Detail'
+export const getAnnouncementByClassId = (data) => {
+  const url = '/Announcement/GetDataByClassId'
+  const method = 'post'
+  return request({
+    method,
+    url,
+    data,
+  })
+}
+
+export const createAnnouncement = (data) => {
+  const url = '/Announcement/Create'
   const method = 'post'
   return request({
     method,
@@ -473,7 +483,7 @@ export const editAnnouncement = (data) => {
 }
 
 export const uploadFile = (data) => {
-  const url = '/Upload/UploadFile'
+  const url = '/File/UploadFile'
   const method = 'post'
   return request({
     method,
@@ -483,7 +493,7 @@ export const uploadFile = (data) => {
 }
 
 export const uploadSignature = (data) => {
-  const url = '/Upload/UploadSignature'
+  const url = '/File/UploadSignature'
   const method = 'post'
   return request({
     method,
