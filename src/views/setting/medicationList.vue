@@ -17,6 +17,9 @@
                 v-for="(item, index) in notEatList" :key="index" 
                 :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
                 class="w-[95%] md:w-[40%] h-[auto] rounded-lg px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-col items-center justify-start">
+                <!-- <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full ">
+                    <img v-if="item.studentUserPictureUrl" :src="item.studentUserPictureUrl" class="rounded-full " alt="">
+                </div> -->
                 <div class="w-full py-1 flex flex-wrap items-center justify-start">
                     <div class="px-1">{{item.medicationTime.substr(0, 5)}}</div>
                     <div class="px-1">{{item.studentUserName}}</div>

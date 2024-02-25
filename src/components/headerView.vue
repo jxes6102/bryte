@@ -8,16 +8,13 @@
             class="absolute w-[auto] h-[8vh] top-[0px] left-[5px] md:left-[20px] mine-flex-center cursor-pointer">
             <el-icon :size="isMobile ? '25' : '40'" color="#fff"><Back /></el-icon>
         </div>
-        <div 
+        <!-- <div 
             v-if="setStatus"
             class="absolute w-[auto] h-[8vh] top-[0px] right-[5px] mine-flex-center">
             <div v-if="isSchool" @click="tocontactSet" class="px-1">
                 <el-icon size="25" color="#fff"><Setting /></el-icon>
             </div>
-            <div v-if="isSchool" @click="toScan" class="px-1">
-                <el-icon size="25" color="#fff"><Stamp /></el-icon>
-            </div>
-        </div>
+        </div> -->
         <div 
             class="relative w-[auto] h-[8vh] text-xl md:text-3xl flex flex-wrap justify-center items-center font-extrabold"
             @click="tohome"
@@ -215,10 +212,6 @@ const tocontactSet = () =>{
 
 const toCenter = () => {
     router.push({ path: '/center' })
-}
-
-const toScan = () => {
-    router.push({ path: '/qrcodeView' })
 }
 
 const tolatest = () =>  {

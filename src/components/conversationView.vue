@@ -9,7 +9,8 @@
         @click="test"
         :class="{ 
             'left-[calc(50%_-_135px)] top-[calc(50%_-_125px)] md:left-[calc(50%_-_300px)] md:top-[calc(50%_-_200px)] w-[270px] h-[250px] md:w-[600px] md:h-[400px]' : type == 'default',
-            'left-[calc(50%_-_135px)] top-[calc(50%_-_175px)] md:left-[calc(50%_-_300px)] md:top-[calc(50%_-_250px)] w-[270px] h-[350px] md:w-[600px] md:h-[500px]' : type == 'large'
+            'left-[calc(50%_-_135px)] top-[calc(50%_-_175px)] md:left-[calc(50%_-_300px)] md:top-[calc(50%_-_250px)] w-[270px] h-[350px] md:w-[600px] md:h-[500px]' : type == 'large',
+            'left-[calc(50%_-_135px)] top-[calc(50%_-_175px)] md:left-[calc(50%_-_300px)] md:top-[calc(50%_-_250px)] w-[270px] h-[420px] md:w-[600px] md:h-[600px]' : type == 'xlarge'
         }"
         class="animate__animated animate__bounceIn fixed rounded-lg bg-white z-[1000] flex flex-col justify-start items-start "
     >

@@ -18,31 +18,40 @@
                 </div>
             </div>
         </div>
-        <div 
-            @click="detail(item)"
-            v-for="(item,index) in list" :key="index"
-            :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
-            class="w-full max-w-[800px] rounded-lg p-1 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-center">
-            <div class="w-full my-1 flex flex-wrap items-center justify-around md:justify-between">
-                <div class="flex flex-wrap items-center justify-center">
-                    <div class="mx-[2px] md:mx-1">{{item.studentNumber+'號'}}</div>
-                    <div class="mx-[2px] md:mx-1">{{item.studentUserName}}</div>
+        <template v-if="!apiLoading" >
+            <div
+                v-for="(item,index) in list" :key="index"
+                @click="detail(item)" 
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="w-[95%] md:w-[40%] h-[auto] text-sm md:text-lg rounded-lg bg-slate-50 my-1 px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-end">
+                <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full ">
+                    <img v-if="item.studentUserPictureUrl" :src="item.studentUserPictureUrl" class="rounded-full " alt="">
                 </div>
-                <div class="flex flex-wrap items-center justify-center">
-                    <div class="w-[auto] mx-[2px] md:mx-1 text-sm md:text-xl py-[2px] px-[4px] md:py-1 md:px-2 rounded">
-                        {{(item.remark != '') ? ('備註：' + item.remark) : ('')}}
-                    </div>
+                <div 
+                    class="w-auto px-1 h-full grow flex flex-col items-start justify-center">
+                    <div class="max-w-[50vw] md:max-w-[18vw] px-1 truncate">{{item.studentUserName + ' ' + item.studentNumber + '號'}}</div>
+                    <div class="max-w-[50vw] md:max-w-[18vw] px-1 truncate">{{'備註：' + item.remark}}</div>
+                </div>
+                <div class="w-[62px] md:w-[100px] px-1 h-full flex flex-col items-start justify-center">
                     <div
-                        :class="(item.state <= 1) ? 'bg-[#808080]' : ((item.state <= 3 ) ? 'bg-[#20B2AA]' : ((item.state <= 4) ? 'bg-[#4169E1]' : 'bg-[#DC143C]'))"
+                        :class="(item.state <= 1) ? 'bg-[#808080]' : ((item.state <= 3 || item.state == (stateOptions.length - 1) ? 'bg-[#4169E1]' : 'bg-[#DC143C]'))"
                         class="w-[auto] mx-[2px] md:mx-1 text-sm md:text-xl text-white py-[2px] px-[4px] md:py-1 md:px-2 rounded">
                         {{item.stateName}}
                     </div>
+                    <div class="w-auto px-1 truncate">{{(item.time) && (item.state >= 2) && (item.state <= 4) ? item.time.substr(0, 5) : '&nbsp;'}}</div>
+                </div>
+                <div class="w-[62px] md:w-[100px] px-1 h-full flex flex-col items-start justify-center">
+                    <div
+                        :class="(item.leaveState <= 1) ? 'bg-[#808080]' : ((item.leaveState == (leaveStateOptions.length - 1)) ? 'bg-[#4169E1]' : 'bg-[#DC143C]')"
+                        class="w-[auto] mx-[2px] md:mx-1 text-sm md:text-xl text-white py-[2px] px-[4px] md:py-1 md:px-2 rounded">
+                        {{item.leaveStateName}}
+                    </div>
+                    <div class="w-auto px-1 truncate">{{(item.leaveTime) && (item.leaveState > 0) ? item.leaveTime.substr(0, 5) : '&nbsp;'}}</div>
                 </div>
             </div>
-        </div>
-        
+        </template>
         <Teleport to="body">
-            <conversationView v-if="modalStatus">
+            <conversationView type="xlarge" v-if="modalStatus">
                 <template v-slot:header>
                     <div class="w-full py-1 px-2 md:py-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
                         <div class="w-[40px] h-[40px] md:w-[70px] md:h-[70px] bg-indigo-500 rounded-full "></div>
@@ -74,6 +83,47 @@
                               :value="item.value"
                             />
                         </el-select>
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <div>簽到時間</div>
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <el-time-picker 
+                            v-model="modifyData.time"
+                            size="large"
+                            required
+                            style="width:100%;"
+                            format="HH:mm"
+                            value-format="HH:mm" />
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <div>離校</div>
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <el-select 
+                            v-model="modifyData.leaveState"
+                            placeholder="請選擇類型"
+                            size="large"
+                            style="width:100%;">
+                            <el-option
+                              v-for="item in leaveStateOptions"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value"
+                            />
+                        </el-select>
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <div>離校時間</div>
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <el-time-picker 
+                            v-model="modifyData.leaveTime"
+                            size="large"
+                            required
+                            style="width:100%;"
+                            format="HH:mm"
+                            value-format="HH:mm" />
                     </div>
                     <div class="line-style w-full text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
                         備註
@@ -110,7 +160,7 @@
 
 <script setup>
 /*eslint-disable*/
-import { getClassSelect, getRollCallStateSelect, getRollCallListByClassId, editRollCall } from '@/api/api'
+import { getClassSelect, getRollCallStateSelect, getRollCallLeaveStateSelect, getRollCallListByClassId, editRollCall } from '@/api/api'
 import { useStore } from "vuex";
 import { ref,computed,provide  } from 'vue'
 import { useRouter } from "vue-router";
@@ -121,13 +171,6 @@ const router = useRouter()
 const store = useStore()
 
 const list = ref([
-    {
-        className:'猴子班',
-        studentUserName:'猴子一號',
-        studentNumber:1,
-        state:4,
-        stateName:'病假'
-    }
 ])
 
 
@@ -159,11 +202,28 @@ const stateOptions = ref([
             label: '',
         }
     ])
+    
+const leaveStateOptions = ref([
+        {
+            value: '',
+            label: '',
+        }
+    ])
 
 const getRollCallOptions= async() => {
   await getRollCallStateSelect().then((res) => {
     if(res.data.status){
         stateOptions.value = res.data.data.optionList
+      }else{
+        console.log(res.data.message)
+      }
+  }).catch((err) => { })
+}
+
+const getLeaveRollCallOptions= async() => {
+  await getRollCallLeaveStateSelect().then((res) => {
+    if(res.data.status){
+        leaveStateOptions.value = res.data.data.optionList
       }else{
         console.log(res.data.message)
       }
@@ -203,6 +263,7 @@ const init = async() => {
     apiLoading.value = true
     await getClassOptions()
     await getRollCallOptions()
+    await getLeaveRollCallOptions()
     await getList()
     apiLoading.value = false
 }

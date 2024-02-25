@@ -30,11 +30,11 @@
                 class=" bg-blue-500 hover:bg-blue-600 text-white font-bold mx-1 py-1 px-2 md:py-2 md:px-3 rounded">
                 相機反轉
             </button> -->
-            <button
+            <!-- <button
                 @click="clickFlash"
                 class=" bg-blue-500 hover:bg-blue-600 text-white font-bold mx-1 py-1 px-2 md:py-2 md:px-3 rounded">
                 開關手電筒
-            </button>
+            </button> -->
         </div>
         <div class="w-[90%] my-1 px-2 text-xs flex flex-col justify-center items-center break-all">
             <div
@@ -47,7 +47,7 @@
             </div>
             <div
                 class="w-full flex flex-col justify-center items-center break-all">
-                {{apiData}}
+                {{message}}
             </div>
             <!-- <div
                 class="w-full flex flex-col justify-center items-center break-all"
@@ -124,6 +124,7 @@ const torchActive = ref(false)
 const result = ref('')
 const resultArr = ref([])
 const error = ref('')
+const message = ref('')
 const facingMode = ref('environment')
 const stopStatus = ref(true)
 const paused = ref(false)
@@ -180,6 +181,10 @@ const onDetect = async(detectedCodes) => {
     console.log('add check')
     await checkQR(payload).then((res) => {
         apiData.value = res.data
+        message.value = apiData.value.className + '班 ' + 
+            apiData.value.studentUserName + ' 小朋友已被 ' + 
+            apiData.value.parentUserName + ' ' + 
+            apiData.value.parentTitle + ' 接送！'
         console.log('res',res.data)
         if(res.data.status){
             console.log(res.data.message)

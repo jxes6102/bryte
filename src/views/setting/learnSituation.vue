@@ -20,40 +20,44 @@
                 全部填寫
             </button>
         </div>
-        <div 
-            v-for="(item, index) in list" :key="index"
-            :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
-            class="w-[95%] md:w-[40%] h-[auto] text-sm md:text-lg text-[#808080] rounded-lg px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-end">
-            <div class="w-full flex flex-wrap items-center justify-center">
-                <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full "></div>
-                <div class="w-auto px-2 grow flex flex-col items-start justify-center">
-                    <div class="w-auto flex flex-wrap items-start justify-center">
-                        <div class="px-1">{{item.studentUserName}}</div>
-                        <div class="px-1">{{item.studentNumber + '號'}}</div>
+        <template v-if="!apiLoading">
+            <div 
+                v-for="(item, index) in list" :key="index"
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="w-[95%] md:w-[40%] h-[auto] text-sm md:text-lg text-[#808080] rounded-lg px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-end">
+                <div class="w-full flex flex-wrap items-center justify-center">
+                    <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full ">
+                        <img v-if="item.studentUserPictureUrl" :src="item.studentUserPictureUrl" class="rounded-full " alt="">
                     </div>
-                </div>
-                <div
-                    class="w-auto flex flex-row items-start justify-center">
-                    <button
-                        v-if="item.isFill"
-                        @click="remove(item)"
-                        class="w-[auto] text-sm md:text-xl text-[#FF4500] mx-[2px] py-[1px] px-[2px] border-[#FF4500] border-[1px] rounded">
-                        清除
-                    </button>
-                    <button
-                        @click="write(item)"
-                        class="w-[auto] text-sm md:text-xl text-[#1E90FF] mx-[2px] py-[1px] px-[2px] border-[#1E90FF] border-[1px] rounded">
-                        填寫
-                    </button>
-                </div>
-                <div v-if="item.isFill" class="line-style w-full py-2 flex flex-wrap items-center justify-center"></div>
-                <div v-if="item.isFill" class="w-full px-1 text-xs md:text-lg flex flex-col items-start justify-start">
-                    <div v-for="(group, groupIndex) in item.studentStateGroupList" :key="groupIndex">
-                        {{group.value + ': ' + group.itemValue}}
+                    <div class="w-auto px-2 grow flex flex-col items-start justify-center">
+                        <div class="w-auto flex flex-wrap items-start justify-center">
+                            <div class="px-1">{{item.studentUserName}}</div>
+                            <div class="px-1">{{item.studentNumber + '號'}}</div>
+                        </div>
+                    </div>
+                    <div
+                        class="w-auto flex flex-row items-start justify-center">
+                        <button
+                            v-if="item.isFill"
+                            @click="remove(item)"
+                            class="w-[auto] text-sm md:text-xl text-[#FF4500] mx-[2px] py-[1px] px-[2px] border-[#FF4500] border-[1px] rounded">
+                            清除
+                        </button>
+                        <button
+                            @click="write(item)"
+                            class="w-[auto] text-sm md:text-xl text-[#1E90FF] mx-[2px] py-[1px] px-[2px] border-[#1E90FF] border-[1px] rounded">
+                            填寫
+                        </button>
+                    </div>
+                    <div v-if="item.isFill" class="line-style w-full py-2 flex flex-wrap items-center justify-center"></div>
+                    <div v-if="item.isFill" class="w-full px-1 text-xs md:text-lg flex flex-col items-start justify-start">
+                        <div v-for="(group, groupIndex) in item.studentStateGroupList" :key="groupIndex">
+                            {{group.value + ': ' + group.itemValue}}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
         <Teleport to="body">
             <dialogView type="large" v-if="modalAllStatus">
                 <template v-slot:message>
@@ -280,6 +284,7 @@ const getStudentStateRecordList = async() => {
                     className: contactBookRecord.className,
                     classCode: contactBookRecord.classCode,
                     studentUserName: contactBookRecord.studentUserName,
+                    studentUserPictureUrl: contactBookRecord.studentUserPictureUrl,
                     studentNumber: contactBookRecord.studentNumber,
                     studentStateRecordList: subStudentStateRecordList,
                     studentStateGroupList: studentStateGroupList1,

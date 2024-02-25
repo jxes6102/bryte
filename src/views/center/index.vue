@@ -6,7 +6,7 @@
                     v-if="pictureUrl" 
                     class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] bg-cover bg-center bg-no-repeat rounded-lg"
                     >
-                    <img :src="pictureUrl" alt="">
+                    <img v-if="user.pictureUrl" :src="user.pictureUrl" class="rounded-lg " alt="">
                 </div>
                 <div 
                     v-else 
@@ -27,18 +27,23 @@
                 v-for="(item, index) in userMenu?.Menus" :key="index">
                 {{item.Name}}
             </div>
-            <div @click="openAnnounce" class="text-[#0d6efd] text-lg md:text-2xl my-1 md:my-2 cursor-pointer">家長接送</div>
+            <div v-if="isSchool" @click="toScan" class="text-[#0d6efd] text-lg md:text-2xl my-1 md:my-2 cursor-pointer">
+                家長接送掃描
+            </div>
+            <div v-if="isSchool" @click="openAnnounce" class="text-[#0d6efd] text-lg md:text-2xl my-1 md:my-2 cursor-pointer">
+                家長接送
+            </div>
             <div @click="logout" class="text-[#dc3545] my-1 md:my-2 text-lg md:text-2xl cursor-pointer">登出</div>
         </div>
         <div class="w-[95%] flex flex-col md:flex-row items-center justify-center">
-            <div class="mx-1">身分切換:</div>
+            <!-- <div class="mx-1">身分切換:</div>
             <el-radio-group
                 class=""
                 v-model="roleID" @change="changeRole">
                 <el-radio :label="1">園長</el-radio>
                 <el-radio :label="2">導師</el-radio>
                 <el-radio :label="3">家長</el-radio>
-            </el-radio-group>
+            </el-radio-group> -->
         </div>
     </div>
 </template>
@@ -60,16 +65,6 @@ const user = computed(() => {
     return store.state.user
 })
 
-const pictureUrl = computed(() => {
-    if (user.value.pictureUrl && user.value.pictureUrl.startsWith('https://')) {
-        // 如果是外部網站的圖片URL，直接返回
-        return user.value.pictureUrl;
-    } else {
-        // 如果是後端伺服器的圖片URL，加上/api/前墜後返回
-        return baseURL + user.value.pictureUrl;
-    }
-})
-
 const init = () => {
 }
 
@@ -88,16 +83,17 @@ const toLink = (item) => {
     }
 }
 
-const roleID = computed({
-  get: () => store.state.roleID,
-  set: (val) => {
-    return val
-  },
+const isSchool = computed(() => {
+    return (user.value.roleType == 3) || (user.value.roleType == 2)
 })
 
 const changeRole = (value) => {
     //console.log('value',value)
     store.commit('setRole',value)
+}
+
+const toScan = () => {
+    router.push({ path: '/qrcodeView' })
 }
 
 const logout = async() => {

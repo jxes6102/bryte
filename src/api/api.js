@@ -520,6 +520,15 @@ export const getRollCallStateSelect = () => {
   })
 }
 
+export const getRollCallLeaveStateSelect = () => {
+  const url = '/Select/GetRollCallLeaveStateSelect'
+  const method = 'post'
+  return request({
+    method,
+    url,
+  })
+}
+
 export const getLeaveStateSelect = () => {
   const url = '/Select/GetLeaveStateSelect'
   const method = 'post'

@@ -13,9 +13,6 @@ export const baseURL = '/api/'
 // const store = useStore()
 // const router = useRouter()
 
-console.log('store', store)
-console.log('router', router)
-
 const CONFIG = {
   baseURL: baseURL,
   timeout: TIMEOUT,

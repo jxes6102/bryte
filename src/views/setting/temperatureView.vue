@@ -7,57 +7,61 @@
             <div class="px-2">{{className}}班</div>
             <div class="px-1 text-[#F08080]">{{feverCount}}位發燒</div>
         </div>
-        <div 
-            v-for="(item,index) in list" :key="index"
-            @click="detail(item)"
-            :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
-            class="w-[95%] md:w-[40%] h-[auto] text-sm md:text-lg rounded-lg my-1 px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-end">
-            <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full "></div>
-            <div class="w-auto px-2 h-full grow flex flex-col items-start justify-center">
-                <div class="w-auto flex flex-wrap items-start justify-center">
-                    <div class="px-1">{{item.studentUserName}}</div>
-                    <div class="px-1">{{item.studentNumber + '號'}}</div>
-                    <div class="px-1" v-if="item.state != 0">{{item.bodyTemperatureTime.substr(0, 5)}}</div>
+        <template v-if="!apiLoading" >
+            <div 
+                v-for="(item,index) in list" :key="index"
+                @click="detail(item)"
+                :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"
+                class="w-[95%] md:w-[40%] h-[auto] text-sm md:text-lg rounded-lg my-1 px-1 py-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-wrap items-center justify-end">
+                <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full ">
+                    <img v-if="item.studentUserPictureUrl" :src="item.studentUserPictureUrl" class="rounded-full " alt="">
                 </div>
-                <div 
-                    v-if="item.state != 0"
-                    class="w-auto flex flex-wrap items-center justify-start">
-                    <div v-if="item.isParent" class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">
-                        <div v-if="item.isFever" class="w-[auto] bg-[#DC3545] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
-                            發燒
-                        </div>
-                        <div v-else class="w-[auto] bg-[#0D6EFD] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
-                            正常
-                        </div>
-                        <div class="">{{item.stateName}}</div>
-                        <div class="">{{item.temperature + '°C'}}</div>
+                <div class="w-auto px-2 h-full grow flex flex-col items-start justify-center">
+                    <div class="w-auto flex flex-wrap items-start justify-center">
+                        <div class="px-1">{{item.studentUserName}}</div>
+                        <div class="px-1">{{item.studentNumber + '號'}}</div>
+                        <div class="px-1" v-if="item.state != 0">{{item.bodyTemperatureTime.substr(0, 5)}}</div>
                     </div>
-                    <div v-else class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">                        
-                        <div v-if="item.isFever" class="w-[auto] bg-[#DC3545] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
-                            發燒
+                    <div 
+                        v-if="item.state != 0"
+                        class="w-auto flex flex-wrap items-center justify-start">
+                        <div v-if="item.isParent" class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">
+                            <div v-if="item.isFever" class="w-[auto] bg-[#DC3545] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
+                                發燒
+                            </div>
+                            <div v-else class="w-[auto] bg-[#0D6EFD] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
+                                正常
+                            </div>
+                            <div class="">{{item.stateName}}</div>
+                            <div class="">{{item.temperature + '°C'}}</div>
                         </div>
-                        <div v-else class="w-[auto] bg-[#0D6EFD] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
-                            正常
+                        <div v-else class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">                        
+                            <div v-if="item.isFever" class="w-[auto] bg-[#DC3545] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
+                                發燒
+                            </div>
+                            <div v-else class="w-[auto] bg-[#0D6EFD] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
+                                正常
+                            </div>
+                            <div class="">{{item.stateName}}</div>
+                            <div class="">{{item.temperature + '°C'}}</div>
                         </div>
-                        <div class="">{{item.stateName}}</div>
-                        <div class="">{{item.temperature + '°C'}}</div>
+                        <div v-if="item.isParent" class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">
+                            <div class="">{{item.parentName + ' ' + item.parentTitle + ' 測量'}}</div>
+                        </div>
+                        <div v-else class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">
+                            <div class="">{{item.teacherUserName + ' ' + item.teacherRoleName + ' 測量'}}</div>
+                        </div>
                     </div>
-                    <div v-if="item.isParent" class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">
-                        <div class="">{{item.parentName + ' ' + item.parentTitle + ' 測量'}}</div>
-                    </div>
-                    <div v-else class="w-full flex flex-wrap items-center justify-start gap-x-[2px]">
-                        <div class="">{{item.teacherUserName + ' ' + item.teacherRoleName + ' 測量'}}</div>
-                    </div>
-                </div>
-                <div 
-                    v-else
-                    class="w-auto flex flex-wrap items-center justify-center">
-                    <div class="w-[auto] bg-[#999999] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
-                        尚未測量
+                    <div 
+                        v-else
+                        class="w-auto flex flex-wrap items-center justify-center">
+                        <div class="w-[auto] bg-[#999999] text-sm md:text-xl text-white py-[1px] px-[2px] rounded">
+                            尚未測量
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
         <Teleport to="body">
             <conversationView v-if="modalStatus">
                 <template v-slot:header>
