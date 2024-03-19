@@ -75,7 +75,7 @@
                         leave-active-class="animate__animated animate__fadeOut"
                     >
                         <div
-                            v-for="(item,index) in callShow.wait" :key="index"
+                            v-for="(item,index) in callShow.arrive" :key="index"
                             :class="((index % 4 == 0 || index % 4 == 1) ? 'bg-slate-50' : 'bg-slate-200') + ' ' + 
                             ((item.isEnd && (index % 4 == 0 || index % 4 == 2)) ? 'w-[95%]' : 'w-[48%] mx-[2px]')"
                             class="h-[auto] rounded-lg mt-1 text-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] grid grid-cols-4 justify-center items-center">

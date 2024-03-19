@@ -181,10 +181,10 @@ const onDetect = async(detectedCodes) => {
     console.log('add check')
     await checkQR(payload).then((res) => {
         apiData.value = res.data
-        message.value = apiData.value.className + '班 ' + 
-            apiData.value.studentUserName + ' 小朋友已被 ' + 
-            apiData.value.parentUserName + ' ' + 
-            apiData.value.parentTitle + ' 接送！'
+        message.value = res.data.className + '班 ' + 
+            res.data.studentUserName + ' 小朋友已被 ' + 
+            res.data.parentUserName + ' ' + 
+            res.data.parentTitle + ' 接送！'
         console.log('res',res.data)
         if(res.data.status){
             console.log(res.data.message)
