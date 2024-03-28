@@ -11,7 +11,7 @@
             <div class="px-2">已完成{{isEatList.length}}筆/待處理{{notEatList.length}}筆</div>
         </div>
         <div class="w-[100%] py-2 text-sm md:text-lg text-[#808080] flex flex-col items-center justify-center">
-            <div class="line-style w-[100%] text-[#D3D3D3] text-base md:text-xl flex">待處理</div>
+            <div class="line-style w-[100%] text-red-600 text-base md:text-xl flex">待處理</div>
             <div
                 @click="detail(item)"
                 v-for="(item, index) in notEatList" :key="index" 
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="w-[100%] py-2 text-sm md:text-lg text-[#808080] flex flex-col items-center justify-center">
-            <div class="line-style w-[100%] flex text-[#D3D3D3]">已完成</div>
+            <div class="line-style w-[100%] flex text-slate-800">已完成</div>
             <div
                 v-for="(item, index) in isEatList" :key="index" 
                 :class="(index % 2 == 0) ? 'bg-slate-50' : 'bg-slate-200'"

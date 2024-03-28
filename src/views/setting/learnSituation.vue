@@ -59,89 +59,142 @@
             </div>
         </template>
         <Teleport to="body">
-            <dialogView type="large" v-if="modalAllStatus">
-                <template v-slot:message>
-                    <div class="w-full h-full py-1 px-2 md:py-2 md:px-4 text-xs md:text-xl  flex flex-col items-center justify-center">
-                        <div class=" text-base md:text-2xl font-bold my-1 md:my-3 px-3">全班學習狀況</div>
-                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between"
-                            v-for="(group, groupIndex) in inputAllData.studentStateGroupList" :key="groupIndex">
-                            <div class="flex flex-wrap items-center justify-center" >
-                                <label class="px-[2px]">{{group.value}}</label>
+            <conversationView type="xlarge" v-if="modalAllStatus">
+                <template v-slot:header>
+                    <div class="w-full py-1 px-2 md:py-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
+                        
+                    </div>
+                    <div class="w-full py-1 px-2 md:py-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
+                        <div class="w-auto px-2 grow flex flex-col items-start justify-center">
+                            <div class="text-black">全班學習狀況</div>
+                        </div>
+                    </div>
+                </template>
+                <template v-slot:content>
+                    <div class="line-style w-full text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-center">
+                        學習狀況
+                    </div>
+                    <div class="max-h-[300px] md:max-h-[400px] scroll-smooth overflow-auto flex flex-wrap ">
+                        <template v-for="(group, groupIndex) in inputAllData.studentStateGroupList" :key="groupIndex">
+                            <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                                {{group.value}}
+                            </div>
+                            <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
                                 <template 
                                     v-for="(item, index) in inputAllData.studentStateRecordList" :key="index">
-                                    <div class="px-[1px] flex flex-wrap items-center justify-center"
-                                        v-if="item.studentStateGroupId == group.id">
-                                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
-                                            v-model="item.isCheck"/>
+                                    <div class="px-[1px] flex flex-wrap items-center justify-center" v-if="item.studentStateGroupId == group.id">
+                                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="item.isCheck"/>
+                                        &nbsp;
                                         <label>{{item.studentStateItemValue}}</label>
+                                        &nbsp;
+                                        &nbsp;
                                     </div>
                                 </template>
                             </div>
+                        </template>
+                        <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                            <div>
+                                備註
+                            </div>
+                        </div>
+                        <div class="relative w-full h-auto px-2 md:px-4 text-sm md:text-lg items-center">
+                            <el-input
+                                size="large"
+                                class="w-full"
+                                maxlength="500"
+                                :rows="2"
+                                type="textarea"
+                                :autosize="{ minRows: 3, maxRows: 5 }"
+                            />
                         </div>
                     </div>
                 </template>
                 <template v-slot:control>
-                    <div class="absolute w-full bottom-0 md:bottom-1 text-sm md:text-xl flex flex-wrap justify-end items-center">
+                    <div class="absolute w-full bottom-1 md:bottom-2 flex flex-wrap justify-center items-center">
                         <button
-                            @click="sendAll"
-                            class="min-w-[10%] text-[#0000CD] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
-                            確定
+                            @click="edit"
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            完成
                         </button>
                         <button
                             @click="cancel"
-                            class="min-w-[10%] text-[#0000CD] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            class="min-w-[20%] bg-gray-500 hover:bg-[#999999] text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
                             取消
                         </button>
                     </div>
                 </template>
-            </dialogView>
+            </conversationView>
         </Teleport>
         <Teleport to="body">
-            <dialogView type="large" v-if="modalStatus">
+            <conversationView type="xlarge" v-if="modalStatus">
                 <template v-slot:header>
                     <div class="w-full py-1 px-2 md:py-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
-                        <div class="w-[40px] h-[40px] md:w-[70px] md:h-[70px] bg-indigo-500 rounded-full "></div>
+                        
+                    </div>
+                    <div class="w-full py-1 px-2 md:py-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
+                        <div class="w-[40px] h-[40px] md:w-[70px] md:h-[70px] bg-indigo-500 rounded-full ">
+                            <img v-if="inputData.studentUserPictureUrl" :src="inputData.studentUserPictureUrl" class="rounded-full " alt="">
+                        </div>
                         <div class="w-auto px-2 grow flex flex-col items-start justify-center">
                             <div class="text-black">{{inputData.studentUserName}}</div>
                             <div>{{inputData.className + ' ' + inputData.studentNumber + '號'}}</div>
                         </div>
                     </div>
                 </template>
-                <template v-slot:message>
-                    <div class="w-full h-full py-1 px-2 md:py-2 md:px-4 text-xs md:text-xl  flex flex-col items-center justify-center">
-                        <div class=" text-base md:text-2xl font-bold my-1 md:my-3 px-3">{{inputData.studentUserName}}的學習狀況</div>
-                        <div class="w-full my-[2px] md:my-2 flex flex-wrap items-center justify-between"
-                            v-for="(group, groupIndex) in inputData.studentStateGroupList" :key="groupIndex">
-                            <div class="flex flex-wrap items-center justify-center" >
-                                <label class="px-[2px]">{{group.value}}</label>
+                <template v-slot:content>
+                    <div class="line-style w-full text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-center">
+                        學習狀況
+                    </div>
+                    <div class="max-h-[300px] md:max-h-[400px] scroll-smooth overflow-auto flex flex-wrap ">
+                        <template v-for="(group, groupIndex) in inputData.studentStateGroupList" :key="groupIndex">
+                            <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                                {{group.value}}
+                            </div>
+                            <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
                                 <template 
                                     v-for="(item, index) in inputData.studentStateRecordList" :key="index">
-                                    <div class="px-[1px] flex flex-wrap items-center justify-center"
-                                        v-if="item.studentStateGroupId == group.id">
-                                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" 
-                                            v-model="item.isCheck"/>
+                                    <div class="px-[1px] flex flex-wrap items-center justify-center" v-if="item.studentStateGroupId == group.id">
+                                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="item.isCheck"/>
+                                        &nbsp;
                                         <label>{{item.studentStateItemValue}}</label>
+                                        &nbsp;
+                                        &nbsp;
                                     </div>
                                 </template>
                             </div>
-                        </div>                        
+                        </template>
+                        <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                            <div>
+                                備註
+                            </div>
+                        </div>
+                        <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                            <el-input
+                                size="large"
+                                class="w-full"
+                                maxlength="500"
+                                :rows="2"
+                                type="textarea"
+                                :autosize="{ minRows: 3, maxRows: 5 }"
+                            />
+                        </div>
                     </div>
                 </template>
                 <template v-slot:control>
-                    <div class="absolute w-full bottom-0 md:bottom-1 text-sm md:text-xl flex flex-wrap justify-end items-center">
+                    <div class="absolute w-full bottom-1 md:bottom-2 flex flex-wrap justify-center items-center">
                         <button
-                            @click="send"
-                            class="min-w-[10%] text-[#0000CD] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
-                            確定
+                            @click="edit"
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            完成
                         </button>
                         <button
                             @click="cancel"
-                            class="min-w-[10%] text-[#0000CD] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            class="min-w-[20%] bg-gray-500 hover:bg-[#999999] text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
                             取消
                         </button>
                     </div>
                 </template>
-            </dialogView>
+            </conversationView>
         </Teleport>
         
     </div>
@@ -156,7 +209,7 @@ import { getContactBookRecordByClassId,
 import { ref,computed,watch,provide } from "vue";
 import { useStore } from "vuex";
 import { useRouter,useRoute } from "vue-router";
-import dialogView from "@/components/dialogView.vue"
+import conversationView from "@/components/conversationView.vue"
 import dateSelect from '@/components/dateSelect.vue'
 
 const store = useStore()
@@ -184,13 +237,13 @@ const classData = ref([
 const contactBookRecordData = ref([{}])
 
 const list = ref([{
-        className: '',
-        classCode: '',
-        studentUserName: '',
-        studentNumber: 0,
-        studentStateRecordList: [],
-        studentStateGroupList: [],
-        isFill: false
+    className: '',
+    classCode: '',
+    studentUserName: '',
+    studentNumber: 0,
+    studentStateRecordList: [],
+    studentStateGroupList: [],
+    isFill: false
 }])
 
 const inputAllData = ref({
@@ -343,7 +396,7 @@ const writeAll = () => {
     modalAllStatus.value = true
 }
 
-const send = async() => {
+const edit = async() => {
     const formData = new FormData()
     formData.append("studentStateRecordList", JSON.stringify(inputData.value.studentStateRecordList))
 

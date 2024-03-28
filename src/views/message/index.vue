@@ -14,7 +14,7 @@
             <div 
                 @click="toNotify(item)" 
                 class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full ">
-                <img v-if="item.pictureUrl" :src="item.pictureUrl" class="rounded-full " alt="">
+                <img v-if="item.userPictureUrl" :src="item.userPictureUrl" class="rounded-full " alt="">
             </div>
             <div 
                 @click="toNotify(item)" 

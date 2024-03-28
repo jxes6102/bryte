@@ -46,6 +46,8 @@
                         <div class="py-[10px] hover:text-orange-500 ">{{ statement }}</div>
                         <ul class="" v-if="isSchool">
                             <li class="py-[5px] hover:text-orange-500" @click.stop="toProfile">用戶管理</li>
+                            <li class="py-[5px] hover:text-orange-500" @click.stop="toScan">家長接送掃描</li>
+                            <li class="py-[5px] hover:text-orange-500" @click.stop="openAnnounce">家長接送</li>
                             <li class="py-[5px] hover:text-orange-500" @click.stop="logout">登出</li>
                         </ul>
                     </li>
@@ -106,6 +108,15 @@ const notifyUnReadCount = computed(() => {
 const notifyList = computed(() => {
     return store.state.notifyList
 })
+
+
+const toScan = () => {
+    router.push({ path: '/qrcodeView' })
+}
+
+const openAnnounce = () => {
+    store.commit('changeAnnounceStatus',true)
+}
 
 const headerTitle = ref('智光智慧園管理平台')
 watch(route, (newVal,oldval) => {

@@ -59,5 +59,4 @@ const close = () => {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

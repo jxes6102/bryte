@@ -15,12 +15,15 @@ import contactView from '../views/contact'
 import contactDetail from '../views/contact/contactDetail'
 import contactSet from '../views/contact/contactSet'
 import contactChart from '../views/setting/contactChart'
+import contactChart1 from '../views/setting/contactChart1'
+import contactChart2 from '../views/setting/contactChart2'
 import medicationList from '../views/setting/medicationList'
 import signView from '../views/setting/signView'
 import transmitView from '../views/setting/transmitView'
 import learnSituation from '../views/setting/learnSituation'
 import tipView from '../views/setting/tipView'
 import temperatureView from '../views/setting/temperatureView'
+import eventView from '../views/setting/eventView'
 import chatView from '../views/chatroom/chatView'
 import chatroom from '../views/chatroom' 
 import messageView from '../views/message'
@@ -148,6 +151,16 @@ const routes = [
     component: contactChart,
   },
   {
+    path: '/contactChart1',
+    name: 'contactChart1',
+    component: contactChart1,
+  },
+  {
+    path: '/contactChart2',
+    name: 'contactChart2',
+    component: contactChart2,
+  },
+  {
     path: '/medicationList',
     name: 'medicationList',
     component: medicationList,
@@ -176,6 +189,11 @@ const routes = [
     path: '/temperatureView',
     name: 'temperatureView',
     component: temperatureView,
+  },
+  {
+    path: '/eventView',
+    name: 'eventView',
+    component: eventView,
   },
   {
     path: '/chatView',

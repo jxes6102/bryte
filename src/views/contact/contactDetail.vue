@@ -47,13 +47,12 @@
                 </div>
             </div>
             <div
-                v-if="isSchool"
-                @click="toSign()"
+                @click="linkEvent"
                 class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
                 <img :class="isMobile ? 'w-[20vw] h-[20vw]' : 'w-[6vw] h-[6vw]'" 
-                    src="@/assets/img/sign.png" alt="">
+                    src="@/assets/img/event.png" alt="">
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
-                    聯絡簿簽名
+                    活動寫真
                 </div>
             </div>
             <div 
@@ -73,6 +72,9 @@
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     當日通知單
                 </div>
+                <div v-if="!isRead.work" class="absolute top-[5%] xl:top-[5%] right-[2px] w-[22px] h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">
+                    1
+                </div>
             </div>
             <div 
                 @click="linkLearn"
@@ -81,6 +83,9 @@
                     src="@/assets/img/learn.png" alt="">
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     學習狀況
+                </div>
+                <div v-if="!isRead.learn" class="absolute top-[5%] xl:top-[5%] right-[2px] w-[22px] h-[22px] text-white text-xs bg-[#FF0000] rounded-full flex flex-wrap justify-center items-center">
+                    1
                 </div>
             </div>
             <div 
@@ -99,6 +104,16 @@
                 <el-icon color="#6E6EFF" :size="isMobile ? '20vw' : '6vw'"><CircleCheck /></el-icon>
                 <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
                     簽到記錄
+                </div>
+            </div>
+            <div
+                v-if="isSchool"
+                @click="toSign()"
+                class="relative w-[35vw] md:w-[12vw] h-[35vw] md:h-[12vw] rounded-lg bg-slate-50 p-1 shadow-style-1 flex flex-wrap items-center justify-center cursor-pointer border-style hover-style">
+                <img :class="isMobile ? 'w-[20vw] h-[20vw]' : 'w-[6vw] h-[6vw]'" 
+                    src="@/assets/img/sign.png" alt="">
+                <div class="w-full text-[16px] md:text-base lg:text-xl xl:text-2xl 2xl:text-3xl text-[#1a1a1a] flex flex-wrap items-center justify-center">
+                    聯絡簿簽名
                 </div>
             </div>
         </div>
@@ -248,35 +263,111 @@
                     </div>
                 </template>
             </conversationView>
-            <dialogView v-if="transmitStatus">
-                <template v-slot:message>
-                    <div class="w-full px-3 text-sm text-[#808080] md:text-2xl flex flex-col items-start justify-start">
-                        <div class="my-1" v-if="data.work.notification.status">{{'通知單，請於' + data.work.notification.day + '前繳回'}}</div>
-                        <div class="my-1" v-if="data.work.worksheet.status">{{'學習單，請於' + data.work.worksheet.day + '前繳回'}}</div>
-                        <div class="my-1" v-if="data.work.receipt.status">{{'附上收據，找回' + data.work.receipt.money + '元'}}</div>
-                        <div
-                            v-if="data.work.things.suit || data.work.things.shoe || data.work.things.bedding || data.work.things.toiletry" 
-                            class="w-full my-1 flex flex-wrap items-center justify-start" >
-                            <div>清洗衣物:</div>
-                            <div class="px-1" v-if="data.work.things.suit">衣褲</div>
-                            <div class="px-1" v-if="data.work.things.shoe">室內鞋</div>
-                            <div class="px-1" v-if="data.work.things.bedding">寢具</div>
-                            <div class="px-1" v-if="data.work.things.toiletry">牙刷、牙杯</div>
+            <conversationView type="xlarge" v-if="transmitStatus">
+                <template v-slot:header>
+                    <div class="w-full py-2 px-2 md:py-4 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
+                        <div class="w-auto px-2 grow flex flex-col items-center justify-center">
+                            <div class="text-black text-2xl">當日通知單</div>
                         </div>
                     </div>
                 </template>
-            </dialogView>
-            <dialogView v-if="learnStatus">
-                <template v-slot:message>
-                    <div class=" text-base md:text-2xl font-bold my-1 md:my-3 px-3">學習狀況</div>
-                    <div 
-                        class="w-full px-3 text-[#808080] text-sm md:text-2xl flex flex-col items-start md:items-center justify-start">
-                        <div v-for="(item, index) in studentStateRecordData" :key="index">
-                            {{item.value + ': ' + item.itemValue}}
+                <template v-slot:content>
+                    <div class="line-style w-full text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-center">
+                        
+                    </div>
+                    <div class="w-full h-auto px-2 py-2">
+                    </div>
+                    <div v-if="data.work.notification.status" class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                        通知單
+                    </div>
+                    <div v-if="data.work.notification.status" class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <div>
+                            請於
+                            <span class="text-black">
+                                {{data.work.notification.day.getFullYear() + '/' + data.work.notification.day.getMonth() + '/' + (data.work.notification.day.getDate() + 1)}}
+                            </span>
+                            前繳回
                         </div>
                     </div>
+                    <div v-if="data.work.worksheet.status" class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                        學習單
+                    </div>
+                    <div v-if="data.work.worksheet.status" class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <div>
+                            請於
+                            <span class="text-black">
+                                {{data.work.worksheet.day.getFullYear() + '/' + data.work.worksheet.day.getMonth() + '/' + (data.work.worksheet.day.getDate() + 1)}}
+                            </span>
+                            前繳回
+                        </div>
+                    </div>
+                    <div v-if="data.work.receipt.status" class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                        附上收據
+                    </div>
+                    <div v-if="data.work.receipt.status" class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <div>
+                            找回
+                            <span class="text-black">
+                                {{data.work.receipt.money}}
+                            </span>
+                            元
+                        </div>
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                        清洗衣物
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="data.work.things.suit"/>
+                        &nbsp;
+                        <label>衣褲</label>
+                        &nbsp;
+                        &nbsp;
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="data.work.things.shoe"/>
+                        &nbsp;
+                        <label>室內鞋</label>
+                        &nbsp;
+                        &nbsp;
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="data.work.things.bedding"/>
+                        &nbsp;
+                        <label>寢具</label>
+                        &nbsp;
+                        &nbsp;
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="data.work.things.toiletry"/>
+                        &nbsp;
+                        <label>牙刷、牙杯</label>
+                        &nbsp;
+                        &nbsp;
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                        備註
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <el-input
+                            value="test" 
+                            size="large"
+                            class="w-full"
+                            maxlength="500"
+                            :rows="2"
+                            type="textarea"
+                            :autosize="{ minRows: 3, maxRows: 5 }"
+                        />
+                    </div>
                 </template>
-            </dialogView>
+                <template v-slot:control>
+                    <div class="absolute w-full bottom-1 md:bottom-2 flex flex-wrap justify-center items-center">
+                        <button
+                            @click="read(1)"
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            確認
+                        </button>
+                        <button
+                            @click="cancel"
+                            class="min-w-[20%] bg-gray-500 hover:bg-[#999999] text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            取消
+                        </button>
+                    </div>
+                </template>
+            </conversationView>
             <conversationView type="large" v-if="leaveStatus">
                 <template v-slot:content>
                     <div class="w-full py-1 md:py-3 px-3 flex flex-col items-start justify-start">
@@ -349,6 +440,76 @@
                     </div>
                 </template>
             </conversationView>
+            <conversationView type="large" v-if="learnStatus">
+                <template v-slot:header>
+                    <div class="w-full py-2 px-2 md:py-4 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
+                        <div class="w-auto px-2 grow flex flex-col items-center justify-center">
+                            <div class="text-black text-2xl">學習狀況</div>
+                        </div>
+                    </div>
+                </template>
+                <template v-slot:content>
+                    <div class="line-style w-full text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-center">
+                        
+                    </div>
+                    <div class="w-full h-auto px-2 py-2">
+                    </div>
+                    <div class="max-h-[300px] md:max-h-[400px] scroll-smooth overflow-auto flex flex-wrap ">
+                        <template 
+                            v-for="(item, index) in studentStateRecordData" :key="index">
+                            <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                                <div class="px-[1px] flex flex-wrap items-center justify-center">
+                                    {{item.value + ': ' + item.itemValue}} 
+                                </div>
+                            </div>
+                        </template>
+                        <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                            <div>
+                                備註
+                            </div>
+                        </div>
+                        <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                            <el-input
+                                value="test"
+                                size="large"
+                                class="w-full"
+                                maxlength="500"
+                                :rows="2"
+                                type="textarea"
+                                :autosize="{ minRows: 3, maxRows: 5 }"
+                            />
+                        </div>
+                    </div>
+                </template>
+                <template v-slot:control>
+                    <div class="absolute w-full bottom-1 md:bottom-2 flex flex-wrap justify-center items-center">
+                        <button
+                            @click="read(2)"
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            確認
+                        </button>
+                        <button
+                            @click="cancel"
+                            class="min-w-[20%] bg-gray-500 hover:bg-[#999999] text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            取消
+                        </button>
+                    </div>
+                </template>
+            </conversationView>
+            <dialogView v-if="msgStatus">
+                <template v-slot:message>
+                    <div class="text-base md:text-2xl px-3">請先查看【當日通知單】、【學習狀況】且按下確認</div>
+                </template>
+                <template v-slot:control>
+                    <div class="absolute w-full bottom-4 flex flex-wrap justify-center items-center">
+                        <button
+                            @click="cancel"
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            確認
+                        </button>
+                    </div>
+                </template>
+            </dialogView>
         </Teleport>
     </div>
 </template>
@@ -441,11 +602,11 @@ const data = ref(
         work:{
             notification:{
                 status:true,
-                day:new Date().toISOString().substring(0,10)
+                day: new Date()
             },
             worksheet:{
                 status:true,
-                day:new Date().toISOString().substring(0,10)
+                day: new Date()
             },
             receipt:{
                 status:true,
@@ -457,6 +618,7 @@ const data = ref(
                 bedding:true,
                 toiletry:false
             },
+            remark: ''
         },
         detail:{
             body:'咳嗽',
@@ -488,6 +650,21 @@ const init = async() => {
     apiLoading.value = false
 }
 
+const isRead = ref({
+    work: false,
+    learn: false
+})
+const msgStatus = ref(false) 
+
+const read = async(type) => {
+    if (type == 1) {
+        isRead.value.work = true
+    } else {
+        isRead.value.learn = true
+    }
+    cancel();
+}
+
 const dayData = ref(new Date())
 init()
 const changeDate = (value) => {
@@ -500,7 +677,12 @@ const isMobile = computed(() => {
 })
 
 const toContactChart = () => {
-    router.push({ path: '/contactChart' })
+    console.log('className.value', className.value);
+    if (className.value === '猴子') {
+        router.push({ path: '/contactChart2' })
+    } else {
+        router.push({ path: '/contactChart1' })
+    }
 }
 
 const toMedication = () => {
@@ -535,6 +717,10 @@ const toRoom = () => {
     router.push({ path: '/chatroom' })
 }
 
+const toEvent = () => {
+    router.push({ path: '/eventView' })
+}
+
 const dialogStatus = ref(false)
 const takeTemperature = () => {
     getTemperature()
@@ -551,6 +737,7 @@ const cancel = () => {
     transmitStatus.value = false
     learnStatus.value = false
     leaveStatus.value = false
+    msgStatus.value = false
 }
 
 provide('cancel', cancel)
@@ -595,6 +782,16 @@ const linkLearn = async() => {
     }else{
         await getStudentState()
         learnStatus.value = true
+    }
+}
+
+const eventStatus = ref(false) 
+const linkEvent = async() => {
+    if(isSchool.value){
+        toEvent()
+    }else{
+        // await getStudentState()
+        eventStatus.value = true
     }
 }
 
@@ -774,7 +971,11 @@ const setMedication = async() => {
 }
 
 const toSignByParent = async() => {
-    router.push({ path: '/testView' })
+    if (isRead.value.work && isRead.value.learn) {
+        router.push({ path: '/testView' })
+    } else {
+        msgStatus.value = true
+    }
 }
 
 const contactBookRecordData = ref([{}])

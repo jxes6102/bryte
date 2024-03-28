@@ -25,7 +25,7 @@
                 <div class="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-indigo-500 rounded-full "></div>
                 <div class="w-auto px-2 grow flex flex-col items-start justify-center">
                     <div class="w-auto flex flex-wrap items-start justify-center">
-                        <div >{{item.name}}</div>
+                        <div>{{item.name}}</div>
                     </div>
                 </div>
                 <div
@@ -59,79 +59,126 @@
             </div>
         </div>
         <Teleport to="body">
-            <dialogView v-if="modalStatus">
-                <template v-slot:message>
-                    <div class="w-full h-full py-1 px-2 md:py-2 md:px-4 text-xs md:text-xl  flex flex-col items-center justify-center">
-                        <div class=" text-base md:text-2xl font-bold my-1 md:my-3 px-3">全班當日通知單</div>
-                        <div class="w-full my-1 md:my-2 flex flex-wrap items-center justify-between">
-                            <div class="w-full flex flex-wrap items-center justify-start" >
-                                <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="inputData.notification.status" />
-                                <div>
-                                    通知單，請於
-                                    <input 
-                                        class="w-[100px] md:w-[140px]" type="date" 
-                                        v-model="inputData.notification.day"
-                                        />
-                                    前繳回
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full my-1 md:my-2 flex flex-wrap items-center justify-between">
-                            <div class="flex flex-wrap items-center justify-center" >
-                                <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="inputData.worksheet.status" />
-                                <div>
-                                    學習單，請於
-                                    <input 
-                                        class="w-[100px] md:w-[140px]" type="date" 
-                                        v-model="inputData.worksheet.day"
-                                        />
-                                    前繳回
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full my-1 md:my-2 flex flex-wrap items-center justify-between">
-                            <div class="flex flex-wrap items-center justify-center" >
-                                <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="inputData.receipt.status" />
-                                <div>
-                                    附上收據，找回
-                                    <input 
-                                        class="w-[40px] md:w-[60px] text-right"
-                                        v-model="inputData.receipt.money"
-                                        type="text" required minlength="1" maxlength="5"/>
-                                    元
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full my-1 md:my-2 flex flex-wrap items-center justify-between">
-                            <div class="flex flex-wrap items-center justify-center" >
-                                <label >清洗衣物</label>
-                                <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="inputData.things.suit" />
-                                <label >衣褲</label>
-                                <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="inputData.things.shoe" />
-                                <label >室內鞋</label>
-                                <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="inputData.things.bedding" />
-                                <label >寢具</label>
-                                <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="inputData.things.toiletry" />
-                                <label >牙刷、牙杯</label>
-                            </div>
+            <conversationView type="xlarge" v-if="modalStatus">
+                <template v-slot:header>
+                    <div class="w-full py-1 px-2 md:py-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
+                        
+                    </div>
+                    <div class="w-full py-1 px-2 md:py-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-center">
+                        <div class="w-[40px] h-[40px] md:w-[70px] md:h-[70px] bg-indigo-500 rounded-full "></div>
+                        <div class="w-auto px-2 grow flex flex-col items-start justify-center">
+                            <div class="text-black">{{modifyData.name}}</div>
+                            <div>{{className + ' ' + modifyData.studentNumber + '號'}}</div>
                         </div>
                     </div>
                 </template>
+                <template v-slot:content>
+                    <div class="line-style w-full text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-center">
+                        當日通知單
+                    </div>
+                    <div class="relative w-full h-auto px-2 text-sm md:text-lg">
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                        通知單
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="modifyData.notification.status"/>
+                        &nbsp;
+                        <div>
+                            請於
+                            <el-date-picker
+                                v-model="modifyData.notification.day"
+                                type="date"
+                                placeholder=""
+                                :size="size"
+                            />
+                            前繳回
+                        </div>
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                        學習單
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="modifyData.worksheet.status"/>
+                        &nbsp;
+                        <div>
+                            請於
+                            <el-date-picker
+                                v-model="modifyData.worksheet.day"
+                                type="date"
+                                placeholder=""
+                                :size="size"
+                            />
+                            前繳回
+                        </div>
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                        附上收據
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="modifyData.receipt.status"/>
+                        &nbsp;
+                        <div>
+                            找回
+                            <el-input-number v-model="modifyData.receipt.money" :min="1" :max="999999" />
+                            元
+                        </div>
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                        清洗衣物
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="modifyData.things.suit"/>
+                        &nbsp;
+                        <label>衣褲</label>
+                        &nbsp;
+                        &nbsp;
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="modifyData.things.shoe"/>
+                        &nbsp;
+                        <label>室內鞋</label>
+                        &nbsp;
+                        &nbsp;
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="modifyData.things.bedding"/>
+                        &nbsp;
+                        <label>寢具</label>
+                        &nbsp;
+                        &nbsp;
+                        <input class="w-[15px] h-[15px] md:w-[20px] md:h-[20px]" type="checkbox" v-model="modifyData.things.toiletry"/>
+                        &nbsp;
+                        <label>牙刷、牙杯</label>
+                        &nbsp;
+                        &nbsp;
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#000000] flex flex-wrap items-center justify-start">
+                        備註
+                    </div>
+                    <div class="w-full px-2 md:px-4 text-sm md:text-lg text-[#808080] flex flex-wrap items-center justify-start">
+                        <el-input
+                            v-model="modifyData.remark" 
+                            size="large"
+                            class="w-full"
+                            maxlength="500"
+                            :rows="2"
+                            type="textarea"
+                            :autosize="{ minRows: 3, maxRows: 5 }"
+                        />
+                    </div>
+                </template>
                 <template v-slot:control>
-                    <div class="absolute w-full bottom-0 md:bottom-1 text-sm md:text-xl flex flex-wrap justify-end items-center">
+                    <div class="absolute w-full bottom-1 md:bottom-2 flex flex-wrap justify-center items-center">
                         <button
-                            @click="send"
-                            class="min-w-[10%] text-[#0000CD] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
-                            確定
+                            @click="edit"
+                            class="min-w-[20%] bg-blue-500 hover:bg-blue-600 text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            完成
                         </button>
                         <button
                             @click="cancel"
-                            class="min-w-[10%] text-[#0000CD] font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
+                            class="min-w-[20%] bg-gray-500 hover:bg-[#999999] text-white font-bold mx-2 py-1 px-2 md:py-2 md:px-3 rounded">
                             取消
                         </button>
                     </div>
                 </template>
-            </dialogView>
+            </conversationView>
         </Teleport>
         
     </div>
@@ -142,7 +189,7 @@
 import { ref,computed,watch,provide } from "vue";
 import { useStore } from "vuex";
 import { useRouter,useRoute } from "vue-router";
-import dialogView from "@/components/dialogView.vue"
+import conversationView from "@/components/conversationView.vue"
 import dateSelect from '@/components/dateSelect.vue'
 
 const store = useStore()
@@ -182,7 +229,8 @@ const classData = ref([
                 shoe:false,
                 bedding:false,
                 toiletry:false
-            }
+            },
+            remark: ''
         }
     },
     {
@@ -207,7 +255,8 @@ const classData = ref([
                 shoe:false,
                 bedding:true,
                 toiletry:true
-            }
+            },
+            remark: ''
         }
     },
     {
@@ -232,7 +281,8 @@ const classData = ref([
                 shoe:true,
                 bedding:false,
                 toiletry:false
-            }
+            },
+            remark: ''
         }
     },
     {
@@ -257,7 +307,8 @@ const classData = ref([
                 shoe:true,
                 bedding:false,
                 toiletry:true
-            }
+            },
+            remark: ''
         }
     },
     {
@@ -282,7 +333,8 @@ const classData = ref([
                 shoe:false,
                 bedding:true,
                 toiletry:false
-            }
+            },
+            remark: ''
         }
     },
     {
@@ -307,7 +359,8 @@ const classData = ref([
                 shoe:false,
                 bedding:true,
                 toiletry:false
-            }
+            },
+            remark: ''
         }
     },
     {
@@ -332,7 +385,8 @@ const classData = ref([
                 shoe:false,
                 bedding:false,
                 toiletry:true
-            }
+            },
+            remark: ''
         }
     },
     {
@@ -357,7 +411,8 @@ const classData = ref([
                 shoe:false,
                 bedding:true,
                 toiletry:false
-            }
+            },
+            remark: ''
         }
     },
     {
@@ -382,7 +437,8 @@ const classData = ref([
                 shoe:false,
                 bedding:false,
                 toiletry:false
-            }
+            },
+            remark: ''
         }
     },
     {
@@ -407,13 +463,14 @@ const classData = ref([
                 shoe:false,
                 bedding:true,
                 toiletry:false
-            }
+            },
+            remark: ''
         }
     },
 ])
 
-const inputData = ref({})
-watch(inputData, (newVal,oldval) => {
+const modifyData = ref({})
+watch(modifyData, (newVal,oldval) => {
     let moneyStr = newVal.receipt.money
     const checkNum = /[^0-9]/gi
     if(checkNum.test(moneyStr)){
@@ -440,7 +497,7 @@ provide('cancel', cancel)
 
 const write = (item) => {
     if(item == 'all') {
-        inputData.value = {
+        modifyData.value = {
             notification:{
                 status:false,
                 day:new Date().toISOString().substring(0,10)
@@ -461,15 +518,15 @@ const write = (item) => {
             }
         }
     }else{
-        inputData.value = item
+        modifyData.value = item
     }
 
     modalStatus.value = true
 }
 
-const send = () => {
+const edit = () => {
     // console.log('send')
-    // console.log('inputData',inputData.value)
+    // console.log('modifyData',modifyData.value)
 }
 
 </script>

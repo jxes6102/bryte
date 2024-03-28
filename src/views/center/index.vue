@@ -2,15 +2,9 @@
     <div class="w-auto h-auto md:h-[80%] p-2 flex flex-col md:flex-row md:flex-wrap justify-center items-center ">
         <div class="w-[95%] md:w-[25%] h-[100%] md:h-[70%] rounded-lg bg-slate-50 m-2 p-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] flex flex-row md:flex-col items-center justify-center ">
             <div class="w-auto p-2 grow flex flex-col items-end md:items-center justify-center md:justify-end">
-                <div 
-                    v-if="pictureUrl" 
-                    class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] bg-cover bg-center bg-no-repeat rounded-lg"
-                    >
+                <div class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] bg-cover bg-center bg-no-repeat rounded-lg">
                     <img v-if="user.pictureUrl" :src="user.pictureUrl" class="rounded-lg " alt="">
-                </div>
-                <div 
-                    v-else 
-                    class="w-[25vw] h-[25vw] md:w-[180px] md:h-[180px] bg-[#808080] rounded-lg" >
+                    <img v-else src="/img/teacher.png" class="rounded-lg " alt="">
                 </div>
             </div>
             <div class="w-auto p-2 text-left md:text-center grow flex flex-col items-center justify-center md:justify-start">
@@ -26,6 +20,9 @@
                 @click="toLink(item)"
                 v-for="(item, index) in userMenu?.Menus" :key="index">
                 {{item.Name}}
+            </div>
+            <div v-if="isSchool" @click="toProfile" class="text-[#0d6efd] text-lg md:text-2xl my-1 md:my-2 cursor-pointer">
+                用戶管理
             </div>
             <div v-if="isSchool" @click="toScan" class="text-[#0d6efd] text-lg md:text-2xl my-1 md:my-2 cursor-pointer">
                 家長接送掃描
@@ -90,6 +87,10 @@ const isSchool = computed(() => {
 const changeRole = (value) => {
     //console.log('value',value)
     store.commit('setRole',value)
+}
+
+const toProfile = () =>{
+    router.push({ path: '/profile' })
 }
 
 const toScan = () => {

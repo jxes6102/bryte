@@ -15,7 +15,6 @@
         </div> -->
         <div v-if="isSchool" class="w-[95%] md:w-[40%] h-[auto] text-base md:text-2xl rounded-lg p-1 flex flex-wrap items-center justify-center">
             <div @click="toContactChart" class="btn-style-1">聯絡簿統計</div>
-            <div @click="toMedication" class="btn-style-1">今日餵藥列表</div>
         </div>
         <template v-if="isSchool">
             <div 
